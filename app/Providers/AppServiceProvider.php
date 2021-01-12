@@ -11,7 +11,7 @@ class AppServiceProvider extends ServiceProvider {
   public function boot() {
     // REDIRECCION A HTTPS SI EL SISTEMA ESTA EN PRODUCCIÓN
     if(config('app.env') === 'production') {
-      \URL::forceScheme('https');
+    //  \URL::forceScheme('https');
     }
 
     Schema::defaultStringLength(120); // Longitud maxima de los campos en la base de datos esto es al generar las migraciones
