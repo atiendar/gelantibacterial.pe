@@ -10,7 +10,7 @@ class StoreComprobanteDeSalidaRequest extends FormRequest {
     return [
       'costo_por_envio'               => 'nullable|min:0|numeric|alpha_decimal18',
       'metodo_de_entrega'             => 'required|exists:metodos_de_entrega,nom_met_ent',
-      'metodo_de_entrega_espesifico'  => 'required_if:metodo_de_entrega,Paquetería,Transporte interno de la empresa,Transportes Ferro,Viaje metropolitano (Uber, Didi, Beat...)',
+      'metodo_de_entrega_especifico'  => 'required_if:metodo_de_entrega,Paquetería,Transporte interno de la empresa,Transportes Ferro,Viaje metropolitano (Uber, Didi, Beat...)',
       'comprobante_de_salida'         => 'required_without:comprobante_de_salida_nom|nullable|image'
     ];
   }

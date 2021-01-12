@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body style="font-family: Segoe UI;">
-  <table class="table table-sm table-bordered" style="font-size:10px;">
+  <table class="table table-sm table-bordered" style="font-size:12px;margin-right:1rem;">
     <tr>
       <td colspan="2" style="text-align:center">
         <dt><img src="{{ Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg }}" class="brand-image rounded elevation-0" style="width:10rem;"></dt>
@@ -45,9 +45,14 @@
       </td>
     </tr>
     <tr style="text-align:center">
-      <td colspan="8">
+      <td colspan="6">
         <dt>Cliente</dt>
         <dt>{{ $pedido->usuario->nom }} ({{ $pedido->usuario->email_registro }})</dt>
+      </td>
+      <td colspan="2">
+        @if($archivos >= 1)
+          <dt>sss</dt>
+        @endif
       </td>
       <td colspan="4">
         <dt>Total de armados</dt>
@@ -58,10 +63,10 @@
       <td colspan="12">
         <dt>Comentarios generales ventas</dt>
         <dt>
-          @if($pedido->coment_venta == null)
+          @if($pedido->coment_vent == null)
             Sin comentarios
           @else
-            {{ $pedido->coment_venta }}
+            {{ $pedido->coment_vent }}
           @endif
         </dt>
       </td>
@@ -94,7 +99,7 @@
       <td colspan="3"></td>
     </tr>
   </table>
-  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:8px;">
+  <table class="table table-hover table-striped table-sm table-bordered" style="font-size:12px;margin-right:1rem;margin-bottom:0px">
     @if(sizeof($armados) == 0)
       @include('layouts.private.busquedaSinResultados')
     @else 
@@ -107,6 +112,7 @@
           <th>RACK</th>
           <th>COM. VENTAS</th>
           <th>COM. CLIENTE</th>
+          <th>DEDIC.</th>
         </tr>
       </thead>
       <tbody>
@@ -119,29 +125,46 @@
               <strong>{{ $armado->nom }} ({{ $armado->sku }})</strong><br>
               @foreach($armado->productos as $producto)
                 <div class="input-group text-muted ml-2">
-                  <u>[{{ $producto->cant }} - {{ $producto->produc }}]</u>
+                  <p class="m-0">[{{ $producto->cant }} - {{ $producto->produc }}]</p>
                 </div>
                 @foreach($producto->sustitutos as $sustituto)
                   <div class="input-group text-muted ml-4">
-                    {{ $sustituto->cant }} - {{ $sustituto->produc }}
+                    <p class="m-0">{{ $sustituto->cant }} - {{ $sustituto->produc }}</p>
                   </div>
                 @endforeach
               @endforeach
+ 
+              <div class="input-group text-muted ml-2">
+                <p class="m-0">- - - - - - - - - - - </p>
+              </div>
+              @foreach($armado->direcciones as $direccion)
+                <div class="input-group text-muted ml-2">
+                  <p class="m-0">{{ $direccion->cant }} - {{ $direccion->caj }}</p>
+                </div>
+              @endforeach
+
             </td>
             <td>{{ $armado->ubic_rack }}</td>
             <td>
-              @if($pedido->coment_vent == null)
+              @if($armado->coment_vent == null)
                 Sin comentarios
               @else
-                {{ $pedido->coment_vent }}
+                {{ $armado->coment_vent }}
               @endif
             </td>
             <td>
-              @if($pedido->coment_client == null)
+              @if($armado->coment_client == null)
                 Sin comentarios
               @else
-                {{ $pedido->coment_client }}
+                {{ $armado->coment_client }}
               @endif            
+            </td>
+            <td>
+              @foreach($armado->direcciones as $direccion)
+                <div class="input-group">
+                  <p class="m-0">{{ $direccion->cant }} - {{ $direccion->tip_tarj_felic }}</p>
+                </div>
+              @endforeach
             </td>
           </tr>
         @endforeach

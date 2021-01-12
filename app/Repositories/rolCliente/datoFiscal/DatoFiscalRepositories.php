@@ -88,4 +88,8 @@ class DatoFiscalRepositories implements DatoFiscalInterface {
   public function getAllDatosFiscalesClientePluck() {
     return DatoFiscal::where('user_id', Auth::user()->id)->orderBy('rfc', 'ASC')->pluck('rfc', 'id');
   }
+  public function getDatoFiscal($id_dato_fiscal) {
+    $id_dato_fiscal = $this->serviceCrypt->decrypt($id_dato_fiscal);
+    return DatoFiscal::findOrFail($id_dato_fiscal);
+  }
 }

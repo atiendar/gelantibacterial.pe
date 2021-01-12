@@ -9,7 +9,7 @@ $factory->define(User::class, function (Faker $faker) {
     $opc_lang = array('es', 'en');
     $usuario = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
     return [
-        'acceso'                    => $faker->randomElement(['1', '2']),
+        'acceso'                    => $faker->randomElement(['1', '2', '3']),
         'nom' 				              => $faker->name,
         'apell' 			              => $faker->lastName,
         'email_registro'            => $correo,

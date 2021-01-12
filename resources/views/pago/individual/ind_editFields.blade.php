@@ -22,6 +22,18 @@
     <span class="text-danger">{{ $errors->first('comentarios') }}</span>
   </div>
 </div>
+<div class="row border">
+  <div class="form-group col-sm btn-sm ">
+    <label for="checkbox_correo"></label>
+    <div class="input-group p-2">
+      <div class="custom-control custom-switch">
+        {!! Form::checkbox('checkbox_correo', 'on', true, ['id' => 'checkbox_correo', 'class' => 'custom-control-input' . ($errors->has('checkbox_correo') ? ' is-invalid' : '')]) !!}
+        <label class="custom-control-label" for="checkbox_correo">{{ __('Enviar correo') }}</label>
+      </div>
+    </div>
+    <span class="text-danger">{{ $errors->first('checkbox_correo') }}</span>
+  </div>
+</div>
 @include('pago.pag_showFields.archivos_comPago_copIdentificacion')
 <div class="row">
   <div class="form-group col-sm btn-sm" >

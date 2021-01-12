@@ -1,6 +1,6 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="input">{{ __('Input') }} *</label>
+    <label for="input">{{ __('Input') }} ({{__('Campo opciones multiples al que se le va asignar el Value')}}) *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
@@ -12,7 +12,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="value">{{ __('Value') }} *</label>
+    <label for="value">{{ __('Value') }} ({{__('Valor que se le va asignar')}}) *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>

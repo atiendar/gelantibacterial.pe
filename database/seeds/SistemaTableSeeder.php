@@ -40,7 +40,7 @@ class SistemaTableSeeder extends Seeder {
           'red_ins'               => 'https://www.instagram.com/arconesmx/',
           'red_link'              => 'https://www.linkedin.com/company/canastas-y-arcones/',
           'red_youtube'           => 'https://www.youtube.com/watch?v=cOxLGYPegVg',
-          'ser_cotizaciones'      => 'CYA-',
+          'ser_cotizaciones'      => 'COT-',
           'ser_pedidos'           => 'CYA-',
           'plant_usu_bien'        => 1,
           'plant_cli_bien'        => 2,

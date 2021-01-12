@@ -9,4 +9,5 @@ Route::group(['prefix' => 'material'], function() {
   Route::match(['PUT', 'PATCH'],'actualizar/{id_material}', 'Material\MaterialController@update')->name('material.update')->middleware('permission:material.edit');
   Route::match(['DELETE'],'eliminar/{id_material}', 'Material\MaterialController@destroy')->name('material.destroy')->middleware('permission:material.destroy');
   Route::match(['GET', 'HEAD'],'consultar-precio', 'Material\MaterialController@consultarPrecio')->name('material.consultarPrecio')->middleware('permission:material.consultarPrecio');
+  Route::post('importar', 'Material\MaterialController@importMaterial')->name('material.importMaterial')->middleware('permission:material.create');
 });

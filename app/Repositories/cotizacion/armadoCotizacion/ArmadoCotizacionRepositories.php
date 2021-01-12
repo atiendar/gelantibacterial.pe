@@ -3,6 +3,7 @@ namespace App\Repositories\cotizacion\armadoCotizacion;
 // Models
 use App\Models\CotizacionArmado;
 // Events
+use App\Events\layouts\ArchivosEliminados;
 use App\Events\layouts\ActividadRegistrada;
 // Repositories
 use App\Repositories\armado\ArmadoRepositories;
@@ -44,21 +45,29 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       
       // GUARDA EL REGISTRO DEL ARMADO
       $cot_armado = new CotizacionArmado();
-        // FALTA COPIAR Y GUARGAR LA IMAGEN (REDIMENCIONAR A 500X500 para no hacer tann pesada la generacion de PDF)
-    //  dd( $armado->img_rut);
-    //  $cot_armado->img_rut        = $armado->img_rut;
-    //  $cot_armado->img_nom        = $armado->img_nom;
+      if($armado->img_nom_min != null) {
+        // Clona la imagen
+        $nueva_ruta = 'cotizacion/'.time().'.jpeg';
+        $s3 = \Storage::disk("s3");
+        $s3->copy($armado->img_nom_min, $nueva_ruta);
+        $cot_armado->img_rut        = $armado->img_rut_min;
+        $cot_armado->img_nom        = $nueva_ruta;
+      }
+      
       $cot_armado->id_armado      = $armado->id;
       $cot_armado->tip            = $armado->tip;
       $cot_armado->nom            = $armado->nom;
       $cot_armado->sku            = $armado->sku;
       $cot_armado->gama           = $armado->gama;
       $cot_armado->dest           = $armado->dest;
+      $cot_armado->tam            = $armado->tam;
       $cot_armado->pes            = $armado->pes;
       $cot_armado->alto           = $armado->alto;
       $cot_armado->ancho          = $armado->ancho;
       $cot_armado->largo          = $armado->largo;
+      $cot_armado->prec_de_comp   = $armado->prec_de_comp;
       $cot_armado->prec_origin    = $armado->prec_origin;
+      $cot_armado->desc_esp       = $armado->desc_esp;
       $cot_armado->prec_redond    = $armado->prec_redond;
       $cot_armado->sub_total      = $armado->prec_redond;
 
@@ -124,6 +133,11 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
       $cotizacion = $armado->cotizacion;
       $armado->forceDelete();
 
+      // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+      ArchivosEliminados::dispatch(
+        array($armado->img_nom), 
+      );
+
       // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN
       $this->calcularValoresCotizacionRepo->calculaValoresCotizacion($cotizacion);
 
@@ -144,5 +158,41 @@ class ArmadoCotizacionRepositories implements ArmadoCotizacionInterface {
     if($estatus != config('app.abierta')) { 
       return abort(404); 
     }
+  }
+  public function clonar($id_armado) { 
+    try { DB::beginTransaction();
+      $armado = $this->armadoFindOrFailById($id_armado, 'productos');
+      $clon_armado                  = new \App\Models\Armado();
+      $clon_armado->clon            = '1'; // 1=Si
+      $clon_armado->tip             = $armado->tip;
+      $clon_armado->nom             = $armado->nom. '- clon'.time();
+      $clon_armado->sku             = $armado->sku. '- clon'.time();
+      $clon_armado->gama            = $armado->gama;
+      $clon_armado->dest            = $armado->dest;
+      $clon_armado->prec_de_comp    = $armado->prec_de_comp;
+      $clon_armado->prec_origin     = $armado->prec_origin;
+      $clon_armado->desc_esp        = $armado->desc_esp;
+      $clon_armado->prec_redond     = $armado->prec_redond;
+      $clon_armado->tam             = $armado->tam;
+      $clon_armado->pes             = $armado->pes;
+      $clon_armado->alto            = $armado->alto;
+      $clon_armado->ancho           = $armado->ancho;
+      $clon_armado->largo           = $armado->largo;
+      $clon_armado->asignado_arm    = Auth::user()->email_registro;
+      $clon_armado->created_at_arm  = Auth::user()->email_registro;
+      $clon_armado->save();
+
+      // CLONA LOS PRODUCTOS DEL ARMADO
+      $datos = null;
+      foreach($armado->productos as $producto_armado) {
+        $datos[$producto_armado->id_producto] = [
+          'cant' => $producto_armado->cant,
+        ];
+      }
+      $clon_armado->productos()->sync($datos);
+
+      DB::commit();
+      return $clon_armado;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
 }

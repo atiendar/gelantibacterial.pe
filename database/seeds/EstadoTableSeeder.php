@@ -10,225 +10,233 @@ class EstadoTableSeeder extends Seeder {
   public function run() {
     Estado::create([
       'id'              => 1,
-      'est'             => 'Aguascalientes',
-      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
+      'est'             => 'Ciudad de México (Ciudad de México)',
+      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Local'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
-    ]);
+    ]); 
     Estado::create([
       'id'              => 2,
-      'est'             => 'Baja California',
+      'est'             => 'Aguascalientes (Aguascalientes)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 3,
-      'est'             => 'Baja California Sur',
+      'est'             => 'Baja California (Mexicali)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 4,
-      'est'             => 'Campeche',
+      'est'             => 'Baja California Sur (La Paz)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 5,
-      'est'             => 'Ciudad de México',
-      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Local'),
+      'est'             => 'Campeche (Campeche)',
+      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 6,
-      'est'             => 'Chihuahua',
+      'est'             => 'Chiapas (Tuxtla Gutiérrez)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 7,
-      'est'             => 'Chiapas',
+      'est'             => 'Chihuahua (Chihuahua)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
+
     Estado::create([
       'id'              => 8,
-      'est'             => 'Coahuila de Zaragoza',
+      'est'             => 'Coahuila de Zaragoza (Saltillo)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 9,
-      'est'             => 'Colima',
+      'est'             => 'Colima (Colima)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 10,
-      'est'             => 'Durango',
+      'est'             => 'Durango (Victoria de Durango)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 11,
-      'est'             => 'Estado de México',
-      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo y Local'),
+      'est'             => 'Guanajuato (Guanajuato)',
+      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 12,
-      'est'             => 'Guanajuato',
+      'est'             => 'Guerrero (Chilpancingo de los Bravo)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 13,
-      'est'             => 'Guerrero',
+      'est'             => 'Hidalgo (Pachuca de Soto)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 14,
-      'est'             => 'Hidalgo',
+      'est'             => 'Jalisco (Guadalajara)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 15,
-      'est'             => 'Jalisco',
-      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
+      'est'             => 'México (Edo. México)',
+      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo y Local'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 16,
-      'est'             => 'Michoacán de Ocampo',
+      'est'             => 'Michoacán de Ocampo (Morelia)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 17,
-      'est'             => 'Morelos',
+      'est'             => 'Morelos (Cuernavaca)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 18,
-      'est'             => 'Nayarit',
+      'est'             => 'Nayarit (Tepic)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 19,
-      'est'             => 'Nuevo León',
+      'est'             => 'Nuevo León (Monterrey)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 20,
-      'est'             => 'Oaxaca',
+      'est'             => 'Oaxaca (Oaxaca de Juárez)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 21,
-      'est'             => 'Puebla',
+      'est'             => 'Puebla (H. Puebla de Zaragoza)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 22,
-      'est'             => 'Querétaro',
+      'est'             => 'Querétaro (Santiago de Querétaro)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 23,
-      'est'             => 'Quintana Roo',
+      'est'             => 'Quintana Roo (Cd. Chetumal)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 24,
-      'est'             => 'San Luis Potosí',
+      'est'             => 'San Luis Potosí (San Luis Potosí)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 25,
-      'est'             => 'Sinaloa',
+      'est'             => 'Sinaloa (Culiacán Rosales)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 26,
-      'est'             => 'Sonora',
+      'est'             => 'Sonora (Hermosillo)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 27,
-      'est'             => 'Tabasco',
+      'est'             => 'Tabasco (Villahermosa)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 28,
-      'est'             => 'Tamaulipas',
+      'est'             => 'Tamaulipas (Ciudad Victoria)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 29,
-      'est'             => 'Tlaxcala',
+      'est'             => 'Tlaxcala (Tlaxcala de Xicohténcatl)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 30,
-      'est'             => 'Veracruz',
+      'est'             => 'Veracruz de Ignacio de la Llave (Xalapa de Enríquez)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
       'id'              => 31,
-      'est'             => 'Yucatán',
+      'est'             => 'Yucatán (Mérida)',
+      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
+      'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
+      'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
+    ]); 
+    Estado::create([
+      'id'              => 32,
+      'est'             => 'Zacatecas (Zacatecas)',
       'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);
     Estado::create([
-      'id'              => 32,
-      'est'             => 'Zacatecas',
-      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo'),
+      'id'              => 33,
+      'est'             => 'Tarifa única (Varios estados)',
+      'for_loc'         => config('opcionesSelect.select_foraneo_local_ambos.Foráneo y Local'),
       'asignado_est'	  => 'desarrolloweb.ewmx@gmail.com',
       'created_at_est'  => 'desarrolloweb.ewmx@gmail.com',
     ]);

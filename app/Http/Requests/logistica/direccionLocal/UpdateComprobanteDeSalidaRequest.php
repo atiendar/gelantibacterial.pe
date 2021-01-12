@@ -16,7 +16,7 @@ class UpdateComprobanteDeSalidaRequest extends FormRequest {
     return [
       'cantidad'                      => 'required|numeric|min:1|max:'.$max,
       'metodo_de_entrega'             => 'required|exists:metodos_de_entrega,nom_met_ent',
-      'metodo_de_entrega_espesifico'  => 'required_if:metodo_de_entrega,Paquetería,Transporte interno de la empresa,Transportes Ferro,Viaje metropolitano (Uber, Didi, Beat...)',
+      'metodo_de_entrega_especifico'  => 'required_if:metodo_de_entrega,Paquetería,Transporte interno de la empresa,Transportes Ferro,Viaje metropolitano (Uber, Didi, Beat...)',
       'comprobante_de_salida'         => 'nullable|image'
     ];
   }

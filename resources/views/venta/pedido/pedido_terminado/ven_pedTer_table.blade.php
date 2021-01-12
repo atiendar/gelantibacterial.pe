@@ -12,6 +12,7 @@
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.estatusVentas')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.cliente')
           @include('venta.pedido.pedido_activo.ven_pedAct_table.th.totalDeArmados')
+          <th colspan="1">&nbsp</th>
         </tr>
       </thead>
       <tbody> 
@@ -24,6 +25,7 @@
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.estatusVentas')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.cliente')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados')
+            @include('venta.pedido.pedido_terminado.ven_pedTer_tableOpciones')
           </tr>
         @endforeach
       </tbody>

@@ -26,21 +26,32 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     return $pedido;
   }
   public function getPagination($request, $relaciones, $opc_consulta) {
+    if($request->paginador == null) {
+      $paginador = 50;
+    }else {
+      $paginador = $request->paginador;
+    }
+
     return Pedido::pendientesPedido($opc_consulta)
                 ->with($relaciones)
+                ->where('estat_alm', '!=', config('app.productos_completos_terminado'))
+                /*
                 ->where(function ($query){
                 $query->where('estat_alm', config('app.asignar_persona_que_recibe'))
                     ->orWhere('estat_alm', config('app.en_espera_de_ventas'))
                     ->orWhere('estat_alm', config('app.en_espera_de_compra'))
                     ->orWhere('estat_alm', config('app.en_revision_de_productos'));
-                })->buscar($request->opcion_buscador, $request->buscador)
+                })
+                */
+                ->buscar($request->opcion_buscador, $request->buscador)
                 ->orderBy('fech_estat_alm', 'DESC')
-                ->paginate($request->paginador);
+                ->paginate($paginador);
   }
   public function update($request, $id_pedido) {
     try { DB::beginTransaction();
+      $id_pedido = $this->serviceCrypt->encrypt($id_pedido);
       $pedido                 = $this->pedidoActivoAlmacenFindOrFailById($id_pedido, []);
-      $pedido->per_reci_alm = $request->persona_que_recibe;
+      $pedido->per_reci_alm   = $request->persona_que_recibe;
       $pedido->coment_alm     = $request->comentario_almacen;
       if($pedido->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -55,6 +66,16 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         );
         $pedido->updated_at_ped = Auth::user()->email_registro;
       }
+      if($request->checkbox_imagen == 'on') {
+        if($request->hasfile('imagen')) {
+          $imagen        = $request->file('imagen');
+          \Storage::disk('s3')->delete($pedido->img_firm);
+          $nombre_archivo = \Storage::disk('s3')->put('pedidos/'.date("Y").'/'.$pedido->num_pedido.'/firma', $imagen, 'public');
+          $pedido->img_firm_rut  = env('PREFIX');
+          $pedido->img_firm      = $nombre_archivo;
+        }
+      }
+
       $pedido->save();
       Pedido::getEstatusPedido($pedido, 'Todos');
       
@@ -124,5 +145,15 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     }
 
     return $consulta; 
+  }
+  public function getAllPedidosPlunk() {
+    return Pedido::where(function ($query){
+                $query->where('estat_alm', config('app.asignar_persona_que_recibe'))
+                    ->orWhere('estat_alm', config('app.en_espera_de_ventas'))
+                    ->orWhere('estat_alm', config('app.en_espera_de_compra'))
+                    ->orWhere('estat_alm', config('app.en_revision_de_productos'));
+                })
+                ->orderBy('fech_estat_alm', 'DESC')
+                ->pluck('num_pedido', 'id');
   }
 }

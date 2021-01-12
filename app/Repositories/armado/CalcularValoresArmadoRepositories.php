@@ -10,6 +10,7 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
   }
   public function calcularValoresArmado($armado, $productos) {
     $hastaC       = count($productos) - 1;
+    $prec_orig_proveedor  = 0;
     $prec_origin  = 0;
     $tamano       = null;
     $peso         = 0;
@@ -22,6 +23,9 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
       }else {
         $cant = $productos[$contador2]->cant;
       }
+
+      // Calcular precio original con la suma de los productos precio proveedor
+      $prec_orig_proveedor += $productos[$contador2]->prec_prove * $cant;
 
       // Calcular nuevo precio
       $prec_origin += $productos[$contador2]->prec_clien * $cant;
@@ -37,7 +41,14 @@ class CalcularValoresArmadoRepositories implements CalcularValoresArmadoInterfac
       $ancho += $productos[$contador2]->ancho * $cant;
       $largo += $productos[$contador2]->largo * $cant;
     }
-    $armado->prec_origin   = $prec_origin;
+
+    if($armado->desc_esp > $prec_origin) {
+      return abort('404', 'ERROR: No se puede modificar el precio del armado '. $armado->nom .' ya que el precio original es menor al descuento especial.');
+    } else {
+      $armado->prec_origin   = $prec_origin-$armado->desc_esp;
+    }
+    
+    $armado->prec_de_comp  = $prec_orig_proveedor;
     $armado->tam           = $tamano;
     $armado->pes           = $peso;
     $armado->alto          = $alto;

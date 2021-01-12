@@ -13,7 +13,7 @@ class UpdateSoporteRequest extends FormRequest {
       'id_inventario'                 => 'required|exists:inventario_equipos,id',
       'agrupacion_de_fallas'          => 'required|exists:catalogos,value',
       'solucion'                      => 'required|max:30000|string',
-      'observaciones_del_equipo'      => 'required|max:30000|string',
+      'observaciones_del_equipo'      => 'nullable|max:30000|string',
     ];
   }
 }

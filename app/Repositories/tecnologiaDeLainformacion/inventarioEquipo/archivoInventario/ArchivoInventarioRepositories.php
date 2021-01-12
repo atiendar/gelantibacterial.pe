@@ -26,22 +26,22 @@ class ArchivoInventarioRepositories implements ArchivoInventarioInterface {
   public function store($request, $id_inventario) {
     DB::transaction(function() use($request, $id_inventario){ // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
       $camposBD   = array('arc_rut', 'arc_nom', 'inventario_equipo_id', 'created_at');
-      $hastaC     = count($request->archivos) - 1;
+      $hastaC     = count($request->imagenes) - 1;
       $datos      = null;
       $contador3  = 0;
       $id_inventario  = $this->serviceCrypt->decrypt($id_inventario);
       
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
-        $archivos = ArchivoCargado::dispatch(
-            $request->archivos[$contador2], // Archivos blob
-            'public/tecnologiasDeLaInformacion/inventario/' . date("Y-m") . '/', // Ruta en la que guardara el archivo
-            'inventario-' . $contador2 . time() . '.', // Nombre del archivo
-            null // Ruta y nombre del archivo anterior
+        $imagenes = ArchivoCargado::dispatch(
+          $request->imagenes[$contador2], // Archivos blob
+          'tecnologiasDeLaInformacion/inventario/' . date("Y"), // Ruta en la que guardara el archivo
+          'inventario-' . $contador2 . time() . '.', // Nombre del archivo
+          null // Ruta y nombre del archivo anterior
         );
-        $datos[$contador2][$camposBD[$contador3]] = $archivos[0]['ruta'];
+        $datos[$contador2][$camposBD[$contador3]] = $imagenes[0]['ruta'];
         $contador3 += 1;
-        $datos[$contador2][$camposBD[$contador3]] = $archivos[0]['nombre'];
+        $datos[$contador2][$camposBD[$contador3]] = $imagenes[0]['nombre'];
         $contador3 += 1;
         $datos[$contador2][$camposBD[$contador3]] = $id_inventario;
         $contador3 += 1;
@@ -57,14 +57,14 @@ class ArchivoInventarioRepositories implements ArchivoInventarioInterface {
       $archivo = $this->archivoInventarioFindOrFailById($id_archivo);
       $archivo->delete();
       $this->papeleraDeReciclajeRepo->store([
-          'modulo'      =>    'Inventario', // Nombre del módulo del sistema
-          'registro'    =>    $archivo->arc_nom,  // Información a mostrar en la papelera
-          'tab'         =>    'inventario_equipos_archivos', // Nombre de la tabla en la BD
-          'id_reg'      =>    $archivo->id,  // ID de registro eliminado
-          'id_fk'       =>    $archivo->inventario->id, // ID de la llave foranea con la que tiene relación
+        'modulo'      =>    'Inventario', // Nombre del módulo del sistema
+        'registro'    =>    $archivo->arc_nom,  // Información a mostrar en la papelera
+        'tab'         =>    'inventario_equipos_archivos', // Nombre de la tabla en la BD
+        'id_reg'      =>    $archivo->id,  // ID de registro eliminado
+        'id_fk'       =>    $archivo->inventario->id, // ID de la llave foranea con la que tiene relación
       ]);
       DB::commit();
-      return $archivo;            
+      return $archivo;
     } catch (\Exception $e) { DB::rollback(); throw $e; }
   }
 }

@@ -22,6 +22,10 @@ class PedidoArmado extends Model{
     return $this->hasMany('App\Models\PedidoArmadoTieneDireccion', 'pedido_armado_id')->orderBy('id','DESC');
   }
   public function productos() {
-    return $this->hasMany('App\Models\PedidoArmadoTieneProducto', 'pedido_armado_id')->orderBy('id','DESC');
+    return $this->hasMany('App\Models\PedidoArmadoTieneProducto', 'pedido_armado_id')->orderBy('produc','ASC')->where('produc', '!=', 'Armado')
+    ->where('produc', '!=', 'Emplayado')
+    ->where('produc', '!=', 'Moño')
+    ->where('produc', '!=', 'Tarjeta Navideña')
+    ->where('produc', '!=', 'Viruta');
   }
 }

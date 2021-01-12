@@ -26,8 +26,8 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
   }
   public function getPagination($request, $relaciones, $opc_consulta) { // 'usuario', 'unificar'
     return Pedido::pendientesPedido($opc_consulta)
+                  ->Where('estat_log', '!=', config('app.entregado'))
                   ->with($relaciones)
-                  ->where('estat_log', '!=', config('app.entregado'))
                   ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
                   ->buscar($request->opcion_buscador, $request->buscador)
                   ->orderBy('id', 'DESC')
@@ -44,6 +44,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         $pedido->cuant_dia_ant    = null;
       }
       $pedido->urg                = $request->es_pedido_urgente;
+      $pedido->stock              = $request->es_pedido_de_stock;
       $pedido->coment_vent        = $request->comentarios_ventas;
       if($pedido->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -52,9 +53,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
           'venta.pedidoActivo.show', // Nombre de la ruta
           $id_pedido, // Id del registro debe ir encriptado
           $pedido->num_pedido, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Fecha de entrega', '¿Se puede entregar antes?', '¿Cuántos días antes?', '¿Es pedido urgente?', 'Comentarios ventas'), // Nombre de los inputs del formulario
+          array('Fecha de entrega', '¿Se puede entregar antes?', '¿Cuántos días antes?', '¿Es pedido urgente?', '¿Es pedido de STOCK?', 'Comentarios ventas'), // Nombre de los inputs del formulario
           $pedido, // Request
-          array('fech_de_entreg', 'se_pued_entreg_ant', 'cuant_dia_ant', 'urg', 'coment_vent') // Nombre de los campos en la BD
+          array('fech_de_entreg', 'se_pued_entreg_ant', 'cuant_dia_ant', 'urg', 'stock', 'coment_vent') // Nombre de los campos en la BD
         ); 
         $pedido->updated_at_ped  = Auth::user()->email_registro;
       }
@@ -106,6 +107,24 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     return $pedido;
   }
   public function getEstatusPagoPedido($pedido) {
+
+    //  Redondea en valor del pedido si solo hay diferencia menos a 1 peso
+    $sum_pagos_aprobados1  = $pedido->pagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
+    $monto_restante = $pedido->mont_tot_de_ped  - $sum_pagos_aprobados1;
+    if($monto_restante <= 1 AND $monto_restante > 0.00) {
+      $pago = new \App\Models\Pago();
+      $pago->cod_fact       = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 4);
+      $pago->estat_pag      = config('app.aprobado');
+      $pago->mont_de_pag    = $monto_restante;
+      $pago->user_aut       = 'Automático por el sistema';
+      $pago->coment_pag_vent  = 'Este comentario es generado automáticamente por el sistema. Pago registrado automáticamente para cuadrar total del pedido, ya que se tenia una diferencia por centavos.';
+      $pago->pedido_id      = $pedido->id;   
+      $pago->user_id        = $pedido->user_id; 
+      $pago->created_at_pag = 'Automático por el sistema';
+      $pago->save();
+      $pago->cod_fact .= $pago->id;
+    }
+
     $pagos_rechazado      = $pedido->pagos()->where('estat_pag', config('app.rechazado'))->get();
     $pagos_pendientes     = $pedido->pagos()->where('estat_pag', config('app.pendiente'))->get();
     $sum_pagos_aprobados  = $pedido->pagos()->where('estat_pag', config('app.aprobado'))->sum('mont_de_pag');
@@ -132,6 +151,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     if($sum_pagos_aprobados == $pedido->mont_tot_de_ped) {
       $pedido->estat_pag = config('app.pagado');
     }
+
     $pedido->save();
   }
   public function unificarPedido($pedido, $fecha_original, $fecha_nueva) {

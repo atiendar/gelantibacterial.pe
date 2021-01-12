@@ -13,7 +13,7 @@ class Pago extends Model{
   protected $guarded = [];
 
   protected $dates = ['deleted_at'];
- // protected $softCascade = []; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+  protected $softCascade = ['factura']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   // Buscador
   public function scopeBuscar($query, $opcion_buscador, $buscador) {

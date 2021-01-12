@@ -17,8 +17,24 @@
     </div>
   </div>
   <div class="card-body">
-    @include('almacen.pedido.pedido_terminado.pedTer_showFields')
+    @include('almacen.pedido.pedido_activo.alm_pedAct_showFields')
+    <div class="row">
+      <div class="form-group col-sm btn-sm">
+        <center><a href="{{ route('almacen.pedidoTerminado.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a></center>
+      </div>
+    </div>
   </div>
 </div>
-@include('almacen.pedido.pedido_terminado.armado_terminado.armTer_index')
+<div class="row">
+  @can('venta.pedidoActivo.edit')
+    <div class="col-md-4">
+      <div class="pad">
+        @include('venta.pedido.pedido_activo.archivo.arc_index')
+      </div>
+    </div>
+  @endcan
+  <div class="col-md-8">
+    @include('almacen.pedido.pedido_terminado.armado_terminado.armTer_index')
+  </div>
+</div>
 @endsection

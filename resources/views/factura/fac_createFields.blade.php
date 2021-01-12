@@ -26,12 +26,27 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
       </div>
-      {!! Form::select('datos_fiscales', [], null, ['id' => 'datos_fiscales', 'class' => 'form-control select2' . ($errors->has('datos_fiscales') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+      {!! Form::select('datos_fiscales', [], null, ['id' => 'datos_fiscales', 'class' => 'form-control select2' . ($errors->has('datos_fiscales') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione. . .')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('datos_fiscales') }}</span>
   </div>
 </div>
-<label for="redes_sociales">{{ __('DATOS FISCALES') }}</label>
+
+
+
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-4" role="group" aria-label="First group">
+    <label for="datos_fiscales">{{ __('Datos fiscales') }}</label>
+  </div>
+  <div class="input-group">
+    <div class="custom-control custom-switch">
+      {!! Form::checkbox('checkbox_datos_fiscales', 'on', false, ['id' => 'checkbox_datos_fiscales', 'class' => 'custom-control-input' . ($errors->has('checkbox_datos_fiscales') ? ' is-invalid' : '')]) !!}
+      <label class="custom-control-label" for="checkbox_datos_fiscales">{{ __('Guardar datos fiscales escritos') }}</label>
+    </div>
+  </div>
+</div>
+
+
 <div class="border border-primary rounded p-2">
   @include('rolCliente.datoFiscal.dfi_createFields')
 </div>
@@ -39,7 +54,7 @@
 <div class="border border-primary rounded p-2">
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="codigo_de_facturacion">{{ __('Código de facturación') }} *</label>
+      <label for="codigo_de_facturacion">{{ __('Código de facturación') }} ({{ __('Se obtiene al registrar un pago') }}) *</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
@@ -117,7 +132,7 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="comentarios_cliente">{{ __('Comentarios cliente') }}</label>
+      <label for="comentarios_cliente">{{ __('Comentarios cliente') }} ({{ __('Agregar aquí cualquier comentario adicional ya sea desglose de información etc.') }} )</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
@@ -141,6 +156,7 @@
   $("#cliente").change(function(event){
     $.get("/factura/datos-fiscales-cliente/"+event.target.value+"",function(response,datos_fiscales) {
       $("#datos_fiscales").empty();
+      $("#datos_fiscales").append("<option value=''> Seleccione. . .</option>");
       for(i=0; i<response.length; i++) {
         $("#datos_fiscales").append("<option value='"+response[i].id+"'> "+response[i].rfc+"</option>");
       }

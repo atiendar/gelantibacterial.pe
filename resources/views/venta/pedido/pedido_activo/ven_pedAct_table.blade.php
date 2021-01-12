@@ -17,7 +17,22 @@
       </thead>
       <tbody> 
         @foreach($pedidos as $pedido)
-          <tr title="{{ $pedido->num_pedido }}">
+          @php
+            $estilos = null;
+          @endphp
+          @if($pedido->urg == 'Si')
+            @php
+              $estilos .= 'border:#FFFF0060 2px solid;';
+            @endphp
+          @endif
+
+          @if($pedido->stock == 'Si')
+            @php
+              $estilos .= 'background-color: #ff000060';
+            @endphp
+          @endif
+
+          <tr title="{{ $pedido->num_pedido }}" style="{{ $estilos }}">
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.opcionShow', ['canany' => ['venta.pedidoActivo.show', 'venta.pedidoActivo.armado.show', 'venta.pedidoActivo.pago.show'], 'ruta' => route('venta.pedidoActivo.show', Crypt::encrypt($pedido->id))])
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedidoUnificado')
             @include('venta.pedido.pedido_activo.ven_pedAct_table.td.fechaDeEntrega')

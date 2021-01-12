@@ -9,6 +9,16 @@
   </div>
   <div class="card-body">
     {!! Form::open(['route' => 'rolCliente.datoFiscal.store', 'onsubmit' => 'return checarBotonSubmit("btnsubmit")']) !!}
+      <label for="redes_sociales">{{ __('IMPORTANTE') }}</label>
+      <div class="border border-primary rounded p-2">
+        <div class="row">
+          <div class="form-group col-sm btn-sm">
+              <strong>
+                {{ __('Después de registra tus datos fiscales recuerda solicitar tu factura') }}.
+              </strong>
+          </div>
+        </div>
+      </div>
       @include('rolCliente.datoFiscal.dfi_createFields')
       <div class="row">
         <div class="form-group col-sm btn-sm">

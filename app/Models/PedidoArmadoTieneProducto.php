@@ -21,4 +21,7 @@ class PedidoArmadoTieneProducto extends Model{
   public function sustitutos(){
     return $this->hasMany('App\Models\PedidoArmadoProductoTieneSustituto', 'producto_id')->orderBy('id', 'DESC');
   }
+  public function productos_original(){
+    return $this->belongsToMany('App\Models\Producto', 'prod_orig_tiene_prod_ped')->withTimestamps();
+  }
 }

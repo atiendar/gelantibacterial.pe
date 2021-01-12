@@ -9,6 +9,7 @@ use App\Repositories\servicio\crypt\ServiceCrypt;
 // Repositories
 use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
 use App\Repositories\pago\PagoRepositories;
+use Illuminate\Support\Facades\Auth;
 
 class PagoPedidoController extends Controller {
   protected $serviceCrypt;
@@ -20,7 +21,15 @@ class PagoPedidoController extends Controller {
     $this->pagoRepo         = $pagoRepositories;
   }
   public function index(Request $request) {
-    $pedidos =  $this->pedidoActivoRepo->getPagination($request, [], null);
+    $pedidos =  \App\Models\Pedido::withCount(['pagos AS mont_pagado' => function ($query) {
+                      $query->select(\DB::raw("SUM(mont_de_pag)"))->where('estat_pag', config('app.aprobado'));
+                    }
+                  ])
+                  ->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
+                  ->buscar($request->opcion_buscador, $request->buscador)
+                  ->orderBy('id', 'DESC')
+                  ->paginate($request->paginador);
+
     return view('pago.fPedido.fpe_index', compact('pedidos'));
   }
   public function create($id_pedido) {
@@ -43,5 +52,14 @@ class PagoPedidoController extends Controller {
     $pago = $this->pagoRepo->updateFpedido($request, $id_pago);
     toastr()->success('¡Pago actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return redirect(route('pago.fPedido.create', $this->serviceCrypt->encrypt($pago->pedido->id)));
+  }
+  public function generarCodigo($id_pedido) {
+    $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['pagos']);
+    $pagos          = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
+    $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
+    return view('pago.fPedido.fpe_generarCodigo', compact('pedido', 'pagos', 'mont_pag_aprov'));
+  }
+  public function generarReporte() {
+    return (new \App\Exports\pago\fPedido\generarReporteDePagoExport)->download('ReporteDePagos-'.date('Y-m-d').'.xlsx');
   }
 }

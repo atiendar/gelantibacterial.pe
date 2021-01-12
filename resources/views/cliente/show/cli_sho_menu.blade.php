@@ -11,7 +11,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('cliente.show', Crypt::encrypt($cliente->id)) }}" class="nav-link {{ Request::is('cliente/detalles/d*') ? 'border rounded' : '' }}">
+          <a href="{{ route('cliente.show', Crypt::encrypt($cliente->id)) }}" class="nav-link {{ Request::is('cliente/detalles/view*') ? 'border rounded' : '' }}">
             <i class="fas fa-eye"></i> {{ __('Detalles') }}
           </a>
         </li>

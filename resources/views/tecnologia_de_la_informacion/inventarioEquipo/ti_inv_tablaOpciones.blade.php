@@ -1,9 +1,9 @@
-<td width='!rem' title="Editar: {{ $inventario->id_equipo}}">
+<td width='1rem' title="Editar: {{ $inventario->id_equipo}}">
   @can(['inventario.edit'])
     <a href="{{ route('inventario.edit', Crypt::encrypt($inventario->id))}}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
   @endcan
 </td>
-<td width='!rem' title="Eliminar: {{ $inventario->id_equipo}}">
+<td width='1rem' title="Eliminar: {{ $inventario->id_equipo}}">
   @can('inventario.destroy')
     <form method="post" action="{{ route('inventario.destroy', Crypt::encrypt($inventario->id))}}" id="inventarioDestroy{{ $inventario->id}}">
       @method('DELETE')@csrf

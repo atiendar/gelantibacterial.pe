@@ -23,8 +23,18 @@
       </td>
     </tr>
     <tr>
+      <td colspan="6" style="text-align:center">
+        <dt >Fecha de entrega</dt>
+        <dt >{{ $pedido->fech_de_entreg }}</dt>
+      </td>
+      <td colspan="6" style="text-align:center">
+        <dt >RACK</dt>
+        <dt >{{ $armado->ubic_rack }}</dt>
+      </td>
+    </tr>
+    <tr>
       <td colspan="12">
-        <dt class="text-center" style="font-size:65px;">{{ $armado->cod }}</dt>
+        <dt class="text-center" style="font-size:65px;">{{ $direccion->cod }}</dt>
       </td>
     </tr>
     <tr>
@@ -38,8 +48,8 @@
         </dt>
         @if($direccion->nom_ref_uno != null)
           <p>
-            <strong>Nombre de referencia uno: </strong>{{ $direccion->nom_ref_uno }}<br>
-            <strong>Nombre de referencia dos: </strong>{{ $direccion->nom_ref_dos }}<br>
+            <strong>Nombre de la persona que recibe uno: </strong>{{ $direccion->nom_ref_uno }}<br>
+            <strong>Nombre de la persona que recibe dos: </strong>{{ $direccion->nom_ref_dos }}<br>
 
             <strong>Teléfono fijo: </strong>({{ $direccion->lad_fij }}) {{ $direccion->tel_fij }} <strong>Ext.</strong> {{ $direccion->ext }},
             <strong>Teléfono móvil: </strong>({{ $direccion->lad_mov }}) {{ $direccion->tel_mov }}<br>

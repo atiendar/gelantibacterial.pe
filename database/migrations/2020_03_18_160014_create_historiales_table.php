@@ -23,7 +23,7 @@ class CreateHistorialesTable extends Migration
         $table->string('sol', 80)->comment('Nombre del Solicitante');
         $table->string('area_dep', 100)->comment('Area o Departamento');
         $table->string('tec', 80)->comment('Tecnico');
-        $table->string('grup_de_falla', 100)->comment('Agrrupacion de fallas');
+        $table->string('grup_de_falla', 150)->comment('Agrrupacion de fallas');
         $table->text('des_de_la_falla')->comment('Descripcion de la falla');
         $table->text('solu')->comment('Solucion del problema');
         $table->text('obs_del_equipo')->nullable()->comment('observaciones del equipo');

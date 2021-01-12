@@ -165,12 +165,12 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="cantidad_requerida">{{ __('Cantidad requerida') }}</label>
+    <label for="cantidad_vendida">{{ __('Cantidad vendida') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
       </div>
-      {!! Form::text('cantidad_requerida', Sistema::dosDecimales($producto->cant_requerida), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Cantidad requerida'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('cantidad_vendida', Sistema::dosDecimales($producto->vend), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Cantidad vendida'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
@@ -184,15 +184,6 @@
   </div>
 </div>
 <div class="row">
-  <div class="form-group col-sm btn-sm">
-    <label for="faltante">{{ __('Faltante') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
-      </div>
-      {!! Form::text('faltante', Sistema::dosDecimales($producto->stock-$producto->cant_requerida), ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Faltante'), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
   <div class="form-group col-sm btn-sm">
     <label for="existencia_equivalente">{{ __('Existencia equivalente') }}</label>
     <div class="input-group">
@@ -298,6 +289,15 @@
         <span class="input-group-text"><i class="fa fa-barcode"></i></i></span>
       </div>
       {!! Form::text('codigo_de_barras', $producto->cod_barras, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Código de barras'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="cantidad_minima_de_stock">{{ __('Cantidad mínima de stock') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
+      </div>
+      {!! Form::text('cantidad_minima_de_stock', $producto->min_stock, ['class' => 'form-control disable', 'maxlength' => 5, 'placeholder' => __('Cantidad mínima de stock'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

@@ -20,6 +20,8 @@ interface ProductoInterface {
 
     public function getproductoFindOrFailById($id_producto, $relaciones);
 
+    public function getproductoFindWithTrashed($id_producto, $relaciones);
+    
     public function getproductoFindById($id_producto, $relaciones);
 
     public function eliminarCacheAllProductosPlunk();
@@ -28,6 +30,8 @@ interface ProductoInterface {
 
     public function getAllSustitutosOrProductosPlunkMenos($sustitutos_o_productos, $opcion);
 
+    public function getAllSustitutosOrProductosMenos($sustitutos_o_productos, $opcion);
+    
     public function getProductosFindOrFail($ids_productos, $hastaC);
 
     public function getExistenciaEquivalentePorProducto($sustitutos);

@@ -1,15 +1,25 @@
 <?php
 namespace App\Repositories\cotizacion\armadoCotizacion;
+// Repositories
+use App\Repositories\servicio\calculo\CalculoRepositories;
 
 class CalcularValoresArmadoCotizacionRepositories implements CalcularValoresArmadoCotizacionInterface {
+  protected $calculoRepo;
+  public function __construct(CalculoRepositories $calculoRepositories) {
+    $this->calculoRepo      = $calculoRepositories;
+  }
   public function sumaValoresArmadoCotizacion($armado) {
     $armado = $this->calcularDescuento($armado);
+  //  dd(   $armado->prec_origin     );
+  //   $armado->prec_redond = $this->calculoRepo->redondearUnidadA9DelPrecio($armado->prec_origin-$armado->desc_esp);
+  //   dd(   $armado->prec_redond     );
     $sub_total          = ($armado->cant * $armado->prec_redond) + $armado->cost_env;
+  //  dd(   $sub_total     );
     $armado->sub_total  = $sub_total - $armado->desc;
     if($armado->con_iva == 'Con IVA') {
       $armado->iva  = $armado->sub_total * 0.16;
     } elseif($armado->con_iva == 'Sin IVA') {
-      $armado->iva  = 0;
+      $armado->iva  = 0.00;
     }
     $armado->tot    = $armado->sub_total + $armado->iva;
     return $armado;
@@ -37,8 +47,8 @@ class CalcularValoresArmadoCotizacionRepositories implements CalcularValoresArma
       } elseif($armado->getOriginal('es_de_regalo') != $armado->getAttribute('es_de_regalo')) {
         $armado->tip_desc = 'Sin descuento';
         $armado->porc     = null;
-        $armado->manu     = 0;
-        $armado->desc     = 0;
+        $armado->manu     = 0.00;
+        $armado->desc     = 0.00;
       }
     }
     return  $armado;

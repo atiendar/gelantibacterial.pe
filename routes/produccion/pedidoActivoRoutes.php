@@ -12,5 +12,9 @@ Route::group(['prefix' => 'pedido-activo'], function() {
     Route::match(['GET', 'HEAD'],'editar/{id_armado}', 'Produccion\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@edit')->name('produccion.pedidoActivo.armado.edit')->middleware('permission:produccion.pedidoActivo.armado.edit');
     Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Produccion\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@update')->name('produccion.pedidoActivo.armado.update')->middleware('permission:produccion.pedidoActivo.armado.edit');
     Route::match(['PUT', 'PATCH'],'actualizar-modal/{id_armado}', 'Produccion\PedidoActivo\ArmadoPedidoActivo\ArmadoPedidoActivoController@updateModal')->name('produccion.pedidoActivo.armado.updateModal')->middleware('permission:produccion.pedidoActivo.armado.edit');
+ 
+    Route::group(['prefix' => 'direccion'], function() {
+      Route::match(['GET', 'HEAD'],'detalles/{id_direccion}', 'Produccion\PedidoActivo\ArmadoPedidoActivo\Direccion\DireccionController@show')->name('produccion.pedidoActivo.armado.direccion.show')->middleware('permission:produccion.pedidoActivo.armado.show|produccion.pedidoActivo.show');
+    });
   });
 });

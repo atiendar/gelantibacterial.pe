@@ -1,7 +1,7 @@
 <label for="redes_sociales">{{ __('INFORMACIÓN EXTRA DEL ARMADO') }}</label>
 <div class="border border-primary rounded p-2">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-6">
       <div class="pad">
         <div class="row">
           <div class="form-group col-sm btn-sm">
@@ -27,13 +27,13 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       @if($direccion->tarj_dise_nom != null)
         <div class="form-group col-sm btn-sm">
           <a href="{{ $direccion->tarj_dise_rut.$direccion->tarj_dise_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>
           <label for="comentarios">{{ __('Tarjeta diseñada por el cliente') }}</label>
-          <div class="pad box-pane-right no-padding" style="min-height: 280px">
-            <iframe src="{{ $direccion->tarj_dise_rut.$direccion->tarj_dise_nom }}" style="width:100%;border:none;height:25rem;"></iframe>
+          <div class="pad box-pane-right no-padding" style="min-height: 240px">
+            <iframe src="{{ $direccion->tarj_dise_rut.$direccion->tarj_dise_nom }}" style="width:100%;border:none;height:20rem;"></iframe>
           </div>
         </div>
       @endif

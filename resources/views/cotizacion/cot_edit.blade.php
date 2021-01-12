@@ -1,6 +1,7 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Editar cotización').' '.$cotizacion->cliente->email_registro )</title>
+@include('cotizacion.promociones.cot_index')
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     @canany(['cotizacion.index', 'cotizacion.show', 'cotizacion.edit'])
@@ -42,7 +43,9 @@
     </div>
   </div>
   <div class="card-body">
-    @include('cotizacion.cot_editFields')
+    {!! Form::open(['route' => ['cotizacion.update', Crypt::encrypt($cotizacion->id)], 'method' => 'patch', 'id' => 'cotizacionUpdate']) !!}
+      @include('cotizacion.cot_editFields')
+    {!! Form::close() !!}
   </div>
 </div>
 @include('cotizacion.armado_cotizacion.cot_arm_index')

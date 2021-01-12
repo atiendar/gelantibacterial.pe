@@ -13,4 +13,6 @@ interface ArmadoCotizacionInterface {
     public function verificarSiYaFueModificado($armado, $cotizacion);
 
     public function verificarElEstatusDeLaCotizacion($estatus);
+
+    public function clonar($id_armado);
 }

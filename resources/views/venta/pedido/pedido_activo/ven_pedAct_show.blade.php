@@ -24,9 +24,25 @@
   @can('venta.pedidoActivo.show')
     <div class="card-body">
       @include('venta.pedido.pedido_activo.ven_pedAct_showFields')
+      <div class="row">
+        <div class="form-group col-sm btn-sm">
+          <center><a href="{{ route('venta.pedidoActivo.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a></center>
+        </div>
+      </div>
     </div>
   @endcan
 </div>
-@include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_index')
+<div class="row">
+  @can('venta.pedidoActivo.edit')
+    <div class="col-md-4">
+      <div class="pad">
+        @include('venta.pedido.pedido_activo.archivo.arc_index')
+      </div>
+    </div>
+  @endcan
+  <div class="col-md-8">
+    @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_index')
+  </div>
+</div>
 @include('venta.pedido.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_index')
 @endsection

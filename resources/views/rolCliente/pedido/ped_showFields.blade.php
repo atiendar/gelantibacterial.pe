@@ -1,4 +1,14 @@
-@include('venta.pedido.pedido_activo.ven_pedAct_showFields.created')
+<div class="row">
+  <div class="form-group col-sm btn-sm">
+    <label for="created_at">{{ __('Fecha de registro') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+      </div>
+        {!! Form::text('created_at', $pedido->created_at, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Fecha de registro'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+</div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.fechaDeEntrega')
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')

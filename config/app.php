@@ -36,6 +36,8 @@ return [
     'rol_desarrollador'         => env('ROL_DESARROLLADOR'),
     'rol_sin_acceso_al_sistema' => env('ROL_SIN_ACCESO_AL_SISTEMA'),
     'rol_cliente' => env('ROL_CLIENTE'),
+    'rol_ferro' => env('ROL_FERRO'),
+
     
     'tiempo_max_de_cache_minutos' => env('TIEMPO_MAX_DE_CACHE_MINUTOS'),
     'tiempo_med_de_cache_minutos' => env('TIEMPO_MED_DE_CACHE_MINUTOS'),
@@ -75,9 +77,6 @@ return [
     'color_o' => '#', // 
     
     # ===================== VENTAS [ PEDIDOS ACTIVOS ] =====================
-    # --- PRODUCTOS
-    'cantidad_stock_minimo_producto' => 100,
-
     # --- ESTATUS COTIZACIONES
     'abierta'   => 'Abierta',
     'aprobada'  => 'Aprobada',
@@ -360,6 +359,7 @@ return [
 /* ===================== [ SISTEMA ] ===================== */
         'Debugbar'      => Barryvdh\Debugbar\Facade::class,
         'Sistema'       => \App\Models\Sistema::class,
+        'Manual'        => \App\Models\Manual::class,
         'Image' => Intervention\Image\Facades\Image::class
     ],
 ];

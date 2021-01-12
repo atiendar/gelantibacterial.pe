@@ -44,4 +44,12 @@ class PedidoController extends Controller {
     }
     return back();
   }
+  public function getFaltanteDePago(Request $request, $id_pedido) {
+    if($request->ajax()) {
+      $resultado = $this->pedidoClienteRepo->getFaltanteDePago($id_pedido);
+      return $resultado;
+    } else {
+      return view('home');
+    }
+  }
 }

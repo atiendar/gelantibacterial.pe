@@ -21,6 +21,20 @@
     </div>
   </div>
   <div class="card-body">
+    <div class="row">
+      @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cliente', ['pedido' => $armado->pedido])
+    </div>
+    <div class="row">
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.nombreDeArmado')
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.tipo')
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.codigo')
+    </div>
+    <div class="row">
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_showFields.cantidad')
+      @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_showFields.sku')
+    </div>
+    <hr>
+
     <form @submit.prevent="create" enctype="multipart/form-data">
       @include('logistica.pedido.direccion_local.comprobante.com_createEntregaFields')
       <div class="row">
@@ -56,15 +70,14 @@
   var app4 = new Vue({
     el: '#dashboard',
     data: {
-      metodos_de_entrega_espesificos: [],
+      metodos_de_entrega_especificos: [],
       paqueterias: [],
       errors: [],
     
       metodo_de_entrega: "{{ $direccion->met_de_entreg_de_log }}",
-      metodo_de_entrega_espesifico: [],
+      metodo_de_entrega_especifico: "{{ $direccion->met_de_entreg_de_log_esp }}",
       paqueteria: [],
       numero_de_guia: [],
-
       mydata: null
     },
     mounted() {
@@ -77,7 +90,7 @@
           .then(res => res.blob())
           .then(blob => {
             const formData = new FormData()
-            formData.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
+            formData.append('metodo_de_entrega_especifico', this.metodo_de_entrega_especifico)
             formData.append('paqueteria', this.paqueteria)
             formData.append('numero_de_guia', this.numero_de_guia)
             formData.append('comprobante_de_entrega', blob, 'filename')
@@ -154,7 +167,7 @@
       },
       async inputsMetodoDeEntrega() {
         if(this.metodo_de_entrega == 'Transportes Ferro') {
-          this.getMetodosDeEntregaEspesificos(this.metodo_de_entrega, 'metodos_de_entrega_espesificos');
+          this.getMetodosDeEntregaEspecificos(this.metodo_de_entrega, 'metodos_de_entrega_especificos');
         }
         this.displatNumeroDeGuia();
       },
@@ -164,21 +177,21 @@
         paqueteria.style.display = 'none';
         this.numero_de_guia = []
         this.paqueterias = []
-        if(this.metodo_de_entrega == 'Paquetería' || this.metodo_de_entrega_espesifico == 'Paquetería') {
+        if(this.metodo_de_entrega == 'Paquetería' || this.metodo_de_entrega_especifico == 'Paquetería') {
           numero_de_guia.style.display = '';
-          if(this.metodo_de_entrega_espesifico == 'Paquetería') {
-            this.getMetodosDeEntregaEspesificos('Paquetería', 'Paquetería')
+          if(this.metodo_de_entrega_especifico == 'Paquetería') {
+            this.getMetodosDeEntregaEspecificos('Paquetería', 'Paquetería')
           }
         }
       },
-      async getMetodosDeEntregaEspesificos(opc_met_ent, opc) {
+      async getMetodosDeEntregaEspecificos(opc_met_ent, opc) {
         axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+opc_met_ent).then(res => {
-          if(opc == 'metodos_de_entrega_espesificos') {
-            this.metodos_de_entrega_espesificos = res.data
-            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-            metodo_de_entrega_espesifico.style.display = 'none';
+          if(opc == 'metodos_de_entrega_especificos') {
+            this.metodos_de_entrega_especificos = res.data
+            metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+            metodo_de_entrega_especifico.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
-              metodo_de_entrega_espesifico.style.display = 'block';
+              metodo_de_entrega_especifico.style.display = 'block';
             }
           } else if(opc == 'Paquetería') {
             this.paqueterias = res.data
@@ -188,12 +201,6 @@
               paqueteria.style.display = 'block';
             }
           }
-          
-          
-
-
-          
-
         }).catch(error => {
           Swal.fire({
             title: 'Algo salio mal',

@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
         'permission'            => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission'    => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'rolCliente'            => \App\Http\Middleware\RolClienteMiddleware::class, // Acceso especial a los clientes
+        'rolFerro'            => \App\Http\Middleware\RolFerroMiddleware::class, // Acceso especial para ferro
     ];
 
     /**

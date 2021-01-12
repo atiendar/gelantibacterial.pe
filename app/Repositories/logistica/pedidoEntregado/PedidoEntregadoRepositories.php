@@ -24,10 +24,16 @@ class PedidoEntregadoRepositories implements PedidoEntregadoInterface {
     return $pedido;
   }
   public function getPagination($request, $relaciones) {
+    if($request->paginador == null) {
+      $paginador = 50;
+    }else {
+      $paginador = $request->paginador;
+    }
+    
     return Pedido::with($relaciones)
     ->where('estat_log', config('app.entregado'))
     ->whereBetween('fech_estat_log', [date("Y-m-d", strtotime('-90 day', strtotime(date("Y-m-d")))), date("Y-m-d", strtotime('+1 day', strtotime(date("Y-m-d"))))])
-    ->buscar($request->opcion_buscador, $request->buscador)->orderBy('fech_estat_log', 'DESC')->paginate($request->paginador);
+    ->buscar($request->opcion_buscador, $request->buscador)->orderBy('fech_estat_log', 'DESC')->paginate($paginador);
   }
   public function getArmadosPedidoPaginate($pedido, $request) {
     if($request->opcion_buscador != null) {

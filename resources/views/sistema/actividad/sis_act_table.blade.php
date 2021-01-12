@@ -23,6 +23,8 @@
                 <a href="{{ route('usuario.show', Crypt::encrypt($actividad->usuario->id)) }}" target="_blank">{{ $actividad->usuario->email_registro }}</a>
               @elseif($actividad->usuario->acceso == '2') <!-- 1 = Usuario 2= Cliente -->
                 <a href="{{ route('cliente.show', Crypt::encrypt($actividad->usuario->id)) }}" target="_blank">{{ $actividad->usuario->email_registro }}</a>
+              @else
+                {{ __('Value') }}
               @endif
             </h3>
             <div class="timeline-body p-1">

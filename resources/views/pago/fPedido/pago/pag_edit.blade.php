@@ -22,6 +22,10 @@
     <div class="border border-primary rounded p-2">
       <div class="row">
         @include('pago.pag_showFields.numeroDePedido')
+        @include('venta.pedido.pedido_activo.ven_pedAct_showFields.montoTotalDelPedido1')
+      </div>
+      <div class="row">
+        @include('pago.pag_showFields.nota')
       </div>
       <div class="row">
         @include('pago.pag_showFields.codigoDeFacturacion')
@@ -31,10 +35,35 @@
         @include('pago.pag_showFields.formaDePago')
         @include('pago.pag_showFields.montoDePago')
       </div>
+      <div class="row">
+        @include('pago.pag_showFields.usuarioQueAutorizo')
+        @include('pago.pag_showFields.folio')
+      </div>
       @include('pago.pag_showFields.comentarios')
     </div>
     {!! Form::open(['route' => ['pago.fPedido.update', Crypt::encrypt($pago->id)], 'method' => 'patch', 'id' => 'pagofPedidoUpdate', 'files' => true]) !!}
       @include('pago.fPedido.pago.pag_editFields')
+      <div class="row">
+        <div class="form-group col-sm btn-sm">
+          <label for="comentarios_ventas">{{ __('Comentarios ventas') }}</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+            </div>
+            {!! Form::textarea('comentarios_ventas', $pago->coment_pag_vent, ['class' => 'form-control' . ($errors->has('comentarios_ventas') ? ' is-invalid' : ''), 'maxlength' => 30000, 'placeholder' => __('Comentarios ventas'), 'rows' => 4, 'cols' => 4]) !!}
+          </div>
+          <span class="text-danger">{{ $errors->first('comentarios_ventas') }}</span>
+        </div>
+      </div>
+      @include('pago.pag_showFields.archivos_comPago_copIdentificacion')
+      <div class="row">
+        <div class="form-group col-sm btn-sm" >
+          <a href="{{ route('pago.fPedido.create', Crypt::encrypt($pedido->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
+        </div>
+        <div class="form-group col-sm btn-sm">
+          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'pagofPedidoUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
+        </div>
+      </div>
     {!! Form::close() !!}
   </div>
 </div>

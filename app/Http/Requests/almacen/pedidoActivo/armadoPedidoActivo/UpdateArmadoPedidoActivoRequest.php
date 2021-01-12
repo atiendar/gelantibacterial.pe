@@ -9,7 +9,7 @@ class UpdateArmadoPedidoActivoRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'estatus'              => 'required|in:'.config('app.en_espera_de_compra').','.config('app.en_revision_de_productos').','.config('app.productos_completos'),
+      'estatus'              => 'required|in:'.config('app.en_espera_de_compra').','.config('app.en_revision_de_productos').','.config('app.productos_completos').','.config('app.en_almacen_de_salida'),
       'comentario_almacen'   => 'nullable|max:30000|string',
     ];
   }

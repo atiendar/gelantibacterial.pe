@@ -14,6 +14,9 @@ class CreateArmadoTieneProductosTable extends Migration
     public function up()
     {
         Schema::create('armado_tiene_productos', function (Blueprint $table) {
+            $table->engine ='InnoDB';
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
             $table->integer('cant')->unsigned()->default(1)->comment('Cantidad de productos');
             $table->unsignedBigInteger('armado_id')->comment('Foreign Key armados');

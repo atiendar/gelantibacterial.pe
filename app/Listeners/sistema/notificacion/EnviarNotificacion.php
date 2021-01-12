@@ -26,6 +26,6 @@ class EnviarNotificacion implements ShouldQueue {
      */
     public function handle(NotificacionEnviada $event) {
         // Envía un correo a cada usuario y guarda la notificación en la BD
-        Notification::send($event->usuarios, new NotificacionSent($event->notificacion));
+        Notification::send($event->usuarios, new NotificacionSent($event->notificacion, $event->remitente));
     }
 }

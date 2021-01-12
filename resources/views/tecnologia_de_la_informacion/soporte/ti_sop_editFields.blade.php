@@ -84,6 +84,9 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="agrupacion_de_fallas">{{ __('Agrupación de fallas') }} *</label>
+    @can('sistema.catalogo.create')
+      <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar Agrupación') }}</a>
+    @endcan
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
@@ -119,7 +122,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="observaciones_del_equipo">{{ __('Observaciones del equipo') }}*</label>
+    <label for="observaciones_del_equipo">{{ __('Observaciones del equipo') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>

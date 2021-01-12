@@ -2,7 +2,7 @@
 @section('contenido')
 <title>@section('title', __('Detalles pedido').' '.$pedido->num_pedido)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
-  <div class="card-header p-1 border-botton {{ empty($pedido->fech_de_entreg) ? config('app.color_bg_danger') : config('app.color_bg_primario') }}">
+  <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <div class="float-right mr-5">
       @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusVentasHeader')
     </div>

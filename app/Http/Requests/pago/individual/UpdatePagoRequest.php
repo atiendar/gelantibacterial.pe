@@ -8,8 +8,9 @@ class UpdatePagoRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'estatus_pago'  => 'required|in:Aprobado,Rechazado',
-      'comentarios'   => 'nullable|required_if:estatus_pago,Rechazado|max:30000|string',    
+      'estatus_pago'    => 'required|in:Aprobado,Rechazado',
+      'comentarios'     => 'nullable|required_if:estatus_pago,Rechazado|max:30000|string',  
+      'checkbox_correo' => 'in:on,off', 
     ];
   }
 }

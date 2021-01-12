@@ -99,4 +99,14 @@ $("#div-tabla-scrollbar3").overlayScrollbars({
     clickScrolling : true
   }
 }).overlayScrollbars();
+
+$("#div-tabla-scrollbar4").overlayScrollbars({
+  className       : "os-theme-dark",
+  resize          : "both",
+  sizeAutoCapable : true,
+  paddingAbsolute : true,
+  scrollbars : {
+    clickScrolling : true
+  }
+}).overlayScrollbars();
 // Fin (Diseño del scrollbar)

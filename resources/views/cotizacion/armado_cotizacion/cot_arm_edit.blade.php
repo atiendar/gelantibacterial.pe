@@ -20,6 +20,16 @@
   </div>
   <div class="card-body">
     {!! Form::open(['route' => ['cotizacion.armado.update', Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'cotizacionArmadoUpdate']) !!}
+      @if (count($errors) > 0)
+        <div class="alert alert-danger">
+        <p>{{ __('Corrige los siguientes errores') }}:</p>
+          <ul>
+            @foreach ($errors->all() as $message)
+              <li>{{ $message }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
       @include('cotizacion.armado_cotizacion.cot_arm_editFields')
     {!! Form::close() !!}
   </div>

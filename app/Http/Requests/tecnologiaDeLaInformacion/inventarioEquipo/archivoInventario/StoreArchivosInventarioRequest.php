@@ -3,13 +3,13 @@ namespace App\Http\Requests\tecnologiaDeLaInformacion\inventarioEquipo\archivoIn
 use Illuminate\Foundation\Http\FormRequest;
 
 class  StoreArchivosInventarioRequest extends  FormRequest {
-    public function authorize() {
-        return true;
-    }
-    public function rules() {
-        return [
-            "archivos"     =>    "required|array",
-            "archivos.*"   =>    "required|image|max:1024",
-        ];
-    }
+  public function authorize() {
+    return true;
+  }
+  public function rules() {
+    return [
+      "imagenes"     =>    "required|array",
+      "imagenes.*"   =>    "required|image|max:1024",
+    ];
+  }
 } 

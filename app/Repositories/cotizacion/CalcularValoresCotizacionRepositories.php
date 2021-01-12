@@ -20,7 +20,17 @@ class CalcularValoresCotizacionRepositories implements CalcularValoresCotizacion
     $cotizacion->desc       = $cotizacion->armados()->withTrashed()->sum('desc');
     $cotizacion->sub_total  = $cotizacion->armados()->withTrashed()->sum('sub_total');
     $cotizacion->iva        = $cotizacion->armados()->withTrashed()->sum('iva');
-    $cotizacion->tot        = $cotizacion->armados()->withTrashed()->sum('tot');
+
+    if($cotizacion->con_com == 'on') {
+      $total                = $cotizacion->armados()->withTrashed()->sum('tot');
+      $comision             = $total * 1.05;
+      $cotizacion->com      = $comision - $total;
+      $cotizacion->tot      = $comision;
+    } else {
+      $cotizacion->com = 0.00;
+      $cotizacion->tot = $cotizacion->armados()->withTrashed()->sum('tot');
+    }
+
     $cotizacion->save();
     return $cotizacion;
   }

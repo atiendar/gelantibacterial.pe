@@ -21,13 +21,13 @@ class RolRepositories implements RolInterface {
   } 
   public function rolAsignadoFindOrFailById($id_rol) {
     $id_rol = $this->serviceCrypt->decrypt($id_rol);
-    $rol = Role::where('name', '!=', config('app.rol_desarrollador'))->where('name', '!=', config('app.rol_sin_acceso_al_sistema'))->where('name', '!=', config('app.rol_cliente'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->with(['permissions'=> function ($query) {
+    $rol = Role::where('name', '!=', config('app.rol_desarrollador'))->where('name', '!=', config('app.rol_ferro'))->where('name', '!=', config('app.rol_sin_acceso_al_sistema'))->where('name', '!=', config('app.rol_cliente'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->with(['permissions'=> function ($query) {
         $query->orderBy('nom', 'ASC');
       }])->findOrFail($id_rol);
     return $rol;
   }
   public function getPagination($request) {
-    return Role::where('name', '!=', config('app.rol_desarrollador'))->where('name', '!=', config('app.rol_sin_acceso_al_sistema'))->where('name', '!=', config('app.rol_cliente'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    return Role::where('name', '!=', config('app.rol_desarrollador'))->where('name', '!=', config('app.rol_ferro'))->where('name', '!=', config('app.rol_sin_acceso_al_sistema'))->where('name', '!=', config('app.rol_cliente'))->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function store($request) {
     DB::transaction(function() use($request) { // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error

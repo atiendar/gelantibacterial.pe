@@ -19,8 +19,8 @@ class CreateInventarioEquiposTable extends Migration
         $table->collation = 'utf8mb4_unicode_ci';
         $table->bigIncrements('id');
         $table->string('id_equipo', 25)->unique()->comment('ID inventario');
-        $table->timestamp('ult_fec_de_man')->nullable()->comment('Ultima fecha de mantenimiento');
-        $table->timestamp('prox_fec_de_man')->nullable()->comment('Proxima fecha de mantenimiento');
+        $table->date('ult_fec_de_man')->nullable()->comment('Ultima fecha de mantenimiento');
+        $table->date('prox_fec_de_man')->nullable()->comment('Proxima fecha de mantenimiento');
         $table->string('emp', 100)->comment('Empresa');
         $table->string('resp', 80)->comment('Responsable');
         $table->text('des_del_equ')->nullable()->comment('Descripción del equipo');

@@ -12,7 +12,7 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="datos_fiscales">{{ __('Datos fiscales') }}</label>
-    <a href="{{ route('rolCliente.datoFiscal.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar dato fiscal') }}</a>
+    <a href="{{ route('rolCliente.datoFiscal.index') }}" class="btn btn-success btn-sm rounded ml-3 p-1" target="_blank">{{ __('Lista de datos fiscales') }}</a>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-list"></i></span>
@@ -22,7 +22,17 @@
     <span class="text-danger">{{ $errors->first('datos_fiscales') }}</span>
   </div>
 </div>
-<label for="redes_sociales">{{ __('DATOS FISCALES') }}</label>
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-4" role="group" aria-label="First group">
+    <label for="datos_fiscales">{{ __('Datos fiscales') }}</label>
+  </div>
+  <div class="input-group">
+    <div class="custom-control custom-switch">
+      {!! Form::checkbox('checkbox_datos_fiscales', 'on', false, ['id' => 'checkbox_datos_fiscales', 'class' => 'custom-control-input' . ($errors->has('checkbox_datos_fiscales') ? ' is-invalid' : '')]) !!}
+      <label class="custom-control-label" for="checkbox_datos_fiscales">{{ __('Guardar datos fiscales escritos') }}</label>
+    </div>
+  </div>
+</div>
 <div class="border border-primary rounded p-2">
   @include('rolCliente.datoFiscal.dfi_createFields')
 </div>
@@ -30,12 +40,17 @@
 <div class="border border-primary rounded p-2">
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="codigo_de_facturacion">{{ __('Código de facturación') }} *</label>
+      <label for="codigo_de_facturacion">{{ __('Código de facturación') }} ({{ __('Se obtiene al registrar un pago') }} <a href="{{ route('rolCliente.pago.create') }}">{{ __('Clic aquí para registrar pago') }}</a>) *</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-list"></i></span>
         </div>
-        {!! Form::select('codigo_de_facturacion', $codigos_de_facturacion, null, ['id' => 'codigo_de_facturacion', 'class' => 'form-control select2' . ($errors->has('codigo_de_facturacion') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+        <select id="codigo_de_facturacion" class="form-control select2 @error('codigo_de_facturacion') is-invalid @enderror" name="codigo_de_facturacion"  placeholder='Seleccione. . .' required autocomplete="codigo_de_facturacion" autofocus>
+          <option value="">Seleccione. . .</option>
+          @foreach ($codigos_de_facturacion as $armado)
+            <option value="{{ $armado->cod_fact }}" {{ old('codigo_de_facturacion') == $armado->cod_fact ? 'selected' : '' }}  >{{ $armado->cod_fact }} (Pago de: ${{ Sistema::dosDecimales($armado->mont_de_pag) }})</option>
+          @endforeach
+        </select>
       </div>
       <span class="text-danger">{{ $errors->first('codigo_de_facturacion') }}</span>
     </div>
@@ -108,7 +123,7 @@
   </div>
   <div class="row">
     <div class="form-group col-sm btn-sm">
-      <label for="comentarios_cliente">{{ __('Comentarios cliente') }}</label>
+      <label for="comentarios_cliente">{{ __('Comentarios cliente') }} ({{ __('Agregar aquí cualquier comentario adicional ya sea desglose de información etc.') }} )</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>

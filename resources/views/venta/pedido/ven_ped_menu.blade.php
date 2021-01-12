@@ -5,7 +5,7 @@
     </a>
   </li>
 @endcanany
-@canany(['venta.pedidoTerminado.index'])
+@canany(['venta.pedidoTerminado.index', 'venta.pedidoTerminado.show'])
   <li class="nav-item">
     <a href="{{ route('venta.pedidoTerminado.index') }}" class="nav-link {{ Request::is('venta/pedido-terminado') ? 'active' : '' }}">
       <i class="fas fa-list nav-icon"></i> {{ __('Lista de pedidos terminados') }}

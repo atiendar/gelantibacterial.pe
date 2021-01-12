@@ -22,5 +22,16 @@
     </div>
   @endcan
 </div>
-@include('logistica.pedido.pedido_entregado.armado_entregado.armEnt_index')
+<div class="row">
+  @can('venta.pedidoActivo.edit')
+    <div class="col-md-4">
+      <div class="pad">
+        @include('venta.pedido.pedido_activo.archivo.arc_index')
+      </div>
+    </div>
+  @endcan
+  <div class="col-md-8">
+    @include('logistica.pedido.pedido_entregado.armado_entregado.armEnt_index')
+  </div>
+</div>
 @endsection

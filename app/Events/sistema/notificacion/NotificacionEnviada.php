@@ -13,15 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class NotificacionEnviada
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $notificacion, $usuarios, $plantilla;
+    public $notificacion, $usuarios, $remitente, $plantilla;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($notificacion, $usuarios) {
+    public function __construct($notificacion, $usuarios, $remitente) {
         $this->notificacion = $notificacion;
-        $this->usuarios = $usuarios;
+        $this->usuarios     = $usuarios;
+        $this->remitente    = $remitente;
     }
 
     /**

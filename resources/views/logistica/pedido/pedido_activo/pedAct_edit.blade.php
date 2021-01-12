@@ -7,7 +7,7 @@
       @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusLogisticaHeader')
     </div>
     <h5>
-      <strong>{{ __('Editar pedido local') }}: </strong>
+      <strong>{{ __('Editar pedido activo logística') }}: </strong>
       @can('logistica.pedidoActivo.show')
         <a href="{{ route('logistica.pedidoActivo.show', Crypt::encrypt($pedido->id)) }}" class="text-white">{{ $pedido->num_pedido }}</a>
       @else

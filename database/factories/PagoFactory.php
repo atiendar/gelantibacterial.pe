@@ -11,6 +11,7 @@ $factory->define(Pago::class, function (Faker $faker) {
     $usuario = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
     return [
       'cod_fact'              => $faker->unique()->numberBetween(999, 99999999999),
+      'fol'                   => $faker->unique()->numberBetween(11111, 99999),
       'comp_de_pag_rut'       => 'public/perfil/2020-02/',
       'comp_de_pag_nom'       => 'perfil-1582071257.png',
       'mont_de_pag'           => $faker->numberBetween(1, 999),

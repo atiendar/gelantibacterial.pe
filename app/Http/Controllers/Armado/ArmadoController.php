@@ -52,7 +52,7 @@ class ArmadoController extends Controller {
     $armado         = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '0', ['imagenes', 'productos']);
     $imagenes       = $this->armadoRepo->getImagenesArmado($armado);
     $productos      = $this->armadoRepo->getProductosProveedor($armado, $request);
-    $productos_list = $this->productoRepo->getAllSustitutosOrProductosPlunkMenos($armado->productos, 'original');
+    $productos_list = $this->productoRepo->getAllSustitutosOrProductosMenos($armado->productos, 'original');
     $gamas_list     = $this->catalogoRepo->getAllInputCatalogosPlunk('Armados (Gama)');
     $gamas_list[$armado->gama]  = $armado->gama;
     $tipo_list                  = $this->catalogoRepo->getAllInputCatalogosPlunk('Armados (Tipo)');

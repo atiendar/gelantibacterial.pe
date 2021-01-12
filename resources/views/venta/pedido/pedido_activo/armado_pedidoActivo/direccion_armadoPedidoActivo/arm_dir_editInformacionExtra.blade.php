@@ -7,7 +7,11 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-list"></i></span>
         </div>
-        {!! Form::select('tipo_de_tarjeta_de_felicitacion', config('opcionesSelect.select_tarjeta_de_felicitacion'), $direccion->tip_tarj_felic, ['id' => 'tipo_de_tarjeta_de_felicitacion', 'class' => 'form-control select2' . ($errors->has('tipo_de_tarjeta_de_felicitacion') ? ' is-invalid' : ''), 'placeholder' => __(''), 'onChange' => 'getTipoTarjetaDeFelicitacion();']) !!}
+        @if($direccion->tip_tarj_felic == null)
+          {!! Form::select('tipo_de_tarjeta_de_felicitacion', config('opcionesSelect.select_tarjeta_de_felicitacion'), config('opcionesSelect.select_tarjeta_de_felicitacion.Estandar'), ['id' => 'tipo_de_tarjeta_de_felicitacion', 'class' => 'form-control select2' . ($errors->has('tipo_de_tarjeta_de_felicitacion') ? ' is-invalid' : ''), 'placeholder' => __(''), 'onChange' => 'getTipoTarjetaDeFelicitacion();']) !!}
+        @else
+          {!! Form::select('tipo_de_tarjeta_de_felicitacion', config('opcionesSelect.select_tarjeta_de_felicitacion'), $direccion->tip_tarj_felic, ['id' => 'tipo_de_tarjeta_de_felicitacion', 'class' => 'form-control select2' . ($errors->has('tipo_de_tarjeta_de_felicitacion') ? ' is-invalid' : ''), 'placeholder' => __(''), 'onChange' => 'getTipoTarjetaDeFelicitacion();']) !!}
+        @endif 
       </div>
       <span class="text-danger">{{ $errors->first('tipo_de_tarjeta_de_felicitacion') }}</span>
     </div>

@@ -38,7 +38,9 @@ class CreateCotizacionTieneArmadosTable extends Migration
 
             $table->integer('cant')->unsigned()->default(1)->comment('Cantidad');
             $table->integer('cant_direc_carg')->unsigned()->default(0)->comment('Cantidad de direcciones cargadas');
+            $table->decimal('prec_de_comp',20,2)->unsigned()->default(0.00)->comment('Precio de compra');
             $table->decimal('prec_origin',20,2)->unsigned()->default(0.00)->comment('Precio original');
+            $table->decimal('desc_esp',20,2)->unsigned()->default(0.00)->comment('Descuento especial');
             $table->decimal('prec_redond',20,2)->unsigned()->default(0.00)->comment('Precio redondeado');
             $table->decimal('cost_env', 20,2)->unsigned()->default(0.00)->comment('Costo de envio');
 

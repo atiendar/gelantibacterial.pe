@@ -12,7 +12,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="descripcion_en_ingles">{{ __('Descripción en ingles') }}</label>
+    <label for="descripcion_en_ingles">{{ __('Descripción en ingles') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
@@ -73,7 +73,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-       {!! Form::text('linea_de_producto', $material->lin_de_prod, ['class' => 'form-control' . ($errors->has('linea_de_producto') ? ' is-invalid' : ''), 'maxlength' => 50, 'placeholder' => __('Línea de producto')]) !!}
+       {!! Form::text('linea_de_producto', $material->lin_de_prod, ['class' => 'form-control' . ($errors->has('linea_de_producto') ? ' is-invalid' : ''), 'maxlength' => 60, 'placeholder' => __('Línea de producto')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('linea_de_producto') }}</span>
   </div>

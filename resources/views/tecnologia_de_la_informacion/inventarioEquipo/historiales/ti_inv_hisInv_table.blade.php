@@ -14,19 +14,19 @@
       </thead>
       <tbody>
         @foreach ($historiales as $historial)
-            <tr title="{{ $historial->sol }}">
+          <tr title="{{ $historial->sol }}">
             <td width="1rem">{{ $historial->id}}</td>
             <td>
-                  @can('inventario.show')
-                    <a href="{{ route('inventario.historial.show', Crypt::encrypt($historial->id)) }}" title="Detalles: {{ $historial->tec  }}">{{ $historial->tec }}</a>
-                  @else
-                    {{ $historial->tec }}
-                   @endcan              
+              @can('inventario.show')
+                <a href="{{ route('inventario.historial.show', Crypt::encrypt($historial->id)) }}" title="Detalles: {{ $historial->tec  }}">{{ $historial->tec }}</a>
+              @else
+                {{ $historial->tec }}
+              @endcan              
             </td>
-              <td>{{ $historial->fec_ent}}</td>
-              <td>{{ $historial->grup_de_falla}}</td>
-              <td>{{ $historial->area_dep}}</td>
-            </tr>
+            <td>{{ $historial->fec_ent}}</td>
+            <td>{{ $historial->grup_de_falla}}</td>
+            <td>{{ $historial->area_dep}}</td>
+          </tr>
         @endforeach
       </tbody>
     @endif

@@ -1,1 +1,1 @@
-<td width="1rem">{{ $direccion->id }}</td>
+<td>{{ $direccion->cod }}</td>

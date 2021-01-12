@@ -10,7 +10,6 @@
       @include('costo_de_envio.cos_showFields.#')
     </div>
     <div class="row">
-      @include('costo_de_envio.cos_showFields.tipoDeEmpaque')
       @include('costo_de_envio.cos_showFields.cuentaConSeguro')
       @include('costo_de_envio.cos_showFields.tiempoDeEntrega')
     </div>

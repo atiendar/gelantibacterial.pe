@@ -14,7 +14,7 @@ class Pedido extends Model{
   protected $guarded = [];
 
   protected $dates = ['deleted_at'];
-  protected $softCascade = ['armados', 'pagos']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+  protected $softCascade = ['archivos', 'armados', 'pagos']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   // Define si vera todos los registros de la tabla o solo los que se le asignaron o los que usuario registro (on = todos los registros null = solo sus registros)
   public function scopeAsignado($query, $opcion_asignado, $usuario) {
@@ -39,6 +39,12 @@ class Pedido extends Model{
       return $query->where("$opcion_buscador", $buscador);
     } else {
       return $query->where('id', '!"#$%&/()(/&%$');
+    }
+  }  
+  public function scopeFiltrosPedido($query, $opc_consulta) {
+    switch($opc_consulta) {
+      case 'comentarioReclamacion':
+        return $query->where('tip', '!=', null);
     }
   }
   public function scopePendientesPedido($query, $opc_consulta) {
@@ -79,6 +85,9 @@ class Pedido extends Model{
   public function pagos() {
     return $this->hasMany('App\Models\Pago')->orderBy('id', 'DESC');
   }
+  public function archivos() {
+    return $this->hasMany('App\Models\PedidoTieneArchivos', 'pedido_id')->orderBy('id', 'DESC');
+  } 
   public static function armadosTerminados($id_pedido, $estatus) {
     return PedidoArmado::where(function ($query) use($estatus) {
       $hastaC = count($estatus) -1;

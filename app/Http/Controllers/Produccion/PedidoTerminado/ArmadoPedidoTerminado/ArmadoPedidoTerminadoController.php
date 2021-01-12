@@ -15,7 +15,7 @@ class ArmadoPedidoTerminadoController extends Controller {
     $armado     = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'productos'], 'show');
     // Verifica si el pedido relacionado a este armado cumple con la fecha dentro del rango de visualizar
     $armado->pedido()->whereBetween('fech_estat_produc', [date("Y-m-d", strtotime('-90 day', strtotime(date("Y-m-d")))), date("Y-m-d", strtotime('+1 day', strtotime(date("Y-m-d"))))])->firstOrFail();
-    $productos    = $armado->productos()->get();
+    $productos    = $armado->productos()->with(['sustitutos', 'productos_original'])->get();
     $direcciones  = $this->armadoPedidoActivoRepo->getArmadoPedidoTieneDireccionesPaginate($armado, $request);
     return view('produccion.pedido.pedido_terminado.armado_terminado.armTer_show', compact('armado', 'productos', 'direcciones'));
   }

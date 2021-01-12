@@ -143,16 +143,19 @@ class ProveedorRepositories implements ProveedorInterface {
       $productos = $proveedor->productos()->withTrashed()->with('armados')->get();
       $hastaC = count($productos) - 1;
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {
-        $productos[$contador2]->prove      = null;
-        $productos[$contador2]->prec_prove = null;
-        $productos[$contador2]->utilid     = null;
-        $productos[$contador2]->prec_clien = null;      
-        $productos[$contador2]->save();
-        
-        // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMADO
-        $armados = $productos[$contador2]->armados()->withTrashed()->with('productos')->get();
-        foreach($armados as $armado) {
-          $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
+        // Solo modifica los precios si el proveedor eiminado esta relacionado directamente con el producto
+        if($productos[$contador2]->prove == $proveedor->nom_comerc) {
+          $productos[$contador2]->prove      = null;
+          $productos[$contador2]->prec_prove = null;
+          $productos[$contador2]->utilid     = null;
+          $productos[$contador2]->prec_clien = null;      
+          $productos[$contador2]->save();
+          
+          // CALCULA LOS NUEVOS PRECIOS Y VALORES DEL ARMADO
+          $armados = $productos[$contador2]->armados()->withTrashed()->with('productos')->get();
+          foreach($armados as $armado) {
+            $this->calcularValoresArmadoRepo->calcularValoresArmado($armado, $armado->productos);
+          }
         }
       }
 

@@ -1,5 +1,6 @@
 @canany(['logs.index',
-'sistema.edit', 
+'sistema.edit',
+'manual.index', 'manual.create', 'manual.show', 'manual.edit', 'manual.destroy', 
 'sistema.plantilla.index', 'sistema.plantilla.create', 'sistema.plantilla.show', 'sistema.plantilla.edit', 'sistema.plantilla.destroy', 
 'sistema.notificacion.create', 
 'sistema.actividad.index',
@@ -12,6 +13,7 @@
   <li class="nav-header">{{ __('SISTEMA') }}</li>
 @endcanany
 @include('layouts.private.escritorio.menu.logs')
+@include('layouts.private.escritorio.menu.jobs')
 @include('layouts.private.escritorio.menu.sistema')
 @include('layouts.private.escritorio.menu.quejasYSugerencias')
 @include('layouts.private.escritorio.menu.usuarios')
@@ -20,17 +22,22 @@
 @include('layouts.private.escritorio.menu.papeleraDeReciclaje')
 <!-- ****************************************************************************************** -->
 @if(auth()->user()->hasRole(config('app.rol_cliente')))
-  @include('layouts.private.escritorio.menu.rolCliente.direccion')
+  @include('layouts.private.escritorio.menu.rolCliente.cotizaciones')
   @include('layouts.private.escritorio.menu.rolCliente.pedidos')
   @include('layouts.private.escritorio.menu.rolCliente.pagos')
   @include('layouts.private.escritorio.menu.rolCliente.facturas')
 @endif
-
+<!-- ****************************************************************************************** -->
+@if(auth()->user()->hasRole(config('app.rol_ferro')))
+  @include('layouts.private.escritorio.menu.rolFerro.rutas')
+  @include('layouts.private.escritorio.menu.rolFerro.envios')
+@endif
 <!-- ****************************************************************************************** -->
 @canany([
   'produccion.pedidoActivo.index', 'produccion.pedidoActivo.show', 'produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit',
   'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show',
   'venta.pedidoActivo.index', 'venta.pedidoActivo.show', 'venta.pedidoActivo.edit', 'venta.pedidoActivo.destroy', 'venta.pedidoActivo.armado.show' ,'venta.pedidoActivo.armado.edit', 'venta.pedidoActivo.pago.create', 'venta.pedidoActivo.pago.show', 'venta.pedidoActivo.pago.edit',
+  'venta.pedidoTerminado.index', 'venta.pedidoTerminado.show',
   'rastrea.pedido.show', 'rastrea.pedido.showFull',
   'pago.fPedido.index', 'pago.fPedido.create', 'pago.fPedido.show', 'pago.fPedido.edit',
   'pago.index', 'pago.show', 'pago.edit', 'pago.destroy', 'pago.marcarComoFacturado',
@@ -45,21 +52,27 @@
   'logistica.direccionLocal.index', 'logistica.direccionLocal.show', 'logistica.direccionLocal.create', 'logistica.direccionLocal.createEntrega',
   'logistica.direccionForaneo.index', 'logistica.direccionForaneo.show', 'logistica.direccionForaneo.create', 'logistica.direccionForaneo.createEntrega',
   'logistica.pedidoEntregado.index','logistica.pedidoEntregado.show',
+  'logistica.direccionLocal.edit', 'logistica.direccionForaneo.edit',
+  'logistica.direccionEntregada.edit',
   'factura.index', 'factura.create', 'factura.show', 'factura.edit', 'factura.destroy',
-  'material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy'
+  'material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy', 'material.consultarPrecio',
+  'soporte.index', 'soporte.show', 'soporte.edit', 'soporte.destroy', 
+  'inventario.index', 'inventario.create', 'inventario.show', 'inventario.edit', 'inventario.destroy',
+  'stock.index', 'stock.create', 'stock.show', 'stock.edit', 'stock.destroy'
 ])
   <li class="nav-header">{{ __('MÓDULOS') }}</li>
 @endcanany
-@include('layouts.private.escritorio.menu.material')
-@include('layouts.private.escritorio.menu.tecnologiaDeLaInformacion')
-@include('layouts.private.escritorio.menu.rastrear')
-@include('layouts.private.escritorio.menu.pagos')
-@include('layouts.private.escritorio.menu.costosDeEnvio')
-@include('layouts.private.escritorio.menu.cotizaciones')
 @include('layouts.private.escritorio.menu.proveedores')
 @include('layouts.private.escritorio.menu.armados')
+@include('layouts.private.escritorio.menu.costosDeEnvio')
+@include('layouts.private.escritorio.menu.cotizaciones')
+@include('layouts.private.escritorio.menu.rastrear')
 @include('layouts.private.escritorio.menu.ventas')
+@include('layouts.private.escritorio.menu.pagos')
 @include('layouts.private.escritorio.menu.almacen')
 @include('layouts.private.escritorio.menu.produccion')
 @include('layouts.private.escritorio.menu.logistica')
 @include('layouts.private.escritorio.menu.facturacion')
+@include('layouts.private.escritorio.menu.tecnologiaDeLaInformacion')
+@include('layouts.private.escritorio.menu.stock')
+@include('layouts.private.escritorio.menu.material')

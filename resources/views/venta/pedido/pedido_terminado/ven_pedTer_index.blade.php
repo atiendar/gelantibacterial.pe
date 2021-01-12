@@ -1,4 +1,5 @@
 @extends('layouts.private.escritorio.dashboard')
+@include('venta.pedido.pedido_terminado.ven_pedTer_filtros')
 @section('contenido')
 <title>@section('title', __('Lista de pedidos terminados'))</title>
 <div class="card">

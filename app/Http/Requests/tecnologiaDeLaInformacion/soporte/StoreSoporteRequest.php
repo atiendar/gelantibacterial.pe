@@ -12,9 +12,9 @@ class StoreSoporteRequest extends FormRequest {
         'empresa'                   =>  'required|max:80',
         'area_departamento'         =>  'required|max:80',
         'descripcion_de_la_falla'   =>  'required|max:30000|string',
-        'telefono_fijo'             =>  'required|max:15|alpha_solo_numeros_guiones|required_with:lada_telefono_fijo',
+        'telefono_fijo'             =>  'required|max:15|alpha_solo_numeros_guiones',
         'extension'                 =>  'max:10',
-        'archivo'                   =>  'nullable|array',
+        'archivos'                  =>  'nullable|array',
         'archivos.*'                =>  'nullable|max:1024',
     ];
   }

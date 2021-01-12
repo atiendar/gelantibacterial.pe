@@ -8,6 +8,15 @@ class RolesTableSeeder extends Seeder {
    * @return void
    */
   public function run() {
+    $rolEspecialFerro = Spatie\Permission\Models\Role::create([
+      'id'              => 0,
+      'nom'				      => 'Transportes Ferro',
+      'name'            => 'transportesFerro',
+      'desc'            => "Acceso especial como Transportes Ferro",
+      'asignado_rol'    => 'desarrolloweb.ewmx@gmail.com',
+      'created_at_rol'  => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    $rolEspecialFerro->syncPermissions([21]);
     $rolPruebas = Spatie\Permission\Models\Role::create([
       'nom'				      => 'Pruebas',
       'name'            => 'pruebas',

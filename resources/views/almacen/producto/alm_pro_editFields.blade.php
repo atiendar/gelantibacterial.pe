@@ -54,6 +54,18 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
+    <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></i></span>
+      </div>
+      {!! Form::select('es_producto_de_catalogo', config('opcionesSelect.select_producto_de_catalogo'), $producto->pro_de_cat, ['class' => 'form-control select2' . ($errors->has('es_producto_de_catalogo') ? ' is-invalid' : ''), 'placeholder' => __('')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('es_producto_de_catalogo') }}</span>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-sm btn-sm">
     <label for="marca">{{ __('Marca') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
@@ -215,7 +227,7 @@
     <span class="text-danger">{{ $errors->first('categoria') }}</span>
   </div>
   <div class="form-group col-sm-6 btn-sm">
-    <label for="etiqueta">{{ __('Etiqueta') }} *</label>
+    <label for="etiqueta">{{ __('Etiqueta') }}</label>
     @can('sistema.catalogo.create')
       <a href="{{ route('sistema.catalogo.create') }}" class="btn btn-light btn-sm border ml-3 p-1" target="_blank">{{ __('Registrar catálogo') }}</a>
     @endcan
@@ -262,6 +274,16 @@
       {!! Form::text('codigo_de_barras', $producto->cod_barras, ['class' => 'form-control' . ($errors->has('codigo_de_barras') ? ' is-invalid' : ''), 'maxlength' => 250, 'placeholder' => __('Código de barras')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('codigo_de_barras') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="cantidad_minima_de_stock">{{ __('Cantidad mínima de stock') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
+      </div>
+      {!! Form::text('cantidad_minima_de_stock', $producto->min_stock, ['class' => 'form-control' . ($errors->has('cantidad_minima_de_stock') ? ' is-invalid' : ''), 'maxlength' => 5, 'placeholder' => __('Cantidad mínima de stock')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('cantidad_minima_de_stock') }}</span>
   </div>
 </div>
 <div class="row">

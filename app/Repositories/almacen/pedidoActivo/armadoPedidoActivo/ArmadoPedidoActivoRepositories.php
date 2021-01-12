@@ -3,6 +3,8 @@ namespace App\Repositories\almacen\pedidoActivo\armadoPedidoActivo;
 // Models
 use App\Models\Pedido;
 use App\Models\PedidoArmado;
+// Repositories
+use App\Repositories\logistica\direccionLocal\DireccionLocalRepositories;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 // Servicios
@@ -13,8 +15,10 @@ use DB;
 
 class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
   protected $serviceCrypt;
-  public function __construct(ServiceCrypt $serviceCrypt) {
+  protected $direccionLocalRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, DireccionLocalRepositories $direccionLocalRepositories) {
     $this->serviceCrypt = $serviceCrypt;
+    $this->direccionLocalRepo = $direccionLocalRepositories;
   }
   public function armadoPedidoActivoFindOrFailById($id_armado, $relaciones, $accion) { // 'pedido'
     $id_armado = $this->serviceCrypt->decrypt($id_armado); 
@@ -31,6 +35,23 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
     try { DB::beginTransaction();
       $armado = $this->armadoPedidoActivoFindOrFailById($id_armado, ['pedido'], 'edit');
       $armado->estat         = $request->estatus;
+
+      if($armado->estat == config('app.en_almacen_de_salida')) {
+        $armado->ubic_rack = 'Producto de STOCK';
+
+        //Cambia es estatus de las direcciones relacionadas a este armado
+        $this->direccionLocalRepo->cambiarEstatusDireccionAlmacenDeSalida($armado->direcciones);
+
+        // Se guarda la fecha en la que el pedido paso a logística por primera vez
+        if($armado->pedido->fech_estat_log == null) {
+          $armado->pedido->fech_estat_log = date("Y-m-d h:i:s");
+        }
+        if($armado->pedido->lid_de_ped_produc == null) {
+          $armado->pedido->lid_de_ped_produc = 'Producto de STOCK';
+        }
+        $armado->pedido->save();
+      }
+
       $armado->coment_alm    = $request->comentario_almacen;
       if($armado->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php

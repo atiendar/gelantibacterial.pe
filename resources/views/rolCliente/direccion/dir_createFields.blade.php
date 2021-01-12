@@ -1,23 +1,23 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="nombre_de_referencia_uno">{{ __('Nombre de referencia uno') }} *</label>
+    <label for="nombre_de_la_persona_que_recibe_uno">{{ __('Nombre de la persona que recibe uno') }} *</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-        {!! Form::text('nombre_de_referencia_uno', null, ['class' => 'form-control' . ($errors->has('nombre_de_referencia_uno') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Nombre de referencia uno')]) !!}
+        {!! Form::text('nombre_de_la_persona_que_recibe_uno', null, ['class' => 'form-control' . ($errors->has('nombre_de_la_persona_que_recibe_uno') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Nombre de la persona que recibe uno')]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('nombre_de_referencia_uno') }}</span>
+    <span class="text-danger">{{ $errors->first('nombre_de_la_persona_que_recibe_uno') }}</span>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="nombre_de_referencia_dos">{{ __('Nombre de referencia dos') }}</label>
+    <label for="nombre_de_la_persona_que_recibe_dos">{{ __('Nombre de la persona que recibe dos') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::text('nombre_de_referencia_dos', null, ['class' => 'form-control' . ($errors->has('nombre_de_referencia_dos') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Nombre de referencia dos')]) !!}
+      {!! Form::text('nombre_de_la_persona_que_recibe_dos', null, ['class' => 'form-control' . ($errors->has('nombre_de_la_persona_que_recibe_dos') ? ' is-invalid' : ''), 'maxlength' => 80, 'placeholder' => __('Nombre de la persona que recibe dos')]) !!}
     </div>
-    <span class="text-danger">{{ $errors->first('nombre_de_referencia_dos') }}</span>
+    <span class="text-danger">{{ $errors->first('nombre_de_la_persona_que_recibe_dos') }}</span>
   </div>
 </div>
 <div class="row">

@@ -102,11 +102,3 @@
     <span v-if="errors.detalles_de_la_ubicacion" class="text-danger" v-text="errors.detalles_de_la_ubicacion[0]"></span>
   </div>
 </div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <a href="{{ route('cotizacion.armado.edit', Crypt::encrypt($direccion->armado->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el armado') }}</a>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Actualizar dirección') }}</button>
-  </div>
-</div>

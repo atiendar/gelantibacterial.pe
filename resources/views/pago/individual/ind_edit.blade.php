@@ -22,6 +22,10 @@
     <div class="border border-primary rounded p-2">
       <div class="row">
         @include('pago.pag_showFields.numeroDePedido')
+        @include('venta.pedido.pedido_activo.ven_pedAct_showFields.montoTotalDelPedido1')
+      </div>
+      <div class="row">
+        @include('pago.pag_showFields.nota')
       </div>
       <div class="row">
         @include('pago.pag_showFields.codigoDeFacturacion')
@@ -31,10 +35,17 @@
         @include('pago.pag_showFields.formaDePago')
         @include('pago.pag_showFields.montoDePago')
       </div>
+      <div class="row">
+        @include('pago.pag_showFields.usuarioQueAutorizo')
+        @include('pago.pag_showFields.folio')
+      </div>
+      @include('pago.pag_showFields.comentariosVentas')
     </div>
     {!! Form::open(['route' => ['pago.update', Crypt::encrypt($pago->id)], 'method' => 'patch', 'id' => 'pagoUpdate']) !!}
       @include('pago.individual.ind_editFields')
     {!! Form::close() !!}
   </div>
 </div>
+
+@include('pago.individual.pago.pag_index')
 @endsection

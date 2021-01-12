@@ -18,7 +18,7 @@ class ArchivoInventarioController extends Controller {
   }
   public function destroy($id_archivo) {
     $this->archivoRepo->destroy($id_archivo);
-    toastr()->success('¡Imagen eliminda exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡Imagen eliminada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
 }

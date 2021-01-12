@@ -60,4 +60,32 @@ class ArmadoPedidoActivoRepositories implements ArmadoPedidoActivoInterface {
     }
     return $pedido->direcciones()->paginate($request->paginador);
   }
+
+  public function updateModal($request, $id_armado) {
+    try { DB::beginTransaction();
+      $armado                 = $this->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'direcciones'], 'edit');
+      $armado->estat          = config('app.en_almacen_de_salida');
+      $armado->ubic_rack      = $request->ubicacion_rack;
+
+
+      if($armado->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Logística/Pedidos activos (armado)', // Módulo
+          'logistica.pedidoActivo.armado.show', // Nombre de la ruta
+          $id_armado, // Id del registro debe ir encriptado
+          $armado->cod, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Ubicación rack'), // Nombre de los inputs del formulario
+          $armado, // Request
+          array('ubic_rack') // Nombre de los campos en la BD
+        ); 
+        $armado->updated_at_ped_arm = Auth::user()->email_registro;
+      }
+      $armado->save();
+      
+      DB::commit();
+      return $armado;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+
 }

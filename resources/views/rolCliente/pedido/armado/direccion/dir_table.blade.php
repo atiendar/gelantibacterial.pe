@@ -5,6 +5,7 @@
     @else 
       <thead>
         <tr>
+          @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.th.armado') 
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.#') 
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.th.nombreDeReferenciaUno')
           @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.th.cantidad')
@@ -19,6 +20,7 @@
         @foreach($armados as $armado)
           @foreach($armado->direcciones as $direccion)
             <tr title="{{ $direccion->est }}">
+              @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.armado') 
               @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.#') 
               @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_table.td.nombreDeReferenciaUno')
               @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_table.td.cantidad', ['show' => true, 'canany' => ['venta.pedidoActivo.armado.show', 'venta.pedidoActivo.show'], 'ruta' => 'venta.pedidoActivo.armado.direccion.show', 'target' => null])

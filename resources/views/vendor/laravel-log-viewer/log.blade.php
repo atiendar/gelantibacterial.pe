@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ Auth::user()->lang }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="robots" content="noindex, nofollow">
+  <link rel="shortcut icon" href="{{ Sistema::datos()->sistemaFindOrFail()->log_blan_rut . Sistema::datos()->sistemaFindOrFail()->log_blan }}">
   <title>{{ __('Logs') }}</title>
   <link rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -213,13 +215,13 @@
           <thead>
           <tr>
             @if ($standardFormat)
-              <th>{{ __('Level') }}</th>
-              <th>{{ __('Contexto') }}</th>
-              <th>{{ __('Fecha') }}</th>
+              <th>{{ __('LEVEL') }}</th>
+              <th>{{ __('CONTEXTO') }}</th>
+              <th>{{ __('FECHA') }}</th>
             @else
-              <th>{{ __('Número de línea') }}</th>
+              <th>{{ __('NÚMERO DE LÍNEA') }}</th>
             @endif
-            <th>{{ __('Contenido') }}</th>
+            <th>{{ __('CONTENIDO') }}</th>
           </tr>
           </thead>
           <tbody>

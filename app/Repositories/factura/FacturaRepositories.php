@@ -3,9 +3,9 @@ namespace App\Repositories\factura;
 // Models
 use App\Models\Factura;
 // Notifications
-use App\Notifications\Factura\NotificacionFacturaGenerada;
-use App\Notifications\Factura\NotificacionFacturaCancelada;
-use App\Notifications\Factura\NotificacionFacturaErrorDelCliente;
+use App\Notifications\factura\NotificacionFacturaGenerada;
+use App\Notifications\factura\NotificacionFacturaCancelada;
+use App\Notifications\factura\NotificacionFacturaErrorDelCliente;
 // Events
 use App\Events\layouts\ActividadRegistrada;
 use App\Events\layouts\ArchivoCargado;
@@ -15,6 +15,7 @@ use App\Repositories\servicio\crypt\ServiceCrypt;
 use App\Repositories\pago\PagoRepositories;
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
 use App\Repositories\sistema\sistema\SistemaRepositories;
+use App\Repositories\rolCliente\datoFiscal\DatoFiscalRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -24,18 +25,22 @@ class FacturaRepositories implements FacturaInterface {
   protected $pagoRepo;
   protected $plantillaRepo;
   protected $sistemaRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PagoRepositories $pagoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories) {
-    $this->serviceCrypt             = $serviceCrypt;
-    $this->pagoRepo                 = $pagoRepositories;
-    $this->plantillaRepo            = $plantillaRepositories;
-    $this->sistemaRepo              = $sistemaRepositories;
+  protected $datoFiscalRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PagoRepositories $pagoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories, DatoFiscalRepositories $datoFiscalRepositories) {
+    $this->serviceCrypt   = $serviceCrypt;
+    $this->pagoRepo       = $pagoRepositories;
+    $this->plantillaRepo  = $plantillaRepositories;
+    $this->sistemaRepo    = $sistemaRepositories;
+    $this->datoFiscalRepo = $datoFiscalRepositories;
   }
   public function getFacturaFindOrFailById($id_factura, $relaciones, $estatus) {
     $id_factura = $this->serviceCrypt->decrypt($id_factura);
     return Factura::with($relaciones)->estatus($estatus)->findOrFail($id_factura);
   }
   public function getPagination($request) {
-    return Factura::with('usuario', 'pago')->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('est_fact DESC, id DESC')->paginate($request->paginador);
+    return Factura::with(['usuario', 'pago' => function($query) {
+      $query->with('pedido');
+    }])->buscar($request->opcion_buscador, $request->buscador)->orderByRaw('est_fact DESC, id DESC')->paginate($request->paginador);
   }
   public function store($request) {
     try { DB::beginTransaction();
@@ -52,6 +57,15 @@ class FacturaRepositories implements FacturaInterface {
       * Cambia el estatus de la factura del pago a Pendiente
       */
       $this->pagoRepo->cambiarEstatusFacturaDelPago($pago, config('app.pendiente'));
+
+      // GUARDA LOS DATOS FISCALES AL PERFIN EL USUARIO SI SE MARCA EL CHECKBOX 
+      if($request->checkbox_datos_fiscales == 'on') {
+        $dato_fiscal                      = new \App\Models\DatoFiscal();
+        $dato_fiscal                      = $this->datoFiscalRepo->storeFields($dato_fiscal, $request);
+        $dato_fiscal->user_id             = $request->cliente;
+        $dato_fiscal->created_at_dat_fisc = $request->cliente; //dsgfsfsdgsdfsdgfdggsfg FALTA CORREGIR ESTE
+        $dato_fiscal->save();
+      }
 
       DB::commit();
       return $factura;
@@ -83,9 +97,6 @@ class FacturaRepositories implements FacturaInterface {
     $factura->coment_u_obs_us                 = $request->comentarios_cliente;
     return $factura;
   }
-
-
-
   public function update($request, $id_factura) {
     try { DB::beginTransaction();
       $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], config('app.facturado'));
@@ -156,7 +167,8 @@ class FacturaRepositories implements FacturaInterface {
 
       $factura = $this->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], null);
       $factura->est_fact = config('app.facturado');
-
+      $factura->fech_facturado  = date('Y-m-d');
+       
       if($request->hasfile('factura_pdf')) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(

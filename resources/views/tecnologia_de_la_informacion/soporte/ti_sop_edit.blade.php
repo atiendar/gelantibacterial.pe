@@ -18,14 +18,14 @@
     </div>
   </div>
 </div>
-    @include('tecnologia_de_la_informacion.soporte.ti_sop_tablaEditFields')
-    @can('soporte.edit')
-    <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
-  <div class="card-body">    
-    {!! Form::open(['route' => ['soporte.update', Crypt::encrypt($soporte->id)], 'method' => 'patch', 'id' => 'soporteUpdate', 'files' => true]) !!}
-      @include('tecnologia_de_la_informacion.soporte.ti_sop_editFields')
-    {!! Form::close() !!}
+@include('tecnologia_de_la_informacion.soporte.archivo.arc_index')
+@can('soporte.edit')
+  <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+    <div class="card-body">    
+      {!! Form::open(['route' => ['soporte.update', Crypt::encrypt($soporte->id)], 'method' => 'patch', 'id' => 'soporteUpdate', 'files' => true]) !!}
+        @include('tecnologia_de_la_informacion.soporte.ti_sop_editFields')
+      {!! Form::close() !!}
+    </div>
   </div>
-</div>
 @endcan
 @endsection

@@ -5,7 +5,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
       </div>
-        {!! Form::text('created_at', $pago->created_at, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Fecha de registro'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('created_at', $pago->created_at, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Fecha de registro'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">

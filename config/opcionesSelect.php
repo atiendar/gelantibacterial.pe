@@ -118,6 +118,26 @@ return array(
     'navbar-white'      => 'navbar-white',
     'navbar-orange'     => 'navbar-orange',
   ],
+/* ====================== ROL FERRO [ RUTAS ] ===================== */
+  'select_rolFerro_ruta_index' => [ 
+    ''    => 'Buscar por. . .',
+    'id'  => 'Id',
+    'nom' => 'Nombre de la ruta',
+  ],
+/* ===================== JOBS [ JOBS ] ===================== */
+  'select_job_index'  => [
+    ''                    => 'Buscar por. . .',
+    'id'                  => 'ID',
+    'queue'               => 'Queue',
+    'payload'             => 'Payload',
+    'created_at'          => 'Fecha de modificación (YYYY-MM-DD)',
+  ],
+/* ===================== JOBS [ FAILED JOBS ] ===================== */
+  'select_failed_job_index'  => [
+    ''                    => 'Buscar por. . .',
+    'id'                  => 'ID',
+    'queue'               => 'Queue',
+  ],
 /* ===================== PERFIL [ ACTIVIDAD ] ===================== */
   'select_perfil_actividad_index'  => [
     ''                    => 'Buscar por. . .',
@@ -207,6 +227,7 @@ return array(
   'select_qys_index'  => [
     ''                        => 'Buscar por. . .',
   //  'usuario.email_registro'  => 'Correo usuario',
+    'tip'                     => 'Tipo',
     'depto'                   => 'Departamento',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
@@ -254,9 +275,6 @@ return array(
   'select_cliente_pedido_index'  => [
     ''                        => 'Buscar por. . .',
     'estat_pag'               => 'Estatus pago',
-    'estat_vent_gen'          => 'Estatus venta general',
-    'estat_vent_arm'          => 'Estatus venta armado(s)',
-    'estat_vent_dir'          => 'Estatus venta dirección(es)',
     'fech_de_entreg'          => 'Fecha de entrega',
     'num_pedido'              => 'Número de pedido',
     'tot_de_arm'              => 'Total de armados',    
@@ -310,8 +328,8 @@ return array(
   'select_direcciones_index'      => [
     ''              => 'Buscar por. . .',
     'id'            => 'ID',
-    'nom_ref_uno'   => 'Nombre de referencia uno',
-    'nom_ref_dos'   => 'Nombre de referencia dos',
+    'nom_ref_uno'   => 'Nombre de la persona que recibe uno',
+    'nom_ref_dos'   => 'Nombre de la persona que recibe dos',
     'pais'          => 'País',
     'ciudad'        => 'Ciudad',
     'col'           => 'Colonia',
@@ -423,6 +441,10 @@ return array(
     'prove'         => 'Proveedor',
     'sku'           => 'SKU',
     'created_at'    => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  'select_producto_de_catalogo' => [
+    'Producto de catálogo'  => 'Producto de catálogo',
+    'Producto externo'      => 'Producto externo',
   ],
   'select_utilidad' => [
     '.1'           => '10%',
@@ -551,6 +573,7 @@ return array(
     config('app.en_espera_de_compra')       => config('app.en_espera_de_compra'),
     config('app.en_revision_de_productos')  => config('app.en_revision_de_productos'),
     config('app.productos_completos')       => config('app.productos_completos'),
+    config('app.en_almacen_de_salida')      => 'Producto de STOCK',
   ],
   'select_productos_armado_index' => [
     ''            => 'Buscar por. . .',
@@ -564,10 +587,12 @@ return array(
     ''                        => 'Buscar por. . .',
     'serie'                   => 'Serie',
     'estat'                   => 'Estatus',
+    'num_pedido_gen'          => 'Num. Pedido generado',
     'valid'                   => 'Validez',
   //  'cliente.email_registro'  => 'Correo cliente',
     'tot'                     => 'Total',
     'created_at'              => 'Fecha de creación (YYYY-MM-DD)',
+    'updated_at'              => 'Fecha última modificación (YYYY-MM-DD)',
   ],
 /* ===================== COTIZACIONES/ARMADO [ DIRECCIONES ] ===================== */
   'select_metodo_de_entrega'  => [
@@ -620,9 +645,19 @@ return array(
     'Diseñada por el cliente'   => 'Diseñada por el cliente',
     'Sin tarjeta'               => 'Sin tarjeta',
   ],
+/* ===================== VENTAS [ PEDIDO TERMINADO ] ===================== */
+  'select_com_o_recl'  => [
+    'Comentario'    => 'Comentario',
+    'Reclamación'   => 'Reclamación',
+  ],
+  'select_abierto_cerrado'  => [
+    'Abierto'   => 'Abierto',
+    'Cerrado'   => 'Cerrado',
+  ],
   /* =====================  PAGOS [ INDIVIDUAL ] ===================== */
   'select_pago_index'  => [
-    ''              => 'Buscar por. . .',
+    ''                  => 'Buscar por. . .',
+    'fol'               => 'Folio',
     'cod_fact'          => 'Código de facturación',
     'estat_pag'         => 'Estatus de pago',
     'form_de_pag'       => 'Forma de pago',
@@ -631,15 +666,16 @@ return array(
     'created_at'        => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_forma_de_pago'  => [
-    'Cheque'                      => 'Cheque',
-    'Efectivo'                    => 'Efectivo',
-    'Paypal'                      => 'Paypal',
-    'Tarjeta de credito (Pagina)' => 'Tarjeta de credito (Pagina)',
-    'Tarjeta de credito (Clip)'   => 'Tarjeta de credito (Clip)',
-    'Tarjeta de debito'           => 'Tarjeta de debito',
-    'Transferencia RUT'           => 'Transferencia RUT',
-    'Transferencia CYA'           => 'Transferencia CYA',
-    'Otro'                        => 'Otro',
+    'Transferencia Canastas y Arcones S.A de C.V' => 'Transferencia Canastas y Arcones S.A de C.V',
+    'Paypal'                                      => 'Paypal',
+    'Tarjeta de credito (Clip)'                   => 'Tarjeta de credito (Clip)',
+    'Transferencia RUTH Yolanda'                   => 'Transferencia RUTH Yolanda',
+    'Efectivo (Jonathan)'                         => 'Efectivo (Jonathan)',
+    'Efectivo (Gabriel)'                          => 'Efectivo (Gabriel)',
+    'Efectivo (Fernando)'                         => 'Efectivo (Fernando)',
+    'Cheque'                                      => 'Cheque',
+    'Tarjeta de credito (Pagina)'                 => 'Tarjeta de credito (Pagina)',
+    'Tarjeta de debito'                           => 'Tarjeta de debito',
   ],
   'select_estatus_pago_individual'  => [
     config('app.pendiente')  => config('app.pendiente'),
@@ -656,8 +692,15 @@ return array(
   /* =====================  RASTREAR [ RASTREAR PEDIDO ] ===================== */
   'select_rastrear_pedido_index'  => [
     ''                        => 'Buscar por. . .',
-  //  'usuario.email_registro'  => 'Cliente', // este marca error
+    //  'usuario.email_registro'  => 'Cliente', // este marca error
+    'estat_pag'               => 'Estatus pago',
+    'estat_vent_gen'          => 'Estatus venta general',
+    'estat_vent_arm'          => 'Estatus venta armado(s)',
+    'estat_vent_dir'          => 'Estatus venta dirección(es)',
+    'fech_de_entreg'          => 'Fecha de entrega',
     'num_pedido'              => 'Número de pedido',
+    'tot_de_arm'              => 'Total de armados',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ], 
   /* ===================== [ COSTOS DE ENVIO ] ===================== */
   	'select_foraneo_local' => [
@@ -675,12 +718,21 @@ return array(
     ],
     'select_tipo_de_envio_plus'  => [
       'Consolidado' => 'Consolidado',
+      'Directo'     => 'Directo',
       'Normal'      => 'Normal',
       'Express'     => 'Express',
+      'Paquetería'  => 'Paquetería',
     ],
     'select_tipo_de_empaque'  => [
       'Cuenta con caja de cartón'     => 'Cuenta con caja de cartón',
       'No cuenta con caja de cartón'  => 'No cuenta con caja de cartón',
+    ],
+    'select_transporte'  => [
+      'Tráiler' => 'Tráiler',
+      'Torton'  => 'Torton',
+      'C. 3.5'  => 'C. 3.5',
+      'C. 1.5'  => 'C. 1.5',
+      'Rabón'   => 'Rabón',
     ],
   /* ===================== [ FACTURACIÓN ] ===================== */
   'select_factura_index'  => [
@@ -761,6 +813,7 @@ return array(
   ],
   'select_costos_de_envio_index'  => [
     ''              => 'Buscar por. . .',
+    'id'            => '#',
     'cost_por_env'  => 'Costo por envío',
     'est'           => 'Estado',
     'met_de_entreg' => 'Método de entrega',
@@ -777,6 +830,11 @@ return array(
     'num_pedido'              => 'Número de pedido',
     'tot_de_arm'              => 'Total de armados',
     'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+  'select_bodega_donde_se_armara'  => [
+    'Temas'     => 'Temas',
+    'Naucalpan' => 'Naucalpan',
+
   ],
 /* ===================== PRODUCCIÓN PEDIDO ACTIVO [ ARMADOS ] ===================== */
   'select_produccion_pedido_armados_index' => [
@@ -807,13 +865,14 @@ return array(
 /* ===================== LOGISTICA [ DIRECCIONES ] ===================== */
   'select_logistica_direcciones_index' => [
     ''                      => 'Buscar por. . .',
-    'id'                    => '#',
+    'cod'                   => 'Número de pedido',
     'cant'                  => 'Cantidad',
     'est'                   => 'Estado',
     'estat'                 => 'Estatus',
     'met_de_entreg'         => 'Metodo de entrega',
     'tip_env'               => 'Tipo de envío',
-    'created_at'            => 'Fecha de registro (YYYY-MM-DD)',
+    'nom_ref_uno'           => 'P. Recibe',
+    'created_at'            => 'Fecha de registro (YYYY-MM-DD)', 
   ],
   'select_estatus_logistica_direcciones' => [
     config('app.sin_entrega_por_falta_de_informacion')  => config('app.sin_entrega_por_falta_de_informacion'),
@@ -836,6 +895,8 @@ return array(
   'select_inventario_index' => [ 
     ''               => 'Buscar por. . .',
     'emp'            => 'Empresa',
+    'mar'            => 'Marca',
+    'num_ser'        => 'Num. Serie',
     'resp'           => 'Responsable ',
     'id_equipo'      => 'Id Equipo',
   ],
@@ -854,5 +915,17 @@ return array(
     'prec_list_pag'   => 'Precio Lista Pagina',
     'prec_pag_al_cli' => 'Precio a cliente',
     'created_at'      => 'Fecha de registro (YYYY-MM-DD)',
+  ],
+/* ====================== [ MANUALES ] ===================== */
+'select_manual_index' => [ 
+  ''            => 'Buscar por. . .',
+  'id'          => 'Id',
+  'valor'       => 'Valor',
+  'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
+],
+  'select_usu_cli_ambos' => [ 
+    'Usuario' => 'Usuario',
+    'Cliente' => 'Cliente',
+    'Ambos'   => 'Ambos',
   ],
 );

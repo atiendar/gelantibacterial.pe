@@ -9,17 +9,26 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
   Route::get('/offline', function() {
     return view('vendor.laravelpwa.offline');
   });
-  
+
   Route::group(['middleware' => ['sinAccesoAlSistema', 'auth', 'idiomaSistema', 'primerAcceso']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     require_once __DIR__ . '/material/materialRoutes.php';
 
     Route::group(['middleware' => ['rolCliente'], 'prefix' => 'rc'], function() {
+      require_once __DIR__ . '/rolCliente/cotizacionRoutes/cotizacionRoutes.php';
       require_once __DIR__ . '/rolCliente/datoFiscalRoutes/datoFiscalRoutes.php';
       require_once __DIR__ . '/rolCliente/direccionRoutes/direccionRoutes.php';
       require_once __DIR__ . '/rolCliente/facturaRoutes/facturaRoutes.php';
       require_once __DIR__ . '/rolCliente/pagoRoutes/pagoRoutes.php';
       require_once __DIR__ . '/rolCliente/pedidoRoutes/pedidoRoutes.php';
+    }); 
+
+    Route::group(['middleware' => ['rolFerro'], 'prefix' => 'f'], function() {
+      require_once __DIR__ . '/rolFerro/rutaRoutes.php';
+      require_once __DIR__ . '/rolFerro/envioRoutes.php';
+      Route::get('index', function () {
+        return 'index ';
+      });
     }); 
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs.index')->middleware('permission:logs.index');
@@ -35,13 +44,19 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
     require_once __DIR__ . '/factura/facturaRoutes.php';
     require_once __DIR__ . '/estado/estadoRoutes.php';
     require_once __DIR__ . '/metodoDeEntrega/tipoDeEnvioRoutes.php';
+    require_once __DIR__ . '/stock/stockRoutes.php';
     
+    Route::group(['prefix' => 'job'], function() {
+      require_once __DIR__ . '/jobs/jobsRoutes.php';
+    });
+
     Route::group(['prefix' => 'pago'], function() {
       require_once __DIR__ . '/pago/pagoFPedidoRoutes.php';
       require_once __DIR__ . '/pago/pagoIndividualRoutes.php';
     });
 
     Route::group(['prefix' => 'ti'], function(){
+      require_once __DIR__ . '/tecnologiaDeLaInformacion/tiRoutes.php';
       require_once __DIR__ . '/tecnologiaDeLaInformacion/soporteRoutes.php';
       require_once __DIR__ . '/tecnologiaDeLaInformacion/inventarioRoutes.php';
     });
@@ -59,6 +74,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
 
     Route::group(['prefix' => 'sistema'], function() {
       require_once __DIR__ . '/sistema/sistemaRoutes.php';
+      require_once __DIR__ . '/sistema/manualRoutes.php';
       require_once __DIR__ . '/sistema/plantillaRoutes.php';
       require_once __DIR__ . '/sistema/notificacionRoutes.php';
       require_once __DIR__ . '/sistema/actividadRoutes.php';
@@ -94,10 +110,11 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       require_once __DIR__ . '/logistica/logisticaRoutes.php';
       require_once __DIR__ . '/logistica/pedidoActivoRoutes.php';
       require_once __DIR__ . '/logistica/pedidoEntregadoRoutes.php';
-
+      require_once __DIR__ . '/logistica/direccionEstregadaRoutes.php';
+      
       Route::group(['prefix' => 'direccion'], function() {
         Route::match(['GET', 'HEAD'],'metodo-de-entrega/{for_loc}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntrega')->name('logistica.metodoDeEntrega')->middleware('permission:costoDeEnvio.create|costoDeEnvio.edit');
-        Route::match(['GET', 'HEAD'],'metodo-de-entrega-espescifico/{id_metodo_de_entrega}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntregaEspecifico')->name('logistica.metodoDeEntregaEspecifico')->middleware('permission:logistica.direccionLocal.create|logistica.direccionForaneo.create');
+        Route::match(['GET', 'HEAD'],'metodo-de-entrega-espescifico/{id_metodo_de_entrega}', 'Logistica\DireccionLocal\DireccionLocalController@metodoDeEntregaEspecifico')->name('logistica.metodoDeEntregaEspecifico')->middleware('permission:logistica.direccionLocal.create|logistica.direccionLocal.createEntrega|logistica.direccionForaneo.create|logistica.direccionForaneo.createEntrega|costoDeEnvio.create|costoDeEnvio.edit');
         Route::match(['GET', 'HEAD'],'generar-comprobante-de-entrega/{id_direccion}/{for_loc}', 'Logistica\DireccionLocal\DireccionLocalController@generarComprobanteDeEntrega')->name('logistica.direccion.generarComprobanteDeEntrega')->middleware('permission:logistica.direccionLocal.index|logistica.direccionForaneo.index');
         require_once __DIR__ . '/logistica/direccionLocalRoutes.php';
         require_once __DIR__ . '/logistica/direccionForaneaRoutes.php';

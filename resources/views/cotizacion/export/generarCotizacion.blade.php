@@ -32,13 +32,13 @@
   </table>
 
   @if(sizeof($armados) == 0)
-    @include('layouts.private.busquedaSinResultados')
   @else 
     <table class="table table-hover table-striped table-sm table-bordered" style="font-size:12px;">
       <thead class="thead-dark">
         <tr>
           <th>IMG</th>
           <th>TIPO</th>
+          <th>SKU</th>
           <th>DESCRIPCIÓN</th>
           <th>CANT.</th>
           <th>PRECIO UNIT.</th>
@@ -55,18 +55,19 @@
         @foreach($armados as $armado)
           <tr>
             <td>
-              @if($armado->img_nom != null)
-                <img src="{{ $armado->img_rut.$armado->img_nom }}">
+              @if($armado->ya_mod == '0')<br>
+                <img src="{{ $armado->img_rut.$armado->img_nom }}" style="width:5rem">
               @endif
             </td>
             <td>{{ $armado->tip }}</td>
+            <td>{{ $armado->sku }}</td>
             <td>
-              <strong>{{ $armado->nom }} ({{ $armado->sku }})</strong><br>
-              @foreach($armado->productos as $producto)
-                <div class="input-group text-muted ml-4">
-                  {{ $producto->cant }} - {{ $producto->produc }}
-                </div>
-              @endforeach
+              <strong>{{ $armado->nom }}</strong><br>
+                @foreach($armado->productos as $producto)
+                  <div class="input-group text-muted ml-2">
+                    <p class="m-0">{{ $producto->cant }} - {{ $producto->produc }}</p>
+                  </div>
+                @endforeach
             </td>
             <td>{{ Sistema::dosDecimales($armado->cant) }}</td>
             <td>${{ Sistema::dosDecimales($armado->prec_redond) }}</td>
@@ -117,17 +118,31 @@
           <td>TOTAL</td>
           <td>${{ Sistema::dosDecimales($cotizacion->tot) }}</td>
         </tr>
-        <tr>
-          <td>
-            @if($cotizacion->con_iva == 'on')
+        @if($cotizacion->con_iva == 'on')
+          <tr style="font-size:17px;">
+            <td>
               <a href="{{ route('rolCliente.factura.create') }}" target="_blank">Para solicitar factura clic aquí</a>
-            @endif
             </td>
-          <td>
-            @php $tot=$cotizacion->tot*0.0105 @endphp
-            <a href="https://www.paypal.me/canastasyarconesmx/{{ Sistema::dosDecimales($cotizacion->tot + $tot) }}" target="_blank">Para pago con tarjeta clic aquí</a>
-          </td>
-        </tr>
+            <td>
+              <img src="https://s3-us-west-2.amazonaws.com/archivos.arconesycanastas/sistema/icono_tarjetas_credito.png"class="brand-image elevation-0" style="width:3.5rem;">
+              <img src="https://s3-us-west-2.amazonaws.com/archivos.arconesycanastas/sistema/icono_paypal.png"class="brand-image elevation-0" style="width:3.5rem;">
+              @if($cotizacion->con_com == 'on')
+                <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot) }}" target="_blank">Para pago con tarjeta clic aquí, comisión incluida del 5% ${{ Sistema::dosDecimales($cotizacion->tot) }}</a>
+              @else
+                <a href="https://www.paypal.me/canastasyarcones/{{ Sistema::dosDecimales($cotizacion->tot*1.05) }}" target="_blank">Para pago con tarjeta clic aquí, comisión incluida del 5% ${{ Sistema::dosDecimales($cotizacion->tot*1.05) }}</a>
+              @endif
+            </td>
+          </tr>
+        @endif
+
+        @if($cotizacion->coment != null)
+          <tr>
+            <td colspan="2">
+              <dt>{{ $cotizacion->coment }}</dt>
+            </td>
+          </tr>
+        @endif
+
       </tbody>
     </table>
   @endif

@@ -1,3 +1,4 @@
+{{--
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="estatus_pago">{{ __('Estatus pago') }} *</label>
@@ -10,6 +11,7 @@
     <span class="text-danger">{{ $errors->first('estatus_pago') }}</span>
   </div>
 </div>
+--}}
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="comprobante_de_pago">{{ __('Comprobante de pago') }}</label>
@@ -24,6 +26,16 @@
       <a href="https://www.ilovepdf.com/es/comprimir_pdf/" target="_blank" class="btn btn-light border ml-1" title="Si tu archivo rebasa 1MB comprímela aquí"><i class="fas fa-compress-arrows-alt"></i></a>
     </div>
     <span class="text-danger">{{ $errors->first('comprobante_de_pago') }}</span>
+  </div>
+  <div class="form-group col-sm btn-sm" id="div_ultimos_8_digitos_del_folio_de_pago">
+    <label for="ultimos_8_digitos_del_folio_de_pago">{{ __('Últimos 8 dígitos del folio de pago') }} *</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-text-width"></i></span>
+      </div>
+      {!! Form::text('ultimos_8_digitos_del_folio_de_pago', $pago->fol, ['id' => 'ultimos_8_digitos_del_folio_de_pago', 'class' => 'form-control' . ($errors->has('ultimos_8_digitos_del_folio_de_pago') ? ' is-invalid' : ''), 'maxlength' => 8, 'placeholder' => __('Últimos 8 dígitos del folio de pago')]) !!}
+    </div>
+    <span class="text-danger">{{ $errors->first('ultimos_8_digitos_del_folio_de_pago') }}</span>
   </div>
 </div>
 <div class="row">
@@ -67,16 +79,6 @@
     <span class="text-danger">{{ $errors->first('monto_del_pago') }}</span>
   </div>
 </div>
-@include('pago.pag_showFields.archivos_comPago_copIdentificacion')
-<div class="row">
-  <div class="form-group col-sm btn-sm" >
-    <a href="{{ route('pago.fPedido.create', Crypt::encrypt($pedido->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'pagofPedidoUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
-  </div>
-</div>
-
 @include('layouts.private.plugins.priv_plu_select2')
 @section('js5')
 <script>
@@ -87,11 +89,18 @@
     selectFormaDePago           = document.getElementById("forma_de_pago"),
     forma_de_pago               = selectFormaDePago.value;
     div_copia_de_identificacion = document.getElementById('div_copia_de_identificacion');
+    div_ultimos_8_digitos_del_folio_de_pago = document.getElementById('div_ultimos_8_digitos_del_folio_de_pago');
 
     if(forma_de_pago == 'Paypal' || forma_de_pago == 'Tarjeta de credito (Pagina)') {
       div_copia_de_identificacion.style.display = 'block';
     } else {
       div_copia_de_identificacion.style.display = 'none';
+    }
+  
+    if(forma_de_pago != 'Efectivo (Jonathan)' && forma_de_pago != 'Efectivo (Gabriel)' && forma_de_pago != 'Efectivo (Fernando)' && forma_de_pago != '') {
+      div_ultimos_8_digitos_del_folio_de_pago.style.display = 'block';
+    } else {
+      div_ultimos_8_digitos_del_folio_de_pago.style.display = 'none';
     }
   }
   function getMontoDelPago() {

@@ -23,7 +23,7 @@ class CreateSoportesTable extends Migration
         $table->string('area_dep', 100)->comment('Área o Departamento');
         $table->string('tec', 80)->nullable()->comment('Técnico');
         $table->string('id_equipo', 25)->nullable()->comment('ID inventario');
-        $table->string('grup_de_falla', 100)->nullable()->comment('Agrupación de fallas');
+        $table->string('grup_de_falla', 150)->nullable()->comment('Agrupación de fallas');
         $table->text('des_de_la_falla')->comment('Descripción de la falla');
         $table->string('tel_fij', 15)->nullable()->comment('Teléfono fijo');
         $table->string('ext', 10)->nullable()->comment('Extensión');

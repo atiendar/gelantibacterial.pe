@@ -1,0 +1,1 @@
+<td>{{ $pedido->bod }}</td>

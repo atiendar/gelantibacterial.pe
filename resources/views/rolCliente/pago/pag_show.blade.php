@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="card-body">
-    @include('pago.pag_showFields')
+    @include('rolCliente.pago.pag_showFields')
     <div class="row">
       <div class="form-group col-sm btn-sm">
         <center><a href="{{ route('rolCliente.pago.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a></center>

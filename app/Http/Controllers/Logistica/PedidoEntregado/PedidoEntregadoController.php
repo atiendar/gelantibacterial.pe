@@ -19,8 +19,9 @@ class PedidoEntregadoController extends Controller {
   public function show(Request $request, $id_pedido) {
     $pedido                        = $this->pedidoEntregadoRepo->pedidoEntregadoFindOrFailById($id_pedido);
     $unificados                    = $pedido->unificar()->paginate(99999999);
+    $archivos                      = $pedido->archivos()->paginate(99999999);
     $armados                       = $this->pedidoEntregadoRepo->getArmadosPedidoPaginate($pedido, $request);
     $armados_entregados_logistica  = $this->armadoPedidoActivoRepo->armadosTerminadosLogistica($pedido->id, [config('app.entregado')]);
-    return view('logistica.pedido.pedido_entregado.pedEnt_show', compact('pedido', 'unificados', 'armados', 'armados_entregados_logistica'));    
+    return view('logistica.pedido.pedido_entregado.pedEnt_show', compact('pedido', 'unificados', 'archivos', 'armados', 'armados_entregados_logistica'));    
   }
 }

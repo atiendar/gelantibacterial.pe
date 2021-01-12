@@ -1,1 +1,0 @@
-<td>{{ $costo_de_envio->tip_emp }}</td>

@@ -14,8 +14,19 @@
 @endcan
 @can('almacen.producto.index')
   <li class="nav-item ml-auto">
-    {!! Form::open(['route' => 'almacen.producto.generarReporteDeCompra', 'method' => 'get', 'onsubmit' => 'return checarBotonSubmit("btnsubmit1")']) !!}
-      <button type="submit" id="btnsubmit1" class="btn btn-info btn-sm"><i class="fas fa-file-excel"></i>  {{ __('Generar reporte de compra') }}</button>
-    {!! Form::close() !!}
+    <div class="btn-group dropleft">
+      <button class="btn btn-light btn-sm border dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ __('Reportes') }}
+      </button>
+      <div class="dropdown-menu">
+        {!! Form::open(['route' => 'almacen.producto.generarReporteDeCompra', 'method' => 'get']) !!}
+          <button type="submit" id="btnsubmit1" class="dropdown-item"><i class="fas fa-file-excel"></i>  {{ __('Reporte de compra') }}</button>
+        {!! Form::close() !!}
+        
+        {!! Form::open(['route' => 'almacen.producto.generarReporteDeStock', 'method' => 'get', 'onsubmit' => 'return checarBotonSubmit("btnsubmit2")']) !!}
+          <button type="submit" id="btnsubmit2" class="dropdown-item"><i class="fas fa-file-excel"></i>  {{ __('Reporte de STOCKS') }}</button>
+        {!! Form::close() !!}
+      </div>
+    </div>
   </li>
 @endcan

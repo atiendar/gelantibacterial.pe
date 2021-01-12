@@ -86,6 +86,8 @@
 @include('layouts.private.plugins.priv_plu_summernote')
 @section('js1')
 <script>
-  $('.textarea').summernote('disable');
+  $('.textarea').summernote({
+  disableDragAndDrop: false
+});
 </script>
 @endsection

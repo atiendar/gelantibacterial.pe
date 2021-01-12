@@ -25,7 +25,7 @@ class DireccionLocalController extends Controller {
     return view('logistica.pedido.direccion_local.dirLoc_index', compact('direcciones_locales'));
   }
   public function create($id_direccion) {
-    $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'edit');
+    $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'edit', null);
     if($direccion->nom_ref_uno == null) { return abort(403, 'No se ha definido la persona que recibe este pedido.'); }
     $armado             = $direccion->armado;
     $metodos_de_entrega = $this->metodoDeEntregaRepo->getAllMetodosForaneoOLocalPluck('Local');
@@ -36,7 +36,7 @@ class DireccionLocalController extends Controller {
     return $direccion;
   }
   public function createEntrega($id_direccion) {
-    $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'edit');
+    $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'edit', null);
     if($direccion->nom_ref_uno == null) { return abort(403, 'No se ha definido la persona que recibe este pedido.'); }
     $armado     = $direccion->armado;
     return view('logistica.pedido.direccion_local.comprobante.com_createEntrega', compact('direccion', 'armado'));
@@ -46,19 +46,24 @@ class DireccionLocalController extends Controller {
     return $direccion;
   }
   public function show($id_direccion) {
-    $direccion    = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), ['comprobantes', 'armado'], 'show');
+    $direccion    = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), ['comprobantes', 'armado'], 'show', null);
     $comprobantes = $direccion->comprobantes;
     $armado       = $direccion->armado;
     return view('logistica.pedido.direccion_local.dirLoc_show', compact('direccion', 'comprobantes', 'armado'));
   }
   public function edit($id_direccion) {
-    $direccion          = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'show');
-    $armado             = $direccion->armado;
-    return view('logistica.pedido.direccion_local.dirLoc_edit', compact('direccion', 'armado'));
+    $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, config('opcionesSelect.select_foraneo_local.Local'), [], 'edit', true);
+    $armado     = $direccion->armado;
+    $productos  = $armado->productos()->with(['sustitutos', 'productos_original'])->get();
+    return view('logistica.pedido.direccion_local.dirLoc_edit', compact('direccion', 'armado', 'productos'));
   }
   public function update(UpdateEstatusDireccionRequest $request, $id_direccion) {
-    $this->direccionLocalRepo->update($request, $id_direccion);
+    $direccion = $this->direccionLocalRepo->update($request, $id_direccion, config('opcionesSelect.select_foraneo_local.Local'));
     toastr()->success('¡Dirección actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+
+    if($direccion->armado->estat == config('app.productos_completos')){
+      return redirect(route('logistica.direccionLocal.index')); 
+    }
     return back();
   }
   public function metodoDeEntrega(Request $request, $foraneo_o_local) {
@@ -74,13 +79,22 @@ class DireccionLocalController extends Controller {
     }
   }
   public function generarComprobanteDeEntrega($id_direccion, $for_loc) { // config('opcionesSelect.select_foraneo_local.Local')
-    $direccion                      = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, $for_loc, ['armado'], 'show');
-    $armado                         = $direccion->armado;
+    $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, $for_loc, ['armado'], 'show', null);
+    $armado     = $direccion->armado()->with('pedido')->first();
+    $pedido     = $armado->pedido;
+
+    if($pedido->estat_pag != config('app.pagado')) {
+      return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
+    }
+
     $codigoQRDComprobanteDeSalida   = $this->generarQRRepo->qr($direccion->id, 'Comprobante de salida', $for_loc);
     $codigoQRDComprobanteDeEntrega  = $this->generarQRRepo->qr($direccion->id, 'Comprobante de entrega', $for_loc);
 
-    $comprobante_de_entrega  = \PDF::loadView('logistica.pedido.pedido_activo.export.comprobanteDeEntrega', compact('direccion', 'armado', 'codigoQRDComprobanteDeSalida', 'codigoQRDComprobanteDeEntrega'));
+    $comprobante_de_entrega  = \PDF::loadView('logistica.pedido.pedido_activo.export.comprobanteDeEntrega', compact('pedido', 'direccion', 'armado', 'codigoQRDComprobanteDeSalida', 'codigoQRDComprobanteDeEntrega'));
     return $comprobante_de_entrega->stream();
 //  return $comprobante_de_entrega->download('OrdenDeProduccionAlmacen-'$pedido->num_pedido.'.pdf'); // Descargar
+  }
+  public function generarReporte() {
+    return (new \App\Exports\logistica\pedido\direccionLocal\localExport)->download('DireccionesLocales-'.date('Y-m-d').'.xlsx');
   }
 }

@@ -12,3 +12,10 @@
     </a>
   </li>
 @endcanany
+@can('pago.fPedido.index')
+  <li class="nav-item ml-auto">
+    {!! Form::open(['route' => 'pago.fPedido.generarReporte', 'method' => 'get']) !!}
+      <button type="submit" id="btnsubmit1" class="btn btn-info btn-sm"><i class="fas fa-file-excel"></i> {{ __('Generar reporte') }}</button>
+    {!! Form::close() !!}
+  </li>
+@endcan

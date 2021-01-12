@@ -20,6 +20,6 @@ class QuejasYSugerenciasRepositories implements QuejasYSugerenciasInterface {
       }
     }
     // Se implementa esta forma de eliminar archivos ya que con la funcion "ArchivosEliminados::dispatch" no lo hace
-    \Storage::delete($archivos_a_eliminar);
+    \Storage::disk('s3')->delete($archivos_a_eliminar);
   }
 }

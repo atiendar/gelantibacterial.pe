@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\cotizacion\StoreCotizacionRequest;
 use App\Http\Requests\cotizacion\UpdateIvaCotizacionRequest;
+use App\Http\Requests\cotizacion\UpdateComisionCotizacionRequest;
+use App\Http\Requests\cotizacion\UpdateCotizacionRequest;
 //Repositories
 use App\Repositories\cotizacion\CotizacionRepositories;
 use App\Repositories\cotizacion\AprobarCotizacionRepositories;
@@ -50,9 +52,14 @@ class CotizacionController extends Controller {
   }
   public function edit($id_cotizacion) {
     $cotizacion   = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, ['armados', 'cliente'], config('app.abierta'));
-    $armados      = $cotizacion->armados()->with('productos')->paginate(99999999);
-    $armados_list = $this->armadoRepo->getAllArmadosPlunk();
+    $armados      = $cotizacion->armados()->with('productos', 'direcciones')->paginate(99999999);
+    $armados_list = $this->armadoRepo->getAllArmados();
     return view('cotizacion.cot_edit', compact('cotizacion', 'armados', 'armados_list'));
+  }
+  public function update(UpdateCotizacionRequest $request, $id_cotizacion) {
+    $this->cotizacionRepo->update($request, $id_cotizacion);
+    toastr()->success('¡Cotización actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
   }
   public function destroy($id_cotizacion) {
     $this->cotizacionRepo->destroy($id_cotizacion);
@@ -62,6 +69,11 @@ class CotizacionController extends Controller {
   public function updateIva(UpdateIvaCotizacionRequest $request, $id_cotizacion) {
     $this->cotizacionRepo->updateIva($request, $id_cotizacion);
     toastr()->success('¡IVA actualizada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function updateComision(UpdateComisionCotizacionRequest $request, $id_cotizacion) {
+    $this->cotizacionRepo->updateComision($request, $id_cotizacion);
+    toastr()->success('¡Comisión agregada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function generar($id_cotizacion) {
@@ -74,7 +86,8 @@ class CotizacionController extends Controller {
     $cotizacion     = $this->cotizacionRepo->cotizacionAsignadoFindOrFailById($id_cotizacion, ['armados', 'cliente'], config('app.abierta'));
     $armados        = $cotizacion->armados()->with('productos', 'direcciones')->get();
 
-    $corizacion_pdf = \PDF::loadView('cotizacion.export.generarCotizacion', compact('cotizacion', 'armados'));
+    $corizacion_pdf = \PDF::loadView('cotizacion.export.generarCotizacion', compact('cotizacion', 'armados'))->setPaper('a4', 'landscape');
+    
     return $corizacion_pdf->stream(); // Visualizar
   //  return $corizacion_pdf->download('Cotización-'$cotizacion->serie.'.pdf'); // Descargar
   }

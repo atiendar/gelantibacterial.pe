@@ -15,7 +15,7 @@
     </div>
   @endif
 
-  @if($pago->form_de_pag == 'Paypal' OR $pago->form_de_pag == 'Tarjeta de credito (Pagina)' AND $pago->cop_de_indent_nom == NULL)
+  @if($pago->form_de_pag == 'Paypal' OR $pago->form_de_pag == 'Tarjeta de credito (Pagina)')
     @if($pago->cop_de_indent_nom != NULL)
       <div class="form-group col-sm btn-sm">
         <a href="{{ $pago->cop_de_indent_rut.$pago->cop_de_indent_nom }}" class="btn btn-info border text-dark" target="_blank"><i class="fas fa-search-plus"></i></a>

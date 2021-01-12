@@ -9,14 +9,15 @@ use Illuminate\Support\Facades\Crypt;
 
 class NotificacionSent extends Notification {
     use Queueable;
-    protected $notificacion, $plantilla;
+    protected $notificacion, $remitente, $plantilla;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($notificacion) {
+    public function __construct($notificacion, $remitente) {
         $this->notificacion = $notificacion;
+        $this->remitente = $remitente;
     }
 
     /**
@@ -39,7 +40,7 @@ class NotificacionSent extends Notification {
     public function toMail($notifiable) {
         return (new MailMessage)
         ->subject($this->notificacion->asunt)
-        ->from(auth()->user()->email_registro)
+        ->from($this->remitente)
         ->view(
             'diseno_notificacion.notificacion.' . $this->notificacion->id, [
               // No se definiran variables para enviar en el correo 

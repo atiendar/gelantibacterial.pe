@@ -19,7 +19,7 @@ class ArmadoPedidoActivoController extends Controller {
   }
   public function show(Request $request, $id_armado) {
     $armado       = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'productos'], 'show');
-    $productos    = $armado->productos()->with('sustitutos')->get();
+    $productos    = $armado->productos()->with(['sustitutos', 'productos_original'])->get();
     $direcciones  = $this->armadoPedidoActivoRepo->getArmadoPedidoTieneDireccionesPaginate($armado, $request);
     return view('produccion.pedido.pedido_activo.armado_activo.armAct_show', compact('armado', 'productos', 'direcciones'));
   }

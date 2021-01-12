@@ -1,7 +1,7 @@
 <div class="row">
   @can('almacen.producto.edit')
     <div class="col-sm">
-      <div class="card {{ empty($producto->stock < config('app.cantidad_stock_minimo_producto')) ? config('app.color_card_primario') : config('app.color_card_warning') }} card-outline card-tabs position-relative bg-white">
+      <div class="card {{ empty($producto->stock < $producto->min_stock) ? config('app.color_card_primario') : config('app.color_card_warning') }} card-outline card-tabs position-relative bg-white">
         <div class="card-body">
           {!! Form::open(['route' => ['almacen.producto.aumentarStock', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoAumentarStock']) !!}
             <div class="form-group row">
@@ -24,7 +24,7 @@
   @endcan
   @can('almacen.producto.disminuirStock')
     <div class="col-sm">
-      <div class="card {{ empty($producto->stock < config('app.cantidad_stock_minimo_producto')) ? config('app.color_card_primario') : config('app.color_card_warning') }} card-outline card-tabs position-relative bg-white">
+      <div class="card {{ empty($producto->stock < $producto->min_stock) ? config('app.color_card_primario') : config('app.color_card_warning') }} card-outline card-tabs position-relative bg-white">
         <div class="card-body">
           {!! Form::open(['route' => ['almacen.producto.disminuirStock', Crypt::encrypt($producto->id)], 'method' => 'patch', 'id' => 'almacenProductoDisminuirStock']) !!}
             <div class="form-group row">

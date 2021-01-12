@@ -12,4 +12,6 @@
     @default
       {{ $pago->estat_pag }}
   @endswitch
+
+  @include('pago.pag_table.td.alertas')
 </td>

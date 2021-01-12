@@ -5,7 +5,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
       </div>
-      {!! Form::date('validez', date("Y-m-d", strtotime('+30 day', strtotime(date("Y-m-d")))), ['class' => 'form-control', 'min' => date('Y-m-d')]) !!}
+      {!! Form::date('validez', date("Y-m-d", strtotime('+7 day', strtotime(date("Y-m-d")))), ['class' => 'form-control', 'min' => date('Y-m-d')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('validez') }}</span>
   </div>

@@ -11,12 +11,12 @@
       </div>
     </div>
     <div class="form-group col-sm btn-sm">
-      <label for="metodo_de_entrega_espesifico">{{ __('Método de entrega espesifico') }}</label>
+      <label for="metodo_de_entrega_especifico">{{ __('Método de entrega especifico') }}</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fas fa-text-width"></i></span>
         </div>
-        {!! Form::text('metodo_de_entrega_espesifico', $direccion->met_de_entreg_de_log_esp, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Método de entrega espesifico'), 'readonly' => 'readonly']) !!}
+        {!! Form::text('metodo_de_entrega_especifico', $direccion->met_de_entreg_de_log_esp, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Método de entrega especifico'), 'readonly' => 'readonly']) !!}
       </div>
     </div>
     @if(!$comprobantes->isEmpty())

@@ -14,7 +14,11 @@ class RastreaPedidoController extends Controller {
     $this->pedidoActivoRepo = $pedidoActivoRepositories;
   }
   public function index(Request $request) {
-    $pedidos =  Pedido::with('usuario')->rastrear($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    if($request->opcion_buscador != null) {
+      $pedidos = Pedido::with('usuario')->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    } else {
+      $pedidos = Pedido::with('usuario')->where('id', '!')->orderBy('id', 'DESC')->paginate($request->paginador);
+    }
     return view('rastrea.rpe_index', compact('pedidos'));
   }
   public function show($id_pedido) {

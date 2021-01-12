@@ -13,4 +13,6 @@ interface PedidoActivoInterface {
   public function marcarTodoCompleto($id_pedido);
 
   public function getPendientes();
+
+  public function getAllPedidosPlunk();
 }

@@ -1,4 +1,4 @@
-@canany(['material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy'])
+@canany(['material.index', 'material.create', 'material.show', 'material.edit', 'material.destroy', 'material.consultarPrecio'])
   <li class="nav-item has-treeview {{ Request::is('material*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('material*') ? 'active' : '' }}">
       <i class="nav-icon fab fa-product-hunt"></i>

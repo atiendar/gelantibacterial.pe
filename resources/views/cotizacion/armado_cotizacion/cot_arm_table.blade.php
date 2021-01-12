@@ -8,13 +8,14 @@
           <th>{{ __('TIPO') }}</th>
           <th>{{ __('DESCRIPCIÓN') }}</th>
           <th>{{ __('CANT.') }}</th>
+          <th>{{ __('PRECIO COM.') }}</th>
           <th>{{ __('PRECIO UNIT.') }}</th>
           <th>{{ __('DESCUENTO') }}</th>
           <th>{{ __('COST. ENVIO') }}</th>
           <th>{{ __('SUBTOTAL') }}</th>
           <th>{{ __('IVA') }}</th>
           <th>{{ __('TOTAL') }}</th>
-          <th colspan="2">&nbsp</th>
+          <th colspan="3">&nbsp</th>
         </tr>
       </thead>
       <tbody> 
@@ -56,6 +57,7 @@
               </div>
             </td>
             <td width="1rem">{{ Sistema::dosDecimales($armado->cant) }}</td>
+            <td width="1rem">${{ Sistema::dosDecimales($armado->prec_de_comp) }}</td>
             <td width="1rem">${{ Sistema::dosDecimales($armado->prec_redond) }}</td>
             <td width="1rem">${{ Sistema::dosDecimales($armado->desc) }}</td>
             <td width="1rem">${{ Sistema::dosDecimales($armado->cost_env) }}</td>

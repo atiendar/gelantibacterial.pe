@@ -10,22 +10,28 @@ use App\Models\MetodoDeEntrega;
 use App\Models\TipoDeEnvio;
 // nom_met_ent
 $factory->define(CostoDeEnvio::class, function (Faker $faker) {
-  $usuario            = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
-  $estado             = $faker->randomElement(Estado::pluck('est'));
-  $metodo_de_entrega  = $faker->randomElement(MetodoDeEntrega::pluck('nom_met_ent'));
-  $tipo_de_envio      = $faker->randomElement(TipoDeEnvio::pluck('tip_de_env'));
-
-  $randomDigit        = $faker->randomDigit();
+  $randomDigit    = $faker->randomDigit();
+  $reg            = $faker->randomElement(config('opcionesSelect.select_si_no'));
+  $tam            = $faker->randomElement(config('opcionesSelect.select_tamano'));
+  $tiemp_ent      = 'De '.$randomDigit.' a '.($randomDigit+2).' dias';
+  $met_de_entreg  = $faker->randomElement(MetodoDeEntrega::pluck('nom_met_ent'));
+  $est            = $faker->randomElement(Estado::pluck('est'));
+  $for_loc        = $faker->randomElement(config('opcionesSelect.select_foraneo_local'));
+  $tip_env        = $faker->randomElement(TipoDeEnvio::pluck('tip_de_env'));
+  $cost_por_env   = $faker->randomFloat(2, 5, 20);
+  $registr        = strtolower(trim($reg.$tam.$tiemp_ent));
+  $usuario        = $faker->randomElement(User::where('acceso', '1')->pluck('email_registro'));
+ 
   return [
-    'tip_emp'         => $faker->randomElement(config('opcionesSelect.select_tipo_de_empaque')),
-    'seg'             => $faker->randomElement(config('opcionesSelect.select_si_no')),
-    'tam'             => $faker->randomElement(config('opcionesSelect.select_tamano')),
-    'tiemp_ent'       => 'De '.$randomDigit.' a '.($randomDigit+2).' dias',
-    'met_de_entreg'   => $metodo_de_entrega,
-    'est'             => $estado,
-    'for_loc'         => $faker->randomElement(config('opcionesSelect.select_foraneo_local')),
-    'tip_env'         => $tipo_de_envio,
-    'cost_por_env'    => $faker->randomFloat(2, 5, 20),
+    'seg'             => $reg,
+    'tam'             => $tam,
+    'tiemp_ent'       => $tiemp_ent,
+    'met_de_entreg'   => $met_de_entreg,
+    'est'             => $est,
+    'for_loc'         => $for_loc,
+    'tip_env'         => $tip_env,
+    'cost_por_env'    => $cost_por_env,
+    'registr'         => $registr,
     'asignado_env'    => $usuario,
     'created_at_env'  => $usuario,
   ];

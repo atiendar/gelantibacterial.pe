@@ -25,7 +25,7 @@ class DireccionController extends Controller {
   }
   public function store(StoreDireccionRequest $request) {
     $this->direccionRepo->store($request);
-    toastr()->success('¡Dirección registrada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡Dirección registrada exitosamente! RECUERDA ASIGNARLA A LOS PRODUCTOS DE TU PEDIDO'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function show($id_direccion) {
@@ -45,5 +45,17 @@ class DireccionController extends Controller {
     $this->direccionRepo->destroy($id_direccion);
     toastr()->success('¡Dirección eliminada exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
+  }
+  public function getDireccionFind(Request $request, $id_direccion) {
+    if($request->ajax()) {
+      $direccion = $this->direccionRepo->getDireccionFind($id_direccion);
+      return response()->json($direccion);
+    } 
+  }
+  public function getDireccion(Request $request, $id_direccion) {
+    if($request->ajax()) {
+      $direccion = $this->direccionRepo->getDireccion($id_direccion);
+      return response()->json($direccion);
+    } 
   }
 }

@@ -34,8 +34,8 @@ class DireccionRepositories implements DireccionInterface {
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function storeFields($direccion, $request) {
-    $direccion->nom_ref_uno         = $request->nombre_de_referencia_uno;
-    $direccion->nom_ref_dos         = $request->nombre_de_referencia_dos;
+    $direccion->nom_ref_uno         = $request->nombre_de_la_persona_que_recibe_uno;
+    $direccion->nom_ref_dos         = $request->nombre_de_la_persona_que_recibe_dos;
     $direccion->lad_fij             = $request->lada_telefono_fijo;
     $direccion->tel_fij             = $request->telefono_fijo;
     $direccion->ext                 = $request->extension;
@@ -64,7 +64,7 @@ class DireccionRepositories implements DireccionInterface {
           'rolCliente.direccion.show', // Nombre de la ruta
           $id_direccion, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_direccion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Nombre de referencia uno', 'Nombre de referencia dos', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Calle' ,'No. Exterior' ,'No. Interior' ,'País' ,'Ciudad' ,'Colonia' ,'Delegación o municipio' ,'Código postal' ,'Referencias zona de entrega'), // Nombre de los inputs del formulario
+          array('Nombre de la persona que recibe uno', 'Nombre de la persona que recibe dos', 'Lada teléfono fijo', 'Teléfono fijo', 'Extensión', 'Lada teléfono móvil', 'Teléfono móvil', 'Calle' ,'No. Exterior' ,'No. Interior' ,'País' ,'Ciudad' ,'Colonia' ,'Delegación o municipio' ,'Código postal' ,'Referencias zona de entrega'), // Nombre de los inputs del formulario
           $direccion, // Request
           array('nom_ref_uno', 'nom_ref_dos', 'lad_fij', 'tel_fij', 'ext', 'lad_mov', 'tel_mov', 'calle', 'no_ext', 'no_int', 'pais', 'ciudad', 'col', 'del_o_munic', 'cod_post', 'ref_zon_de_entreg') // Nombre de los campos en la BD
         ); 
@@ -84,5 +84,14 @@ class DireccionRepositories implements DireccionInterface {
       DB::commit();
       return $direccion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function getDireccionesClientePluck() {
+    return Direccion::where('user_id', Auth::user()->id)->orderBy('del_o_munic', 'ASC')->pluck('del_o_munic', 'id');
+  }
+  public function getDireccionFind($id_direccion) {
+    return Direccion::where('user_id', Auth::user()->id)->where('id', $id_direccion)->findOrFail($id_direccion);
+  }
+  public function getDireccion($id_direccion) {
+    return Direccion::findOrFail($id_direccion);
   }
 }

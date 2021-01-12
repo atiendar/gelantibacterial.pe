@@ -18,8 +18,8 @@
     </div>
   </div>
 </div>
-  @include('tecnologia_de_la_informacion.soporte.ti_sop_tablaEditFields')
-  <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
+@include('tecnologia_de_la_informacion.soporte.archivo.arc_index')
+<div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-body">
     @include('tecnologia_de_la_informacion.soporte.ti_sop_showFields')
   </div>

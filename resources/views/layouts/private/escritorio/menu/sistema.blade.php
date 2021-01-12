@@ -1,4 +1,4 @@
-@canany(['sistema.edit', 'sistema.plantilla.index', 'sistema.plantilla.create', 'sistema.plantilla.show', 'sistema.plantilla.edit', 'sistema.plantilla.destroy', 'sistema.notificacion.create', 'sistema.actividad.index', 'sistema.catalogo.index', 'sistema.catalogo.create', 'sistema.catalogo.show', 'sistema.catalogo.edit', 'sistema.catalogo.destroy', 'sistema.serie.index', 'sistema.serie.create', 'sistema.serie.show', 'sistema.serie.edit', 'sistema.serie.destroy'])
+@canany(['sistema.edit', 'manual.index', 'manual.create', 'manual.show', 'manual.edit', 'manual.destroy', 'sistema.plantilla.index', 'sistema.plantilla.create', 'sistema.plantilla.show', 'sistema.plantilla.edit', 'sistema.plantilla.destroy', 'sistema.notificacion.create', 'sistema.actividad.index', 'sistema.catalogo.index', 'sistema.catalogo.create', 'sistema.catalogo.show', 'sistema.catalogo.edit', 'sistema.catalogo.destroy', 'sistema.serie.index', 'sistema.serie.create', 'sistema.serie.show', 'sistema.serie.edit', 'sistema.serie.destroy'])
   <li class="nav-item has-treeview {{ Request::is('sistema*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('sistema*') ? 'active' : '' }}">
       <i class="nav-icon fas fa-wrench"></i>
@@ -14,6 +14,37 @@
             <i class="nav-icon"><img src="{{ Sistema::datos()->sistemaFindOrFail()->log_neg_rut . Sistema::datos()->sistemaFindOrFail()->log_neg }}" alt="{{ Sistema::datos()->sistemaFindOrFail()->log_neg }}" class="brand-image rounded elevation-2 bg-white" style="opacity: .7; width:2.5rem;"></i>
             <p>{{ Sistema::datos()->sistemaFindOrFail()->emp_abrev }}</p>
           </a>
+        </li>
+      </ul>
+    @endcanany
+    @canany(['manual.index', 'manual.create', 'manual.show', 'manual.edit', 'manual.destroy'])
+      <ul class="nav nav-treeview">
+        <li class="nav-item has-treeview {{ Request::is('sistema/manual*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('sistema/manual*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-book-open"></i>
+            <p>
+              <p>{{ __('Manuales') }}</p>
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview ">
+            @canany(['manual.index', 'manual.create', 'manual.show', 'manual.edit', 'manual.destroy'])
+              <li class="nav-item">
+                <a href="{{ route('manual.index') }}" class="nav-link {{ Request::is('sistema/manual') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-list"></i>
+                  <p>{{ __('Lista de manuales') }}</p>
+                </a>
+              </li>
+            @endcanany
+            @can('manual.create')
+            <li class="nav-item">
+              <a href="{{ route('manual.create') }}" class="nav-link {{ Request::is('sistema/manual/crear') ? 'active' : '' }}">
+                <i class="nav-icon far fa-plus-square"></i>
+                <p>{{ __('Subir manual') }}</p>
+              </a>
+            </li>
+          @endcan
+          </ul>
         </li>
       </ul>
     @endcanany

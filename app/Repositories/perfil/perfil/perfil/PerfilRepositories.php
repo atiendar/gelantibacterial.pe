@@ -59,16 +59,11 @@ class PerfilRepositories implements PerfilInterface {
         Auth::user()->notify(new NotificacionPasswordCambiado($plantilla));
         $perfil->password = $this->serviceCrypt->bcrypt($request->password); 
       }
-      if($perfil->acceso == '1') {
-        $acceso = 'usuarios/';
-      } else {
-        $acceso = 'clientes/';
-      }
       if($request->hasfile('imagen')) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->file('imagen'), // Archivo blob
-          'perfil/'.$acceso.date("Y"), // Ruta en la que guardara el archivo
+          'perfil', // Ruta en la que guardara el archivo
           'perfil-'.time().'.', // Nombre del archivo
           $perfil->img_us // Ruta y nombre del archivo anterior
         ); 

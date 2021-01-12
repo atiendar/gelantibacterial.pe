@@ -58,14 +58,14 @@
     data: {
       errors: [],
       costo_por_envio: "{{ $direccion->cost_por_env_log }}",
-      metodos_de_entrega_espesificos: [],
+      metodos_de_entrega_especificos: [],
       metodo_de_entrega:            "{{ $direccion->met_de_entreg_de_log }}",
-      metodo_de_entrega_espesifico: "{{ $direccion->met_de_entreg_de_log_esp }}",
+      metodo_de_entrega_especifico: "{{ $direccion->met_de_entreg_de_log_esp }}",
       comprobante_de_salida_nom: "{{ $direccion->comp_de_sal_nom }}",
       mydata: null
     },
     mounted() {
-      this.getMetodosDeEntregaEspesificos()
+      this.getMetodosDeEntregaEspecificos()
     },
     methods: {
        create() {
@@ -76,7 +76,7 @@
           const formData = new FormData()
           formData.append('costo_por_envio', this.costo_por_envio)
           formData.append('metodo_de_entrega', this.metodo_de_entrega)
-          formData.append('metodo_de_entrega_espesifico', this.metodo_de_entrega_espesifico)
+          formData.append('metodo_de_entrega_especifico', this.metodo_de_entrega_especifico)
           formData.append('comprobante_de_salida_nom', this.comprobante_de_salida_nom)
           if(blob.type != 'text/html') {
             formData.append('comprobante_de_salida', blob, 'filename')
@@ -117,14 +117,14 @@
         costo_por_envio_decimal   = Number.parseFloat(costo_por_envio).toFixed(2);
         this.costo_por_envio = costo_por_envio_decimal;
       },
-      async getMetodosDeEntregaEspesificos() {
+      async getMetodosDeEntregaEspecificos() {
         if(this.metodo_de_entrega != '') {
           axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
-            this.metodos_de_entrega_espesificos = res.data
-            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-            metodo_de_entrega_espesifico.style.display = 'none';
+            this.metodos_de_entrega_especificos = res.data
+            metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+            metodo_de_entrega_especifico.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
-              metodo_de_entrega_espesifico.style.display = 'block';
+              metodo_de_entrega_especifico.style.display = 'block';
             }
           }).catch(error => {
             Swal.fire({

@@ -1,1 +1,1 @@
-<td width="1rem">{{ Sistema::dosDecimales($pedido->arm_carg) }} {{ __('de') }} {{ Sistema::dosDecimales($pedido->tot_de_arm) }}</td>
+<td width="1rem">{{ Sistema::dosDecimales($pedido->arm_carg) }}</td>

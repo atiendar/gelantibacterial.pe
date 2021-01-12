@@ -1,3 +1,4 @@
+@include('armado.arm_showFields.imagen')
 @include('cotizacion.armado_cotizacion.cot_arm_show.created')
 @include('armado.arm_showFields.medidas')
 <div class="row">
@@ -6,6 +7,10 @@
 </div>
 <div class="row">
   @include('cotizacion.armado_cotizacion.cot_arm_show.es_de_regalo')
+  @include('armado.arm_showFields.descuentoEspecial')
+</div>
+<div class="row">
+  @include('armado.arm_showFields.precioDeCompra')
 </div>
 <div class="row">
   @include('cotizacion.armado_cotizacion.cot_arm_show.cantidad')

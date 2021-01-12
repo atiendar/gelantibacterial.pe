@@ -8,6 +8,6 @@ class HistorialesArchivosTableSeeder extends Seeder {
    * @return void
    */
   public function run()    {
-      factory(App\Models\HistoialArchivo::class, 500)->create();
+      factory(App\Models\HistorialArchivo::class, 500)->create();
   }
 }

@@ -1,4 +1,8 @@
 @include('factura.fac_showFields.created')
+<div class="row">
+  @include('factura.fac_showFields.numPedido')
+  @include('factura.fac_showFields.fechaDeFacturado')
+</div>
 @include('factura.fac_showFields.documentosFactura')
 @include('factura.fac_showFields.informacionDelPago')
 <div class="row">

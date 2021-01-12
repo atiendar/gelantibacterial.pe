@@ -8,6 +8,7 @@ Route::group(['prefix' => 'inventario'], function() {
   Route::match(['GET', 'HEAD'],'editar/{id_inventario}', 'TecnologiaDeLaInformacion\InventarioEquipoController@edit')->name('inventario.edit')->middleware('permission:inventario.edit');
   Route::match([' PUT', 'PATCH'], 'actualizar/{id_inventario}', 'TecnologiaDeLaInformacion\InventarioEquipoController@update')->name('inventario.update')->middleware('permission:inventario.edit');
   Route::match(['DELETE'],'eliminar/{id_inventario}', 'TecnologiaDeLaInformacion\InventarioEquipoController@destroy')->name('inventario.destroy')->middleware('permission:inventario.destroy');
+  Route::match(['GET', 'HEAD'],'generar-reporte', 'TecnologiaDeLaInformacion\InventarioEquipoController@generarReporte')->name('inventario.generarReporte')->middleware('permission:inventario.index');
 
   Route::group(['prefix' => 'archivo'], function() {
     Route::post('almacenar/{id_inventario}', 'TecnologiaDeLaInformacion\ArchivosInventario\ArchivoInventarioController@store')->name('inventario.archivo.store')->middleware('permission:inventario.edit|inventario.archivo.store');

@@ -71,4 +71,17 @@ class PedidoClienteRepositories implements PedidoClienteInterface {
     }
     return $pedido->armados()->paginate($request->paginador);
   }
+  public function getFaltanteDePago($id_pedido) {
+    $id_pedido = $this->serviceCrypt->encrypt($id_pedido);
+    $pedido = $this->getPedidoFindOrFailById($id_pedido, ['pagos'], null);
+
+
+
+
+    $sum_mont_de_pag = $pedido->pagos()->sum('mont_de_pag');
+    $max_monto = $pedido->mont_tot_de_ped - $sum_mont_de_pag;
+    return $max_monto;
+
+
+  }
 }

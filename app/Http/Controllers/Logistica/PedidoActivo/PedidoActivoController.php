@@ -23,9 +23,10 @@ class PedidoActivoController extends Controller {
   public function show(Request $request, $id_pedido) {
     $pedido                        = $this->pedidoActivoRepo->pedidoActivoLogisticaFindOrFailById($id_pedido, ['usuario', 'unificar']);
     $unificados                    = $pedido->unificar()->paginate(99999999);
+    $archivos                      = $pedido->archivos()->paginate(99999999);
     $armados                       = $this->pedidoActivoRepo->getArmadosPedidoPaginate($pedido, $request);
     $armados_entregados_logistica = $this->armadoPedidoActivoRepo->armadosTerminadosLogistica($pedido->id, [config('app.entregado')]);
-    return view('logistica.pedido.pedido_activo.pedAct_show', compact('pedido', 'unificados', 'armados', 'armados_entregados_logistica'));
+    return view('logistica.pedido.pedido_activo.pedAct_show', compact('pedido', 'unificados', 'archivos', 'armados', 'armados_entregados_logistica'));
   }
   public function edit(Request $request, $id_pedido) {
     $pedido                         = $this->pedidoActivoRepo->pedidoActivoLogisticaFindOrFailById($id_pedido, ['unificar']);
@@ -38,5 +39,8 @@ class PedidoActivoController extends Controller {
     $this->pedidoActivoRepo->update($request, $id_pedido);
     toastr()->success('¡Pedido actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
+  }
+  public function generarReporte() {
+    return (new \App\Exports\logistica\pedido\pedidoActivo\activoExport)->download('PedidosActivos-'.date('Y-m-d').'.xlsx');
   }
 }

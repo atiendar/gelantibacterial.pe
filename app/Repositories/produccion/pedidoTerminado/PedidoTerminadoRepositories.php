@@ -19,11 +19,17 @@ class PedidoTerminadoRepositories implements PedidoTerminadoInterface {
     return $pedido;
   }
   public function getPagination($request, $relaciones) {
+    if($request->paginador == null) {
+      $paginador = 50;
+    }else {
+      $paginador = $request->paginador;
+    }
+
     return Pedido::with($relaciones)
     ->where('estat_produc', config('app.en_almacen_de_salida_terminado'))
     ->whereBetween('fech_estat_produc', [date("Y-m-d", strtotime('-90 day', strtotime(date("Y-m-d")))), date("Y-m-d", strtotime('+1 day', strtotime(date("Y-m-d"))))])
     ->buscar($request->opcion_buscador, $request->buscador)
-    ->orderBy('fech_estat_produc', 'DESC')->paginate($request->paginador);
+    ->orderBy('fech_estat_produc', 'DESC')->paginate( $paginador);
   }
   public function getArmadosPedidoPaginate($pedido, $request) {
     if($request->opcion_buscador != null) {

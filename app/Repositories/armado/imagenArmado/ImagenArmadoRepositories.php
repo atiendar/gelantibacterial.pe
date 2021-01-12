@@ -38,7 +38,7 @@ class ImagenArmadoRepositories implements ImagenArmadoInterface {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
         $imagen = ArchivoCargado::dispatch(
           $request->imagenes[$contador2], // Archivo blob
-          'armado/' . date("Y-m"), // Ruta en la que guardara el archivo
+          'armados/' . date("Y"), // Ruta en la que guardara el archivo
           'armado-' . $contador2 . time() . '.', // Nombre del archivo
           null // Ruta y nombre del archivo anterior
         ); 

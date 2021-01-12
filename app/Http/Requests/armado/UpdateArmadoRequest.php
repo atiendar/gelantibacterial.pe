@@ -17,6 +17,7 @@ class UpdateArmadoRequest extends FormRequest {
       'destacado'           => 'required|in:Si,No',
       'imagen_del_armado'   => 'nullable|max:1024|image',
       'url_pagina'          => 'max:150',
+      'descuento_especial'  => 'required|numeric|alpha_decimal15|alpha_total_armado:' . $id_armado,
       'observaciones'       => 'nullable|max:30000|string',
     ];
   }

@@ -22,12 +22,12 @@
               @else
                 {{ $soporte->sol }}
               @endcan
+            </td>
             <td>{{ $soporte->emp }}</td>
             <td>{{ $soporte->est }}</td>
-          </td>
-            @include('tecnologia_de_la_informacion.soporte.ti_sop_tablaOpciones') 
+            @include('tecnologia_de_la_informacion.soporte.ti_sop_tableOpciones') 
           </tr>
-          @endforeach
+        @endforeach
       </tbody>
     @endif
   </table>

@@ -16,11 +16,13 @@ class StorePagoRequest extends FormRequest {
       $max_monto = -1;
     }
     return [
-      'numero_de_pedido'        => 'required|exists:pedidos,id',
-      'comprobante_de_pago'     => 'required|mimes:pdf,jpg,jpeg,png|max:1024',
-      'forma_de_pago'           => 'required|in:Cheque,Efectivo,Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUT,Transferencia CYA,Otro',
-      'copia_de_identificacion' => 'required_if:forma_de_pago,Paypal,Tarjeta de credito (Pagina)|nullable|mimes:pdf,jpg,jpeg,png|max:1024',
-      'monto_del_pago'          => 'required|numeric|min:0|max:'.$max_monto.'|alpha_decimal15',
+      'numero_de_pedido'                    => 'required|exists:pedidos,id',
+      'comprobante_de_pago'                 => 'required|mimes:pdf,jpg,jpeg,png|max:1024',
+    //  'ultimos_8_digitos_del_folio_de_pago' => 'nullable|required_if:forma_de_pago,Cheque,Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUTH Yolanda,Transferencia Canastas y Arcones S.A de C.V|unique:pagos,fol|min:8|max:8',
+    'ultimos_8_digitos_del_folio_de_pago' => 'nullable|unique:pagos,fol|nullable|min:8|max:8',
+      'forma_de_pago'                       => 'required|in:Cheque,Efectivo (Jonathan),Efectivo (Gabriel),Efectivo (Fernando),Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUTH Yolanda,Transferencia Canastas y Arcones S.A de C.V,Otro',
+      'copia_de_identificacion'             => 'required_if:forma_de_pago,Paypal,Tarjeta de credito (Pagina)|nullable|mimes:pdf,jpg,jpeg,png|max:1024',
+      'monto_del_pago'                      => 'required|numeric|min:0|max:'.$max_monto.'|alpha_decimal15',
     ];
   }
 }

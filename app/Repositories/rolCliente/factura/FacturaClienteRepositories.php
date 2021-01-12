@@ -52,6 +52,15 @@ class FacturaClienteRepositories implements FacturaInterface {
       */
       $this->pagoRepo->cambiarEstatusFacturaDelPago($pago, config('app.pendiente'));
 
+      // GUARDA LOS DATOS FISCALES AL PERFIN EL USUARIO SI SE MARCA EL CHECKBOX 
+      if($request->checkbox_datos_fiscales == 'on') {
+        $dato_fiscal                      = new \App\Models\DatoFiscal();
+        $dato_fiscal                      = $this->datoFiscalRepo->storeFields($dato_fiscal, $request);
+        $dato_fiscal->user_id             = Auth::user()->id;
+        $dato_fiscal->created_at_dat_fisc = Auth::user()->email_registro;
+        $dato_fiscal->save();
+      }
+        
       DB::commit();
       return $factura;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

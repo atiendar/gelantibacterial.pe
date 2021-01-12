@@ -9,6 +9,7 @@ class UpdatePedidoActivoRequest extends FormRequest {
   public function rules() {
     return [
       'lider_de_pedido_produccion' => 'required|max:80',
+      'bodega_donde_se_armara'     => 'required|max:150',
       'comentario_produccion'      => 'nullable|max:30000|string',
     ];
   }

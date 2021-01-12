@@ -32,5 +32,8 @@ class Armado extends Model{
   } 
   public function productos(){
     return $this->belongsToMany('App\Models\Producto', 'armado_tiene_productos')->withPivot('id', 'cant')->withTimestamps()->orderBy('armado_tiene_productos.id', 'DESC');
-  }    
+  }
+  public function stocks() {
+    return $this->belongsToMany('App\Models\Stock', 'stock_armados')->withPivot('id')->withTimestamps()->orderBy('stock_armados.id', 'DESC');
+  }  
 }

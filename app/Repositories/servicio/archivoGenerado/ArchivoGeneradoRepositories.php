@@ -4,6 +4,7 @@ namespace App\Repositories\servicio\archivoGenerado;
 use App\Models\ArchivoGenerado;
 // Exports
 use App\Exports\almacen\producto\generarReporteDeCompraExport;
+use App\Exports\almacen\producto\generarReporteDeStockExport;
 // Notifications
 use App\Jobs\servicio\NotificarAlUsuarioCuandoTermineLaExportacion;
 // Otros
@@ -28,5 +29,11 @@ class ArchivoGeneradoRepositories implements ArchivoGeneradoInterface {
         new NotificarAlUsuarioCuandoTermineLaExportacion($usuario, $archivo_generado)
       ]);
     }
+    if($tipo == 'generarReporteDeStockExport') {
+      (new generarReporteDeStockExport)->store($archivo_generado->arch_nom, $info_archivo->filesystems, null, ['visibility' => 'public'])->chain([
+        new NotificarAlUsuarioCuandoTermineLaExportacion($usuario, $archivo_generado)
+      ]);
+    }
+
   }
 }

@@ -14,9 +14,9 @@ class TipoDeEnvioController extends Controller {
     $this->tipoDeEnvioRepo    = $tipoDeEnvioRepositories;
     $this->metodoDeEntregaRepo    = $metodoDeEntregaRepositories;
   }
-  public function getTiposDeEnvio(Request $request, $metodo_de_entrega) {
+  public function getTiposDeEnvio(Request $request, $met_de_entrega) {
     if($request->ajax()) {
-      $metodo_de_entrega = $this->metodoDeEntregaRepo->metodoFindOrFailByNombreMetodo($metodo_de_entrega, []);
+      $metodo_de_entrega = $this->metodoDeEntregaRepo->metodoFindOrFailByNombreMetodo($met_de_entrega, []);
       $tipos_de_envio = $this->tipoDeEnvioRepo->getAllTiposDeEnvioPluck($metodo_de_entrega->id);
       return $tipos_de_envio;
     }

@@ -5,20 +5,23 @@
   @include('costo_de_envio.cos_showFields.metodoDeEntregaEspesifico')
 </div>
 <div class="row">
-  @include('costo_de_envio.cos_showFields.estado')
-  @include('costo_de_envio.cos_showFields.tipoDeEnvio')
+  @include('costo_de_envio.cos_showFields.cantidad')
+  @include('costo_de_envio.cos_showFields.transporte')
 </div>
 <div class="row">
+  @include('costo_de_envio.cos_showFields.estado')
+  @include('costo_de_envio.cos_showFields.municipio')
+</div>
+<div class="row">
+  @include('costo_de_envio.cos_showFields.tipoDeEnvio')
   @include('costo_de_envio.cos_showFields.tamano')
 </div>
 <div class="row">
-  @include('costo_de_envio.cos_showFields.tipoDeEmpaque')
+  @include('costo_de_envio.cos_showFields.costo_caja')
   @include('costo_de_envio.cos_showFields.cuentaConSeguro')
 </div>
 <div class="row">
   @include('costo_de_envio.cos_showFields.tiempoDeEntrega')
-</div>
-<div class="row">
   @include('costo_de_envio.cos_showFields.costoPorEnvio')
 </div>
 <div class="row">

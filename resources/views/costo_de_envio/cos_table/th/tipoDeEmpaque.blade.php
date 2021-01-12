@@ -1,1 +1,0 @@
-<th>{{ __('TIP. EMPAQUE') }}</th>

@@ -2,7 +2,7 @@
 namespace App\Repositories\logistica\direccionLocal;
 
 interface DireccionLocalInterface {
-  public function direccionLocalFindOrFailById($id_direccion, $for_loc, $relaciones, $accion);
+  public function direccionLocalFindOrFailById($id_direccion, $for_loc, $relaciones, $accion, $regresado);
   
   public function getPagination($request, $for_loc, $relaciones);
   
@@ -10,7 +10,7 @@ interface DireccionLocalInterface {
 
   public function storeEntrega($request, $id_direccion);
 
-  public function update($request, $id_direccion);
+  public function update($request, $id_direccion, $loc_for);
   
   public function cambiarEstatusDireccionAlmacenDeSalida($direcciones);
 }

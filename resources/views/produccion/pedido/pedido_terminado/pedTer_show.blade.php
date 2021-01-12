@@ -20,5 +20,16 @@
     @include('produccion.pedido.pedido_terminado.pedTer_showFields')
   </div>
 </div>
-@include('produccion.pedido.pedido_terminado.armado_terminado.armTer_index')
+<div class="row">
+  @can('venta.pedidoActivo.edit')
+    <div class="col-md-4">
+      <div class="pad">
+        @include('venta.pedido.pedido_activo.archivo.arc_index')
+      </div>
+    </div>
+  @endcan
+  <div class="col-md-8">
+    @include('produccion.pedido.pedido_terminado.armado_terminado.armTer_index')
+  </div>
+</div>
 @endsection

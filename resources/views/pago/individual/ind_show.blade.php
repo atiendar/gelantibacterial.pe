@@ -14,7 +14,7 @@
   </div>
   <div class="ribbon-wrapper">
     <div class="ribbon {{ config('app.color_bg_primario') }}">
-      <small>{{ $pago->cod_fact }}</small>
+      <small>{{ $pago->id }}</small>
     </div>
   </div>
   <div class="card-body">

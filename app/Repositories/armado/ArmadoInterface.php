@@ -22,5 +22,9 @@ interface ArmadoInterface {
 
     public function getAllArmadosPlunk();
 
+    public function getAllArmados();
+
     public function getAllArmadosPlunkMenos($armados);
+
+    public function getAllArmadosPlunkMenosId($id_armados);
 }

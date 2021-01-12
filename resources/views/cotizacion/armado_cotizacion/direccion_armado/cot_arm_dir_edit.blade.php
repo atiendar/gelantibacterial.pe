@@ -10,7 +10,15 @@
   </div>
   <div class="card-body">
     <form @submit.prevent="edit" enctype="multipart/form-data">
-      @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_editFields')
+      @include('cotizacion.armado_cotizacion.direccion_armado.cot_arm_dir_createFields')
+      <div class="row">
+        <div class="form-group col-sm btn-sm">
+          <a href="{{ route('cotizacion.armado.edit', Crypt::encrypt($direccion->armado->id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el armado') }}</a>
+        </div>
+        <div class="form-group col-sm btn-sm">
+          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2"><i class="fas fa-check-circle text-dark"></i> {{ __('Actualizar dirección') }}</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
@@ -21,7 +29,7 @@
 <script>
   var app4 = new Vue({
     el: '#dashboard',
-    data: {
+    data: {               
       errors: [],
       hasError: false,
       costos: [],
@@ -30,23 +38,30 @@
         estado             = null,
         tipo_de_envio      = null,
       ],
+      tamano:              "{{ $armado->tam }}",
 
-      tamano:                   "{{ $armado->tam }}",
-      tipo_de_empaque:          "{{ $direccion->tip_emp }}",
-      cuenta_con_seguro:        "{{ $direccion->seg }}",
-      tiempo_de_entrega:        "{{ $direccion->tiemp_ent }}",
-      metodo_de_entrega:        "{{ $direccion->met_de_entreg }}",
-      estado_al_que_se_cotizo:  "{{ $direccion->est }}",
-      foraneo_o_local:          "{{ $direccion->for_loc }}",
-      tipo_de_envio:            "{{ $direccion->tip_env }}",
-      costo_de_envio:           "{{ $direccion->cost_por_env }}",
+      // CAMPOS BLOQUEADO
+      foraneo_o_local:              "{{ $direccion->for_loc }}",
+      metodo_de_entrega:            "{{ $direccion->met_de_entreg }}",
+      metodo_de_entrega_especifico: "{{ $direccion->met_de_entreg_esp }}",
+      cantid:                       "{{ $direccion->cant }}",
+      transporte:                   "{{ $direccion->trans }}",
+      estado_al_que_se_cotizo:      "{{ $direccion->est }}",
+      total_o_unitario:             "{{ $direccion->tot_unit }}",
+      municipio:                    "{{ $direccion->mun }}",
+      tipo_de_envio:                "{{ $direccion->tip_env }}",
+      taman:                        "{{ $direccion->tam }}",
+      costo_de_caja:                "{{ $direccion->cost_tam_caj }}",
+      cuenta_con_seguro:            "{{ $direccion->seg }}",
+      tiempo_de_entrega:            "{{ $direccion->tiemp_ent }}",
+      costo_de_envio_individual:    "{{ $direccion->cost_por_env_individual }}",
+      costo_de_envio:               "{{ $direccion->cost_por_env }}",
+      // CAMPOS DESBLOQUEADOS
       cantidad:                 "{{ $direccion->cant }}",
       detalles_de_la_ubicacion: "{{ $direccion->detalles_de_la_ubicacion }}",
-
+      // OTROS
       costo_seleccionado: [],
-      cost_por_env: null,
-
-      cost_por_env_individual: "{{ $direccion->cost_por_env_individual }}"
+      cost_por_env:       null,
     },
     mounted() {
       this.getCostos()
@@ -68,11 +83,6 @@
           if (result.value) {
             this.checarBotonSubmitDisabled("btnsubmit")
             axios.put('/cotizacion/armado/direccion/actualizar/'+{{ $direccion->id }}, {
-              metodo_de_entrega:        this.metodo_de_entrega,
-              estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
-              foraneo_o_local:          this.foraneo_o_local,
-              tipo_de_envio:            this.tipo_de_envio,
-              costo_de_envio:           this.costo_de_envio,
               cantidad:                 this.cantidad,
               detalles_de_la_ubicacion: this.detalles_de_la_ubicacion,
               costo_seleccionado:       this.costo_seleccionado
@@ -114,34 +124,58 @@
             title: 'Algo salio mal',
             text: error,
           })
-        }); 19.70
+        });
       },
       async getCostoSeleccionado(costo_env) {
-        this.costo_seleccionado      = costo_env
-        this.tipo_de_empaque         = costo_env.tip_emp
-        this.cuenta_con_seguro       = costo_env.seg
-        this.tiempo_de_entrega       = costo_env.tiemp_ent
-        this.metodo_de_entrega       = costo_env.met_de_entreg
-        this.estado_al_que_se_cotizo = costo_env.est
-        this.foraneo_o_local         = costo_env.for_loc
-        this.tipo_de_envio           = costo_env.tip_env
-        this.costo_de_envio          = costo_env.cost_por_env
+        this.costo_seleccionado           = costo_env
+        this.foraneo_o_local              = costo_env.for_loc
+        this.metodo_de_entrega            = costo_env.met_de_entreg
+        this.metodo_de_entrega_especifico = costo_env.met_de_entreg_esp
+        this.cantid                       = costo_env.cant
+        this.transporte                   = costo_env.trans
+        this.estado_al_que_se_cotizo      = costo_env.est
+        this.total_o_unitario             = costo_env.tot_unit
+        this.municipio                    = costo_env.mun
+        this.tipo_de_envio                = costo_env.tip_env
+        this.taman                        = costo_env.tam
+        this.costo_de_caja                = costo_env.cost_tam_caj
+        this.cuenta_con_seguro            = costo_env.seg
+        this.tiempo_de_entrega            = costo_env.tiemp_ent
+        this.costo_de_envio_individual    = costo_env.cost_por_env
+        this.costo_de_envio               = costo_env.cost_por_env
         this.getCostoDeEnvio()
       },
       async getCostoDeEnvio() {
         // VERIFICA SI EL OBJETO "costo_seleccionado" ESTA VACIO O NO
         if(Object.keys(this.costo_seleccionado).length === 0) {
-          if(this.tipo_de_envio == 'Consolidado') {
-            this.cost_por_env = parseFloat(this.cost_por_env_individual)
+          if(this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+            if(this.total_o_unitario == 'Total') {
+              this.cost_por_env = parseFloat(this.costo_de_envio_individual)
+            } else if(this.total_o_unitario == 'Unitario') {
+              this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
+            }
+          } else if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
+            this.cost_por_env = parseFloat(this.costo_de_envio_individual)
           } else {
-            this.cost_por_env = parseFloat(this.cost_por_env_individual) * parseFloat(this.cantidad)
+            this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
           }
         } else {
-          if(this.tipo_de_envio == 'Consolidado') {
+          if(this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+            if(this.total_o_unitario == 'Total') {
+              this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env)
+            } else if(this.total_o_unitario == 'Unitario') {
+              this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)
+            }
+          } else if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
             this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env)
           } else {
             this.cost_por_env = parseFloat(this.costo_seleccionado.cost_por_env) * parseFloat(this.cantidad)
           }
+        }
+        if(this.costo_seleccionado.cost_tam_caj > 0) {
+          this.cost_por_env += this.costo_seleccionado.cost_tam_caj *  parseFloat(this.cantidad); 
+        } else if(this.costo_de_caja > 0) {
+          this.cost_por_env += this.costo_de_caja *  parseFloat(this.cantidad); 
         }
 
         if (isNaN(parseFloat(this.cost_por_env))) {

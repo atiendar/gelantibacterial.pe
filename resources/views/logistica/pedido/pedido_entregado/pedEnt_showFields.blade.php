@@ -16,6 +16,10 @@
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusPago')
 </div>
 <div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.stock')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.bodega')
+</div>
+<div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosCliente')
 </div>
 <div class="row">

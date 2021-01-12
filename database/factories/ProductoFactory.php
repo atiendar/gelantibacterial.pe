@@ -31,6 +31,7 @@ $factory->define(Producto::class, function (Faker $faker) {
     return [
         'produc'            => $produc,
         'sku'               => 'PRO-' . $faker->unique()->numberBetween(111, 999999),
+        'pro_de_cat'        => $faker->randomElement(config('opcionesSelect.select_producto_de_catalogo')),
         'marc'              => $faker->name,
         'tip'               => $tip,
         'tam'               => $tam,

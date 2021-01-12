@@ -13,7 +13,7 @@ class Producto extends Model {
   protected $guarded = [];
 
   protected $dates = ['deleted_at'];
-//  protected $softCascade = []; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
+  protected $softCascade = ['precios']; // SE INDICAN LOS NOMBRES DE LAS RELACIONES CON LA QUE TENDRA BORRADO EN CASCADA
 
   // Define si vera todos los registros de la tabla o solo los que se le asignaron o los que usuario registro (on = todos los registros null = solo sus registros)
   public function scopeAsignado($query, $opcion_asignado, $usuario) {
@@ -35,5 +35,11 @@ class Producto extends Model {
   }
   public function proveedores(){
     return $this->belongsToMany('App\Models\Proveedor', 'producto_tiene_proveedores')->withPivot('id', 'prec_prove', 'utilid', 'prec_clien')->withTimestamps()->orderBy('producto_tiene_proveedores.id', 'DESC');
-  } 
+  }
+  public function precios(){
+    return $this->hasMany('App\Models\PrecioPorYear')->orderBy('id', 'DESC');
+  }
+  public function productos_pedido(){
+    return $this->belongsToMany('App\Models\PedidoArmadoTieneProducto', 'prod_orig_tiene_prod_ped')->withTimestamps();
+  }
 }

@@ -5,6 +5,6 @@
 </li>
 <li class="nav-item">
   <a href="{{ route('rolCliente.direccion.create') }}" class="nav-link {{ Request::is('rc/direccion-de-entrega/crear') ? 'active' : '' }}">
-    <i class="fas fa-plus-square"></i> {{ __('Registrar direccion') }}
+    <i class="fas fa-plus-square"></i> {{ __('Registrar dirección') }}
   </a>
 </li>

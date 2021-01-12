@@ -16,7 +16,7 @@
               <img src="{{ $imagen->img_rut.$imagen->img_nom }}" class="card-img-top" alt="{{ $imagen->img_nom }}">
               <div class="card-body">
                 <p class="card-text text-muted text-sm">
-                  <a href="{{ $imagen->img_rut.$imagen->img_nom }}" download>{{ $imagen->img_nom }}</a>
+                  <a href="{{ $imagen->img_rut.$imagen->img_nom }}" target="__blank">{{ $imagen->img_nom }}</a>
                 </p>
               </div>
             </div>

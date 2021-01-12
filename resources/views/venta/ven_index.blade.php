@@ -1,7 +1,7 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
 <title>@section('title', __('Inicio ventas'))</title>
-@canany(['venta.pedidoActivo.index', 'venta.pedidoActivo.show', 'venta.pedidoActivo.edit', 'venta.pedidoActivo.destroy', 'venta.pedidoActivo.armado.show' ,'venta.pedidoActivo.armado.edit', 'venta.pedidoActivo.pago.create', 'venta.pedidoActivo.pago.show', 'venta.pedidoActivo.pago.edit'])
+@canany(['venta.pedidoActivo.index', 'venta.pedidoActivo.show', 'venta.pedidoActivo.edit', 'venta.pedidoActivo.destroy', 'venta.pedidoActivo.armado.show' ,'venta.pedidoActivo.armado.edit', 'venta.pedidoActivo.pago.create', 'venta.pedidoActivo.pago.show', 'venta.pedidoActivo.pago.edit', 'venta.pedidoTerminado.index', 'venta.pedidoTerminado.show'])
   <div class="row">
     <div class="col-lg-2">
       <div class="small-box bg-info">
@@ -15,7 +15,7 @@
               @canany(['venta.pedidoActivo.index', 'venta.pedidoActivo.show', 'venta.pedidoActivo.edit', 'venta.pedidoActivo.destroy', 'venta.pedidoActivo.armado.show' ,'venta.pedidoActivo.armado.edit', 'venta.pedidoActivo.pago.create', 'venta.pedidoActivo.pago.show', 'venta.pedidoActivo.pago.edit'])
                 <a href="{{ route('venta.pedidoActivo.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos activos') }}</a>
               @endcanany
-              @canany(['venta.pedidoTerminado.index'])
+              @canany(['venta.pedidoTerminado.index', 'venta.pedidoTerminado.show'])
                 <a href="{{ route('venta.pedidoTerminado.index') }}" class="dropdown-item"><i class="fas fa-list"></i> {{ __('Lista de pedidos terminados') }}</a>
               @endcanany
             </div>

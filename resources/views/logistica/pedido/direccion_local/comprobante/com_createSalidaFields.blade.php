@@ -17,22 +17,22 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::select('metodo_de_entrega', $metodos_de_entrega, $direccion->met_de_entreg, ['v-model' => 'metodo_de_entrega', 'v-on:change' => 'getMetodosDeEntregaEspesificos()', 'class' => 'form-control select2', 'placeholder' => __(''), 'required']) !!}
+      {!! Form::select('metodo_de_entrega', $metodos_de_entrega, $direccion->met_de_entreg, ['v-model' => 'metodo_de_entrega', 'v-on:change' => 'getMetodosDeEntregaEspecificos()', 'class' => 'form-control select2', 'placeholder' => __(''), 'required']) !!}
     </div>
     <span v-if="errors.metodo_de_entrega" class="text-danger" v-text="errors.metodo_de_entrega[0]"></span>
   </div>
-  <div class="form-group col-sm btn-sm" id="metodo_de_entrega_espesifico" style="display:none">
-    <label for="metodo_de_entrega_espesifico">{{ __('Método de entrega espesifico') }}</label>
+  <div class="form-group col-sm btn-sm" id="metodo_de_entrega_especifico" style="display:none">
+    <label for="metodo_de_entrega_especifico">{{ __('Método de entrega especifico') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      <select v-model='metodo_de_entrega_espesifico' class ='form-control' data-old='{{ old('metodo_de_entrega_espesifico')}}' name='metodo_de_entrega_espesifico'>
+      <select v-model='metodo_de_entrega_especifico' class ='form-control' data-old='{{ old('metodo_de_entrega_especifico')}}' name='metodo_de_entrega_especifico'>
         <option value="">Seleccione. . .</option>
-        <option v-for="metodo_de_entrega_esp in metodos_de_entrega_espesificos" v-bind:value="metodo_de_entrega_esp" v-text="metodo_de_entrega_esp"></option>
+        <option v-for="metodo_de_entrega_esp in metodos_de_entrega_especificos" v-bind:value="metodo_de_entrega_esp" v-text="metodo_de_entrega_esp"></option>
       </select>
     </div>
-    <span v-if="errors.metodo_de_entrega_espesifico" class="text-danger" v-text="errors.metodo_de_entrega_espesifico[0]"></span>
+    <span v-if="errors.metodo_de_entrega_especifico" class="text-danger" v-text="errors.metodo_de_entrega_especifico[0]"></span>
   </div>
 </div>
 <div class="row">

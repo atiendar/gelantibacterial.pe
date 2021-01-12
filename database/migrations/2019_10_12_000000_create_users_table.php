@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('img_us_rut', 200)->nullable()->comment('Ruta de donde se guardo la imagen');
             $table->string('img_us', 200)->nullable()->comment('Nombre de la imagen');
-            $table->enum('acceso', ['1', '2'])->default('2')->comment('Tipo de acceso que tiene (1 = Usuario, 2 = Cliente)');
+            $table->enum('acceso', ['1', '2', '3'])->default('2')->comment('Tipo de acceso que tiene (1 = Usuario, 2 = Cliente, 3 = Ferro)');
             $table->enum('registros_tab_acces', ['on'])->nullable()->comment('Define si vera todos los registros de la tabla o solo los que se le asignaron o los que usuario registro (on = todos null = solo sus registros)');
             $table->enum('notif', ['on'])->nullable()->default('on')->comment('Define si recibe o no notificaciones (null = No y on = Si)');
             $table->string('nom', 40)->comment('Nombre');

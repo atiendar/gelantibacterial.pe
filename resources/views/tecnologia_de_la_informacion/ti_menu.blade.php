@@ -5,3 +5,8 @@
     </a>
   </li>
 @endcanany
+<li class="nav-item ml-auto">
+  <a href="{{ route('soporte.create') }}" class="btn btn-info" target="_blank">
+    {{ __('Solicitar soporte') }}
+  </a>
+</li>

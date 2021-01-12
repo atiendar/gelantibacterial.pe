@@ -26,5 +26,4 @@ class UsuariosPDFExport implements FromView, ShouldQueue {
     public function query() {
         return User::query();
     }
-     
 }

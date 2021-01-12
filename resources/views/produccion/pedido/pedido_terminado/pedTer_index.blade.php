@@ -9,7 +9,7 @@
   </div>
   <div class="card-body">
     {!! Form::model(Request::all(), ['route' => 'produccion.pedidoTerminado.index', 'method' => 'GET']) !!}
-      @include('global.buscador.buscador', ['ruta_recarga' => route('produccion.pedidoTerminado.index'), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_activo_index')])
+      @include('global.buscador.buscador', ['num_pag' => 50, 'ruta_recarga' => route('produccion.pedidoTerminado.index'), 'opciones_buscador' => config('opcionesSelect.select_produccion_pedido_activo_index')])
     {!! Form::close() !!}
     @include('produccion.pedido.pedido_terminado.pedTer_table')
     @include('global.paginador.paginador', ['paginar' => $pedidos])

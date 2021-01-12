@@ -11,5 +11,6 @@ Route::group(['prefix' => 'factura'], function() {
   Route::match(['GET', 'HEAD'],'subir-archivos/{id_factura}', 'Factura\FacturaController@subirArchivos')->name('factura.subirArchivos')->middleware('permission:factura.edit');
   Route::match(['PUT', 'PATCH'],'actualizar-subir-archivos/{id_factura}', 'Factura\FacturaController@updateSubirArchivos')->name('factura.updateSubirArchivos')->middleware('permission:factura.edit');
   Route::match(['GET', 'HEAD'],'datos-fiscales-cliente/{id_cliente}', 'Usuario\UsuarioController@getDatosFiscalesCliente')->name('factura.getDatosFiscalesCliente')->middleware('permission:factura.create');
-  Route::match(['GET', 'HEAD'],'obtener-informacion-dato-fiscal/{id_dato_fiscal}', 'RolCliente\DatoFiscal\DatoFiscalController@getInformacionDatoFiscal')->name('factura.getInformacionDatoFiscal')->middleware('role:cliente|permission:factura.create');
+  Route::match(['GET', 'HEAD'],'obtener-informacion-dato-fiscal/{id_dato_fiscal}', 'RolCliente\DatoFiscal\DatoFiscalController@getInformacionDatoFiscal')->name('factura.getInformacionDatoFiscal');
+  Route::match(['GET', 'HEAD'],'generar-reporte', 'Factura\FacturaController@generarReporte')->name('factura.generarReporte')->middleware('permission:factura.index');
 });

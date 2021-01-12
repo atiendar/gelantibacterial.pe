@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
 use App\Http\Requests\pago\individual\StorePagoRequest;
+use App\Http\Requests\pago\individual\StorePagoCodigoRequest;
 use App\Http\Requests\pago\individual\UpdatePagoRequest;
 // Repositories
 use App\Repositories\pago\PagoRepositories;
@@ -22,6 +23,12 @@ class PagoController extends Controller {
     toastr()->success('¡Pago registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
+  public function storeCodigo(StorePagoCodigoRequest $request, $id_pedido) {
+    $request->not = 'Comentario del sistema: Primero se genera factura y después se carga el comprobante de pago.';
+    $this->pagoRepo->store($request, $id_pedido);
+    toastr()->success('¡Código generado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
   public function show($id_pago) {
     $pago   = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
     $pedido = $pago->pedido()->firstOrFail();
@@ -29,9 +36,10 @@ class PagoController extends Controller {
   }
   public function edit($id_pago) {
     $pago           = $this->pagoRepo->getPagoFindOrFailById($id_pago, ['pedido'], null);
-    $pedido         = $pago->pedido()->firstOrFail();
-    $mont_pag_aprov =  $this->pagoRepo->getMontoDePagosAprobados($pedido);
-    return view('pago.individual.ind_edit', compact('pago', 'pedido', 'mont_pag_aprov'));
+    $pedido         = $pago->pedido()->with(['pagos'])->firstOrFail();
+    $mont_pag_aprov = $this->pagoRepo->getMontoDePagosAprobados($pedido);
+    $pagos =  $pedido->pagos()->with(['usuario'])->paginate(99999999);
+    return view('pago.individual.ind_edit', compact('pago', 'pagos', 'pedido', 'mont_pag_aprov'));
   }
   public function update(UpdatePagoRequest $request, $id_pago) {
     $this->pagoRepo->update($request, $id_pago);

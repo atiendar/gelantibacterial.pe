@@ -8,7 +8,8 @@ class UpdatePedidoActivoRequest extends FormRequest {
   }
   public function rules() {
     return [
-      'comentario_logistica'      => 'nullable|max:30000|string',
+      'bodega_donde_se_armara'  => 'required|max:150',
+      'comentario_logistica'    => 'nullable|max:30000|string',
     ];
   }
 }

@@ -8,6 +8,8 @@ interface CotizacionInterface {
 
     public function store($request);
 
+    public function update($request, $id_cotizacion);
+    
     public function destroy($id_cotizacion);
 
     public function updateIva($request, $id_cotizacion);

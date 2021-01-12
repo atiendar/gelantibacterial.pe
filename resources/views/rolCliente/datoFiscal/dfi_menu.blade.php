@@ -5,6 +5,6 @@
 </li>
 <li class="nav-item">
   <a href="{{ route('rolCliente.datoFiscal.create') }}" class="nav-link {{ Request::is('rc/dato-fiscal/crear') ? 'active' : '' }}">
-    <i class="fas fa-plus-square"></i> {{ __('Registrar dato fiscal') }}
+    <i class="fas fa-plus-square"></i> {{ __('Registrar datos fiscales') }}
   </a>
 </li>

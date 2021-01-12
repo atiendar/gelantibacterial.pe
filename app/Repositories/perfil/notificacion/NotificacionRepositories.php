@@ -78,8 +78,15 @@ class NotificacionRepositories implements NotificacionInterface {
         }
       }
       if(empty($usuarios)) { return abort(403, __('El/los usuarios seleccionados son inválidos')); }
-      $this->serviceFopen->fopen('resources\views\diseno_notificacion\notificacion\\', $notificacion->id, $notificacion->dis_de_la_notif);
-      NotificacionEnviada::dispatch($notificacion, $usuarios); // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+
+      if(env('APP_ENV') == 'local') {
+        $ruta = 'resources\views\diseno_notificacion\notificacion\\';
+      } elseif(env('APP_ENV') == 'production') {
+        $ruta= 'resources/views/diseno_notificacion/notificacion/';
+      }
+      $this->serviceFopen->fopen($ruta, $notificacion->id, $notificacion->dis_de_la_notif);
+
+      NotificacionEnviada::dispatch($notificacion, $usuarios, auth()->user()->email_registro); // Dispara el evento registrado en App\Providers\EventServiceProvider.php
       // Fin (Define a que usuarios se enviara el correo)
       return $notificacion;
     });

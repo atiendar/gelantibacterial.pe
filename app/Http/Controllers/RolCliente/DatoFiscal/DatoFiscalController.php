@@ -25,7 +25,7 @@ class DatoFiscalController extends Controller {
   }
   public function store(StoreDatoFiscalRequest $request) {
     $this->datoFiscalRepo->store($request);
-    toastr()->success('¡Dato fiscal registrado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    toastr()->success('¡Dato fiscal registrado exitosamente, AHORA DEBES SOLICITAR TU FACTURA!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }
   public function show($id_dato_fiscal) {
@@ -48,7 +48,7 @@ class DatoFiscalController extends Controller {
   }
   public function getInformacionDatoFiscal(Request $request, $id_dato_fiscal) {
     if($request->ajax()) {
-      $dato_fiscal = $this->datoFiscalRepo->getDatoFiscalFindOrFail($this->serviceCrypt->encrypt($id_dato_fiscal), []);
+      $dato_fiscal = $this->datoFiscalRepo->getDatoFiscal($this->serviceCrypt->encrypt($id_dato_fiscal));
       return response()->json($dato_fiscal);
     }
   }

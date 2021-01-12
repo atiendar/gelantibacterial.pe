@@ -18,20 +18,22 @@ class PedidoActivoController extends Controller {
     return view('venta.pedido.pedido_activo.ven_pedAct_index', compact('pedidos', 'pen'));
   }
   public function show($id_pedido) {
-    $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['usuario', 'unificar', 'armados', 'pagos']);
+    $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['usuario', 'archivos', 'unificar', 'armados', 'pagos']);
     $unificados     = $pedido->unificar()->paginate(99999999);
+    $archivos       = $pedido->archivos()->paginate(99999999);
     $armados        = $this->pedidoActivoRepo->getArmadosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $pagos          = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
-    return view('venta.pedido.pedido_activo.ven_pedAct_show', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
+    return view('venta.pedido.pedido_activo.ven_pedAct_show', compact('pedido', 'unificados', 'archivos', 'armados', 'pagos', 'mont_pag_aprov'));
   }
   public function edit($id_pedido) {
-    $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['unificar', 'armados', 'pagos']);
+    $pedido         = $this->pedidoActivoRepo->pedidoAsignadoFindOrFailById($id_pedido, ['unificar', 'archivos', 'armados', 'pagos']);
     $unificados     = $pedido->unificar()->paginate(99999999);
+    $archivos       = $pedido->archivos()->paginate(99999999);
     $armados        = $this->pedidoActivoRepo->getArmadosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $pagos          = $this->pedidoActivoRepo->getPagosPedidoPagination($pedido, (object) ['paginador' => 99999999, 'opcion_buscador' => null]);
     $mont_pag_aprov =  $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
-    return view('venta.pedido.pedido_activo.ven_pedAct_edit', compact('pedido', 'unificados', 'armados', 'pagos', 'mont_pag_aprov'));
+    return view('venta.pedido.pedido_activo.ven_pedAct_edit', compact('pedido', 'unificados', 'archivos', 'armados', 'pagos', 'mont_pag_aprov'));
   }
   public function update(UpdatePedidoRequest $request, $id_pedido) {
     $this->pedidoActivoRepo->update($request, $id_pedido);

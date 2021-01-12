@@ -4,8 +4,9 @@ use App\Http\Controllers\Controller;
 // Request
 use Illuminate\Http\Request;
 use App\Http\Requests\logistica\pedidoActivo\armadoPedidoActivo\UpdateArmadoPedidoActivoRequest;
+use App\Http\Requests\produccion\pedidoActivo\armadoPedidoActivo\UpdateModalArmadoPedidoActivoRequest;
 // Repositories
-use App\Repositories\logistica\PedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
+use App\Repositories\logistica\pedidoActivo\armadoPedidoActivo\ArmadoPedidoActivoRepositories;
 
 class ArmadoPedidoActivoController extends Controller {
   protected $armadoPedidoActivoRepo;
@@ -14,7 +15,7 @@ class ArmadoPedidoActivoController extends Controller {
   }
   public function show(Request $request, $id_armado) {
     $armado       = $this->armadoPedidoActivoRepo->armadoPedidoActivoFindOrFailById($id_armado, ['pedido', 'productos'], 'show');
-    $productos    = $armado->productos()->with('sustitutos')->get();
+    $productos    = $armado->productos()->with(['sustitutos', 'productos_original'])->get();
     $direcciones  = $this->armadoPedidoActivoRepo->getArmadoPedidoTieneDireccionesPaginate($armado, $request);
     return view('logistica.pedido.pedido_activo.armado_activo.armAct_show', compact('armado', 'productos', 'direcciones'));
   }
@@ -26,6 +27,11 @@ class ArmadoPedidoActivoController extends Controller {
   }
   public function update(UpdateArmadoPedidoActivoRequest $request, $id_armado) {
     $this->armadoPedidoActivoRepo->update($request, $id_armado);
+    toastr()->success('¡Armado actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
+  }
+  public function updateModal(UpdateModalArmadoPedidoActivoRequest $request, $id_armado) {
+    $armado = $this->armadoPedidoActivoRepo->updateModal($request, $id_armado);
     toastr()->success('¡Armado actualizado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
   }

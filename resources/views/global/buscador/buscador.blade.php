@@ -7,7 +7,7 @@
       <li class="nav-item">
         <div class="input-group input-group-sm" style="width: 13em;">
           {{ __('Mostrar') }} 
-          &nbsp{!! Form::select('paginador', ['15' => '15', '30' => '30', '50' => '50'], null, ['class' => 'form-control btn-sm w-25', 'onchange' => 'this.form.submit()']) !!}&nbsp 
+          &nbsp{!! Form::select('paginador', ['15' => '15', '30' => '30', '50' => '50'], empty($num_pag) ? __('15') :  $num_pag, ['class' => 'form-control btn-sm w-25', 'onchange' => 'this.form.submit()']) !!}&nbsp 
           {{ __('registros') }}.
           <span class="text-danger">{{ $errors->first('paginador') }}</span>
         </div>

@@ -12,6 +12,28 @@
           </a>
         </li>
       @endcan
+      @canany(['manual.index', 'manual.create', 'manual.show', 'manual.edit', 'manual.destroy'])
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {{ Request::is('sistema/manual*') ? 'bg-primary rounded' : '' }}" href="#" id="navbarManualMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-brush"></i>
+            {{ __('Manuales') }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarManualMenu">
+            @canany(['manual.index', 'manual.create', 'manual.show', 'manual.edit', 'manual.destroy'])
+              <a href="{{ route('manual.index') }}" class="dropdown-item {{ Request::is('sistema/manual') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-list"></i>
+                {{ __('Lista de manuales') }}
+              </a>
+            @endcanany
+            @can('manual.create')
+              <a href="{{ route('manual.create') }}" class="dropdown-item {{ Request::is('sistema/manual/crear') ? 'active' : '' }}">
+                <i class="far fa-plus-square"></i>
+                {{ __('Subir manual') }}
+              </a>
+            @endcan
+          </div>
+        </li>
+      @endcanany
       @canany(['sistema.plantilla.index', 'sistema.plantilla.create', 'sistema.plantilla.show', 'sistema.plantilla.edit', 'sistema.plantilla.destroy'])
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle {{ Request::is('sistema/plantilla*') ? 'bg-primary rounded' : '' }}" href="#" id="navbarPlantillasMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -14,14 +14,13 @@ class DatabaseSeeder extends Seeder
         PermisosTableSeeder::class,
         RolesTableSeeder::class,
         UsersTableSeeder::class,
-      //  QuejasYSugerenciasTableSeeder::class,
-      //  QuejaYSugerenciaArchivoTableSeeder::class,
+        QuejasYSugerenciasTableSeeder::class,
+        QuejaYSugerenciaArchivoTableSeeder::class,
         CatalogosTableSeeder::class,
         SeriesTableSeeder::class,
         PlantillasTableSeeder::class,
         SistemaTableSeeder::class,
       // MÓDULOS
-      /*
         ProveedoresTableSeeder::class,
         ContactosProveedoresTableSeeder::class,
         ProductosTableSeeder::class,
@@ -29,12 +28,10 @@ class DatabaseSeeder extends Seeder
         ProductoTieneSustitutosTableSeeder::class,
         ArmadosTableSeeder::class,
         ArmadoTieneProductosTableSeeder::class,
-        */
         MetodosDeEntregaTableSeeder::class,
         MetodosDeEntregaEspecificosTableSeeder::class,
         TiposDeEnvioTableSeeder::class,
         EstadoTableSeeder::class,
-        /*
         CostosDeEnvioTableSeeder::class,
         CotizacionesTableSeeder::class,
         DireccionesTableSeeder::class,
@@ -52,7 +49,7 @@ class DatabaseSeeder extends Seeder
         SoporteArchivosTableSeeder::class,
         HistorialesArchivosTableSeeder::class,
         MaterialTableSeeder::class,
-        */
+        ManualesTableSeeder::class,
       ]);
     }
 }

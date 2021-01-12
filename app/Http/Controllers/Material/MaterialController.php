@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\material\StoreMaterialRequest;
 use App\Http\Requests\material\UpdateMaterialRequest;
+// Imports
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\MaterialesImport;
 // Repositories
 use App\Repositories\material\MaterialRepositories;
 
@@ -47,5 +50,12 @@ class MaterialController extends Controller {
     $materiales = $this->materialRepo->getAllMaterialesPlunk();
     $material = $this->materialRepo->getMaterialFind($request->modelo_buscado);
     return view('material.mat_consultarPrecio', compact('materiales', 'material'));
+  }
+  public function importMaterial(Request $request) {
+    \App\Models\Material::truncate();
+    (new MaterialesImport)->import($request->archivo);
+    
+    toastr()->success('¡Materiales cargandose... Esto podria tardar algunos minutos!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
+    return back();
   }
 }

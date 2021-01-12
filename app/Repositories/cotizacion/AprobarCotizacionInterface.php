@@ -8,5 +8,7 @@ interface AprobarCotizacionInterface {
 
   public function sumaUnoALaUltimaLetraYArmadosCargados($pedido, $cantidad);
   
+  public function sumaUnoALaUltimaLetraDireccionesCargadas($armado);
+  
   public function aprobar($id_cotizacion);
 }

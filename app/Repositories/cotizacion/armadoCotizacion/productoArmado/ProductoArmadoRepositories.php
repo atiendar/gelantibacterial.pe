@@ -122,7 +122,7 @@ class ProductoArmadoRepositories implements ProductoArmadoInterface {
 
       // GUARDA LA UTILIDAD DEL PRODUCTO
       $producto->utilid = $request->utilidad;
-      $producto->prec_clien = $this->calculoRepo->calcularUtilidad($producto->prec_prove, $producto->utilid);
+      $producto->prec_clien = $this->calculoRepo->getUtilidadProducto($producto->prec_prove, $producto->utilid, $producto->cost_arm);
       $producto->save();
             
       // GENERA LOS NUEVOS VALORES PARA EL ARMADO

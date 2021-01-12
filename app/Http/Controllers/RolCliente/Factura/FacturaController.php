@@ -29,7 +29,17 @@ class FacturaController extends Controller {
   }
   public function create() {
     $datos_fiscales         = $this->datoFiscalRepo->getAllDatosFiscalesClientePluck();
-    $codigos_de_facturacion = $this->pagoClienteRepo->getAllCodigosFacturaClientePluck();
+  //  $codigos_de_facturacion = $this->pagoClienteRepo->getAllCodigosFacturaClientePluck();
+
+      $codigos_de_facturacion = \App\Models\Pago::where('user_id', \Illuminate\Support\Facades\Auth::user()->id)
+              ->where(function($query) {
+                $query->where('est_fact', config('app.no_solicitada'))
+                ->orwhere('est_fact', config('app.cancelado'));
+              })
+              ->whereYear('created_at', date('Y'))
+              ->orderBy('cod_fact', 'ASC')
+              ->get(['cod_fact', 'mont_de_pag']);
+
     return view('rolCliente.factura.fac_create', compact('datos_fiscales', 'codigos_de_facturacion'));
   }
   public function store(StoreFacturaRequest $request) {

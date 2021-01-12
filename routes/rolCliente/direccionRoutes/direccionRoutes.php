@@ -8,4 +8,5 @@ Route::group(['prefix' => 'direccion-de-entrega'], function() {
   Route::match(['GET', 'HEAD'],'editar/{id_direccion}', 'RolCliente\Direccion\DireccionController@edit')->name('rolCliente.direccion.edit');
   Route::match(['PUT', 'PATCH'],'actualizar/{id_direccion}', 'RolCliente\Direccion\DireccionController@update')->name('rolCliente.direccion.update');
   Route::match(['DELETE'],'eliminar/{id_direccion}', 'RolCliente\Direccion\DireccionController@destroy')->name('rolCliente.direccion.destroy');
+  Route::match(['GET', 'HEAD'],'obtener/{id_direccion}', 'RolCliente\Direccion\DireccionController@getDireccionFind');
 });

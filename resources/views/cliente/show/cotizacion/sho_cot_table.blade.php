@@ -6,6 +6,7 @@
       <thead>
         <tr>
           @include('cotizacion.cot_table.th.serie')
+          @include('cotizacion.cot_table.th.fechaCreacion')
           @include('cotizacion.cot_table.th.estatus')
           @include('cotizacion.cot_table.th.validez')
           @include('cotizacion.cot_table.th.total')
@@ -14,7 +15,8 @@
       <tbody> 
         @foreach($cotizaciones as $cotizacion)
           <tr title="{{ $cotizacion->id }}">
-            @include('cotizacion.cot_table.td.serie')
+            @include('cotizacion.cot_table.td.serie', ['show' => true, 'canany' => ['cotizacion.show'], 'ruta' => 'cotizacion.show',  'target' => 'target="_blank"'])
+            @include('cotizacion.cot_table.td.fechaCreacion')
             @include('cotizacion.cot_table.td.estatus')
             @include('cotizacion.cot_table.td.validez')
             @include('cotizacion.cot_table.td.total')

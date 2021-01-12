@@ -22,7 +22,7 @@
         @if($armado->estat == config('app.en_espera_de_compra') OR $armado->estat == config('app.en_revision_de_productos'))
           <tr title="{{ $armado->cod }}">
         @else
-          <tr title="{{ $armado->cod }}" class="text-muted cursor-allowed">
+          <tr title="{{ $armado->cod }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
         @endif
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => ['almacen.pedidoActivo.armado.show', 'almacen.pedidoActivo.show'], 'ruta' => 'almacen.pedidoActivo.armado.show'])
           @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.estatus')

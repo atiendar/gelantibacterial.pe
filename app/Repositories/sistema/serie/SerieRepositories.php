@@ -81,6 +81,9 @@ class SerieRepositories implements SerieInterface {
   }
   public function sumaUnoALaUltimaSerie($input, $vista) {
     $serie = Serie::where('input', $input)->where('vista', $vista)->first();
+    if($serie == null) {
+      return abort(403, 'No sé a definido una serie por default');
+    }
     $serie->ult_ser += 1;
     $serie->save();
     return $vista.$serie->ult_ser;

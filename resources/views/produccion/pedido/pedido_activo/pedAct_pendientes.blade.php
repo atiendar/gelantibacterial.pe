@@ -2,7 +2,7 @@
   <li class="nav-item dropdown" title="{{ __('Pendientes') }}">
     <a class="nav-link" data-toggle="dropdown" href="#">
       <i class="far fa-clipboard"></i>&nbsp;&nbsp;&nbsp;&nbsp;
-    <span class="badge badge-secondary navbar-badge">{{ $pen->porEntregar+$pen->yaCaducados+$pen->pteDePago+$pen->pagoRechazado+$pen->pteDeInformacion+$pen->sinEntregaPorFaltaDeInformacion+$pen->intentoDeEntregaFallido+$pen->urgente  }}</span>
+    <span class="badge badge-secondary navbar-badge">{{ $pen->porEntregar+$pen->yaCaducados+$pen->pteDePago+$pen->pagoRechazado+$pen->urgente  }}</span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
       <span class="dropdown-item dropdown-header"> {{ __(' Pendientes') }}</span>
@@ -37,31 +37,7 @@
           {!! Form::button(__('Pago rechazado'), ['type' => 'submit', 'class' => 'btn btn-lift btn-sm p-0 m-0']) !!}
         </p>
         <div class="dropdown-divider"></div>
-      {!! Form::close() !!}
-
-      {!! Form::model(Request::all(), ['route' => ['produccion.pedidoActivo.index', 'pteDeInformacion'], 'method' => 'GET']) !!}
-        <p class="dropdown-item">
-          <span class="badge badge-warning">{{ $pen->pteDeInformacion }}</span> 
-          {!! Form::button(__('Pte. de información'), ['type' => 'submit', 'class' => 'btn btn-lift btn-sm p-0 m-0']) !!}
-        </p>
-        <div class="dropdown-divider"></div>
-      {!! Form::close() !!}
-      
-      {!! Form::model(Request::all(), ['route' => ['produccion.pedidoActivo.index', 'sinEntregaPorFaltaDeInformacion'], 'method' => 'GET']) !!}
-        <p class="dropdown-item">
-          <span class="badge badge-warning">{{ $pen->sinEntregaPorFaltaDeInformacion }}</span> 
-          {!! Form::button(__('Sin entrega por falta de info.'), ['type' => 'submit', 'class' => 'btn btn-lift btn-sm p-0 m-0']) !!}
-        </p>
-        <div class="dropdown-divider"></div>
-      {!! Form::close() !!}
-
-      {!! Form::model(Request::all(), ['route' => ['produccion.pedidoActivo.index', 'intentoDeEntregaFallido'], 'method' => 'GET']) !!}
-        <p class="dropdown-item">
-          <span class="badge badge-warning">{{ $pen->intentoDeEntregaFallido }}</span> 
-          {!! Form::button(__('Intento de entrega fallido'), ['type' => 'submit', 'class' => 'btn btn-lift btn-sm p-0 m-0']) !!}
-        </p>
-        <div class="dropdown-divider"></div>
-      {!! Form::close() !!}
+      {!! Form::close() !!}    
 
       {!! Form::model(Request::all(), ['route' => ['produccion.pedidoActivo.index', 'urgente'], 'method' => 'GET']) !!}
         <p class="dropdown-item">

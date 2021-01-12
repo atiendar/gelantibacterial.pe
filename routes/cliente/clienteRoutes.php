@@ -7,7 +7,7 @@ Route::group(['prefix' => 'cliente'], function() {
     
     Route::group(['prefix' => 'detalles'], function() {
         Route::match(['GET', 'HEAD'],'actividad/{id_cliente}', 'Cliente\Show\ActividadController@index')->name('cliente.show.actividad.index')->middleware('permission:cliente.show');
-        Route::match(['GET', 'HEAD'],'d/{id_cliente}', 'Cliente\ClienteController@show')->name('cliente.show')->middleware('permission:cliente.show');
+        Route::match(['GET', 'HEAD'],'view/{id_cliente}', 'Cliente\ClienteController@show')->name('cliente.show')->middleware('permission:cliente.show');
 
         Route::group(['prefix' => 'direccion'], function() {
             Route::match(['GET', 'HEAD'],'{id_cliente}', 'Cliente\Show\DireccionController@index')->name('cliente.show.direccion.index')->middleware('permission:cliente.show|cliente.edit');

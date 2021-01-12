@@ -38,6 +38,17 @@
   @endcan
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.numeroDePedidoUnificado', ['alto' => 'height: 23em;'])
 </div>
-@include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_index')
+<div class="row">
+  @can('venta.pedidoActivo.edit')
+    <div class="col-md-4">
+      <div class="pad">
+        @include('venta.pedido.pedido_activo.archivo.arc_index')
+      </div>
+    </div>
+  @endcan
+  <div class="col-md-8">
+    @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_arm_pedAct_index')
+  </div>
+</div>
 @include('venta.pedido.pedido_activo.pago_pedidoActivo.ven_pedAct_pag_index')
 @endsection

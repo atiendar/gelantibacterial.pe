@@ -16,7 +16,7 @@
       <td>{{ $armado->gama }}</td>
       <td>
         @if($armado->img_nom != null)
-          <img src="{{ $armado->img_rut.$armado->img_no }}" style="width:1rem;">
+        {{--   <img src="{{ $armado->img_rut.$armado->img_nom }}" style="width:1rem;"> --}}
         @endif
       </td>
       <td>({{ $armado->sku }}) {{ $armado->nom }} </td>

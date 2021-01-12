@@ -41,24 +41,60 @@
     data: {
       errors:                         [],
       metodos_de_entrega:             [],
-      metodos_de_entrega_espesificos: [],
+      metodos_de_entrega_especificos: [],
       estados:                        [],
       tipos_de_envio:                 [],
+      unitario_o_total:               "unitario",
+      municipios:                     [],
 
+      concatenado:                  "",
       foraneo_o_local:              "{{ $costo_de_envio->for_loc }}",
       metodo_de_entrega:            "{{ $costo_de_envio->met_de_entreg }}",
-      metodo_de_entrega_espesifico: "{{ $costo_de_envio->met_de_entreg_esp }}",
-      cuenta_con_seguro:            "{{ $costo_de_envio->seg }}",
+      metodo_de_entrega_especifico: "{{ $costo_de_envio->met_de_entreg_esp }}",
+      cantidad:                     "{{ $costo_de_envio->cant }}",
+      transporte:                   "{{ $costo_de_envio->trans }}",
       estado:                       "{{ $costo_de_envio->est }}",
-      tamano:                       "{{ $costo_de_envio->tam }}",
-      tipo_de_empaque:              "{{ $costo_de_envio->tip_emp }}",
-      tiempo_de_entrega:            "{{ $costo_de_envio->tiemp_ent }}",
+      total_o_unitario:             "{{ $costo_de_envio->tot_unit }}",
+      municipio:                    "{{ $costo_de_envio->mun }}",
       tipo_de_envio:                "{{ $costo_de_envio->tip_env }}",
+      tamano:                       "{{ $costo_de_envio->tam }}",
+      aplicar_costo_de_caja:        "{{ $costo_de_envio->aplic_cos_caj }}",
+      cuenta_con_seguro:            "{{ $costo_de_envio->seg }}",
+      tiempo_de_entrega:            "{{ $costo_de_envio->tiemp_ent }}",
       costo_por_envio:              "{{ $costo_de_envio->cost_por_env }}"
+    },
+    computed: {
+      metChico: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_CHICO_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_CHICO') }}"
+        }
+      },
+      metMediano: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_MEDIANO_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_MEDIANO') }}"
+        }
+      },
+      metGrande: function () {
+        if(this.metodo_de_entrega == 'Transportes Ferro' && this.tipo_de_envio == 'Consolidado') {
+          return "{{ env('COSTO_GRANDE_ESP') }}"
+        } else {
+      
+          return "{{ env('COSTO_GRANDE') }}"
+        }
+      }
     },
     mounted() {
       this.getMetodosDeEntrega(1)
       this.getTiposDeEnvio(1)
+      this.tipPaqueteria(1)
+      this.getMunicipios()
+      this.getUnitarioOTotal()
     },
     methods: {
       async update() {
@@ -76,16 +112,22 @@
         }).then((result) => {
           if (result.value) {
             this.checarBotonSubmitDisabled("btnsubmit")
+            this.getConcatenado()
             axios.put('/costo-de-envio/actualizar/'+{{ $costo_de_envio->id }}, {
+              registro:                     this.concatenado,
               foraneo_o_local:              this.foraneo_o_local,
               metodo_de_entrega:            this.metodo_de_entrega,
-              metodo_de_entrega_espesifico: this.metodo_de_entrega_espesifico,
-              cuenta_con_seguro:            this.cuenta_con_seguro,
+              metodo_de_entrega_especifico: this.metodo_de_entrega_especifico,
+              cantidad:                     this.cantidad,
+              transporte:                   this.transporte,
               estado:                       this.estado,
-              tamano:                       this.tamano,
-              tipo_de_empaque:              this.tipo_de_empaque,
-              tiempo_de_entrega:            this.tiempo_de_entrega,
+              total_o_unitario:             this.total_o_unitario,
+              municipio:                    this.municipio,
               tipo_de_envio:                this.tipo_de_envio,
+              tamano:                       this.tamano,
+              aplicar_costo_de_caja:        this.aplicar_costo_de_caja,
+              cuenta_con_seguro:            this.cuenta_con_seguro,
+              tiempo_de_entrega:            this.tiempo_de_entrega,
               costo_por_envio:              this.costo_por_envio,
               tipos_de_envio:               this.tipos_de_envio,
             }).then(res => {
@@ -109,21 +151,80 @@
           }
         });
       },
+      async getConcatenado() {
+        this.concatenado = ""
+        if(this.foraneo_o_local != null) {
+          this.concatenado += this.foraneo_o_local
+        }
+        if(this.metodo_de_entrega != null) {
+          this.concatenado += this.metodo_de_entrega
+        }
+        if(this.metodo_de_entrega_especifico != null) {
+          this.concatenado += this.metodo_de_entrega_especifico
+        }
+        if(this.cantidad != null) {
+          this.concatenado += this.cantidad
+        }
+        if(this.transporte != null) {
+          this.concatenado += this.transporte
+        }
+        if(this.estado != null) {
+          this.concatenado += this.estado
+        }
+        if(this.total_o_unitario != null) {
+          this.concatenado += this.total_o_unitario
+        }
+        if(this.municipio != null) {
+          this.concatenado += this.municipio
+        }
+        if(this.tipo_de_envio != null) {
+          this.concatenado += this.tipo_de_envio
+        }
+        if(this.tamano != null) {
+          this.concatenado += this.tamano
+        }
+        if(this.aplicar_costo_de_caja != null) {
+          this.concatenado += this.aplicar_costo_de_caja
+        }
+        if(this.cuenta_con_seguro != null) {
+          this.concatenado += this.cuenta_con_seguro
+        }
+        if(this.tiempo_de_entrega != null) {
+          this.concatenado += this.tiempo_de_entrega
+        }
+        if(this.costo_por_envio != null) {
+          this.concatenado += this.costo_por_envio
+        }
+      },
       async getMetodosDeEntrega($val) {
         if($val == 2) {
           this.metodo_de_entrega            = null
-          this.metodo_de_entrega_espesifico = null
+          this.metodo_de_entrega_especifico = null
+          this.cantidad                     = null
+          this.transporte                   = null
           this.estado                       = null
+          this.total_o_unitario             = null
           this.tipo_de_envio                = null
-          this.tiempo_de_entrega            = null
+          this.getUnitarioOTotal()
+
+          metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
+          metodo_de_entrega_especifico.style.display = 'none';
+
+          divtotal_o_unitario  = document.getElementById('divtotal_o_unitario')
+          divtotal_o_unitario.style.display = 'none';
+
+          cantidad  = document.getElementById('divcantidad')
+          cantidad.style.display = 'none';
+
+          transporte  = document.getElementById('divtransporte')
+          transporte.style.display = 'none';
+
+          tipo_de_envio  = document.getElementById('tipo_de_envio')
+          tipo_de_envio.style.display = 'none';
         }
 
         if(this.foraneo_o_local != '') {
-          if(this.foraneo_o_local == 'Local') {
-            this.tiempo_de_entrega = 'De 1 a 4 dias'
-          } else {
-            this.tiempo_de_entrega = 'De 7 a 10 dias'
-          }
+          this.getForLoc()
           // TREA TODOS LOS METODOS DE ENTREGA CORRESPONDIENTES
           axios.get('/logistica/direccion/metodo-de-entrega/'+this.foraneo_o_local).then(res => {
             this.metodos_de_entrega = res.data
@@ -157,10 +258,56 @@
           })
         });
       },
+      async getMunicipios() {
+        municipio  = document.getElementById('municipio')
+        municipio.style.display = 'none';
+
+        $estad = '';
+        for (var i = 0; i< this.estado.length; i++) {
+          var caracter = this.estado.charAt(i);
+          if(caracter == "(") {
+            break;
+          } else {
+            $estad = $estad + caracter;
+          }
+          
+        }
+        $estad.substring(0, $estad.length - 2);
+
+        if($estad != 'Tarifa única ') {
+          axios.get('https://api-sepomex.hckdrk.mx/query/get_municipio_por_estado/'+$estad).then(res => {
+            this.municipios = res.data.response.municipios;
+            municipio.style.display = 'block';
+          }).catch(error => {
+            Swal.fire({
+              title: 'Algo salio mal',
+              text: error,
+            })
+          });
+        }
+      },
       async getTiposDeEnvio($val) {
         if($val == 2) {
-          this.metodo_de_entrega_espesifico = null
+          this.metodo_de_entrega_especifico = null
+          this.cantidad                     = null
+          this.transporte                   = null
           this.tipo_de_envio                = null
+          this.getUnitarioOTotal()
+
+        if(this.metodo_de_entrega == 'Transportes Ferro') {
+          this.unitario_o_total = "total";
+        }
+          metodo_de_entrega_especifico  = document.getElementById('metodo_de_entrega_especifico')
+          metodo_de_entrega_especifico.style.display = 'none';
+          
+          cantidad  = document.getElementById('divcantidad')
+          cantidad.style.display = 'none';
+
+          transporte  = document.getElementById('divtransporte')
+          transporte.style.display = 'none';
+
+          tipo_de_envio  = document.getElementById('tipo_de_envio')
+          tipo_de_envio.style.display = 'none';
         }
 
         // TREA TODOS LOS METODOS DE ENVIO
@@ -180,20 +327,23 @@
           });
         }
         if(this.metodo_de_entrega == 'Paquetería') {
-          this.getMetodosDeEntregaEspesificos()
+          this.getMetodosDeEntregaEspecificos()
+        } else if(this.metodo_de_entrega == 'Transportes Ferro') {
+          transporte  = document.getElementById('divtransporte')
+          transporte.style.display = 'block';
         } else {
-          metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-          metodo_de_entrega_espesifico.style.display = 'none';
+          metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+          metodo_de_entrega_especifico.style.display = 'none';
         }
       },
-      async getMetodosDeEntregaEspesificos() {
+      async getMetodosDeEntregaEspecificos() {
         if(this.metodo_de_entrega != '') {
           axios.get('/logistica/direccion/metodo-de-entrega-espescifico/'+this.metodo_de_entrega).then(res => {
-            this.metodos_de_entrega_espesificos = res.data
-            metodo_de_entrega_espesifico = document.getElementById('metodo_de_entrega_espesifico')
-            metodo_de_entrega_espesifico.style.display = 'none';
+            this.metodos_de_entrega_especificos = res.data
+            metodo_de_entrega_especifico = document.getElementById('metodo_de_entrega_especifico')
+            metodo_de_entrega_especifico.style.display = 'none';
             if(Object.keys(res.data).length != 0) { 
-              metodo_de_entrega_espesifico.style.display = 'block';
+              metodo_de_entrega_especifico.style.display = 'block';
             }
           }).catch(error => {
             Swal.fire({
@@ -201,6 +351,42 @@
               text: error,
             })
           });
+        }
+      },
+      async tipPaqueteria($val) {
+        cantidad  = document.getElementById('divcantidad')
+
+        if($val == 2) {
+          this.cantidad                     = null
+          this.tipo_de_envio                = null
+          
+          cantidad.style.display = 'none';
+        }
+
+        if(this.metodo_de_entrega_especifico == 'TresGuerras') {
+          cantidad.style.display = 'block';
+        }
+      },
+      async getTipoDeEnvio() {
+        this.getForLoc()
+        this.getUnitarioOTotal()
+        if(this.tipo_de_envio == "Directo") {
+          this.tiempo_de_entrega = "Express";
+        }
+      },
+      async getUnitarioOTotal() {
+        this.unitario_o_total = "unitario";
+        if(this.tipo_de_envio == "Consolidado" || this.tipo_de_envio == "Directo") {
+          this.unitario_o_total = "total";
+        }
+      },
+      async getForLoc() {
+        if(this.foraneo_o_local == 'Local') {
+          this.tiempo_de_entrega = 'De 1 a 4 dias'
+          divtotal_o_unitario  = document.getElementById('divtotal_o_unitario')
+          divtotal_o_unitario.style.display = 'block';
+        } else {
+          this.tiempo_de_entrega = 'De 7 a 10 dias'
         }
       },
       async getDecimal() {

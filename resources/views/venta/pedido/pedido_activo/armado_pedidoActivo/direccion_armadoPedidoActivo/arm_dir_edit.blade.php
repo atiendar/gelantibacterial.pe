@@ -18,8 +18,24 @@
       <small>{{ $direccion->id }}</small>
     </div>
   </div>
+</div>
+@if($direccion->armado->estat != config('app.en_produccion') AND $direccion->armado->estat != config('app.en_almacen_de_salida') AND $direccion->armado->estat != config('app.en_ruta') AND $direccion->armado->estat != config('app.sin_entrega_por_falta_de_informacion') AND $direccion->armado->estat != config('app.intento_de_entrega_fallido'))
+  <div class="card">
+    <div class="card-body">
+      {!! Form::open(['route' => ['venta.pedidoActivo.armado.direccion.updateTarjeta', Crypt::encrypt($direccion->id)], 'method' => 'patch', 'id' => 'ventaPedidoActivoArmadoDirecionUpdateTarjeta', 'files' => true]) !!}
+        @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_editInformacionExtra')
+        <div class="row">
+          <div class="form-group col-sm btn-sm">
+            <center><button type="submit" id="btnsubmit" class="btn btn-info w-50 p-2" onclick="return check('btnsubmit', 'ventaPedidoActivoArmadoDirecionUpdateTarjeta', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar tarjeta') }}</button></center>
+          </div>
+        </div>
+      {!! Form::close() !!}
+    </div>
+  </div>
+@endif
+<div class="card">
   <div class="card-body">
-    {!! Form::open(['route' => ['venta.pedidoActivo.armado.direccion.update', Crypt::encrypt($direccion->id)], 'method' => 'patch', 'id' => 'ventaPedidoActivoArmadoDirecionUpdate', 'files' => true]) !!}
+    {!! Form::open(['route' => ['venta.pedidoActivo.armado.direccion.update', Crypt::encrypt($direccion->id)], 'method' => 'patch', 'id' => 'ventaPedidoActivoArmadoDirecionUpdate']) !!}
       @include('venta.pedido.pedido_activo.armado_pedidoActivo.direccion_armadoPedidoActivo.arm_dir_editFields')
     {!! Form::close() !!}
   </div>

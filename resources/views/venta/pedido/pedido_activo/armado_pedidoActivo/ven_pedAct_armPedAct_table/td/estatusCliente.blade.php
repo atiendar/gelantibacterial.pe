@@ -28,7 +28,7 @@
       <span class="badge" style="background:{{ config('app.color_f') }}">{{ config('app.sin_entrega_por_falta_de_informacion') }}</span>
       @break
     @case(config('app.intento_de_entrega_fallido'))
-      <span class="badge" style="background:{{ config('app.color_f') }}">{{ onfig('app.intento_de_entrega_fallido') }}</span>
+      <span class="badge" style="background:{{ config('app.color_f') }}">{{ config('app.intento_de_entrega_fallido') }}</span>
       @break
     @default
       {{ config('app.pendiente') }}

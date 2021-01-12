@@ -7,6 +7,7 @@
         <tr>
           @include('queja_y_sugerencia.qsu_table.th.id')
           @include('queja_y_sugerencia.qsu_table.th.usuario')
+          @include('queja_y_sugerencia.qsu_table.th.tipo')
           @include('queja_y_sugerencia.qsu_table.th.departamento')
           @include('queja_y_sugerencia.qsu_table.th.observaciones')
         </tr>
@@ -16,6 +17,7 @@
           <tr title="{{ $queja_y_sugerencia->id }}">
             @include('queja_y_sugerencia.qsu_table.td.id')
             @include('queja_y_sugerencia.qsu_table.td.usuario')
+            @include('queja_y_sugerencia.qsu_table.td.tipo')
             @include('queja_y_sugerencia.qsu_table.td.departamento')
             @include('queja_y_sugerencia.qsu_table.td.observaciones')
           </tr>

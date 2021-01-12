@@ -9,6 +9,12 @@
   <li class="nav-item">
     <a href="{{ route('inventario.create') }}" class="nav-link {{ Request::is('ti/inventario/crear') ? 'active' : ''}}">
       <i class="fas fa-plus-square"></i> {{__('Registrar inventario')}}
-     </a>
+    </a>
   </li>
 @endcan
+
+<li class="nav-item ml-auto">
+  <a href="{{ route('inventario.generarReporte') }}" class="btn btn-info" target="_blank">
+    {{__('Generar reporte')}}
+  </a>
+</li>

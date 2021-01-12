@@ -695,6 +695,13 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Lista y navega por todos los registros del módulo Ventas 'Pedidos terminados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Spatie\Permission\Models\Permission::create([
+      //  'id'              => 105,
+        'nom'             => "Ver detalles Ventas 'Pedidos terminados'",
+        'name'				    => 'venta.pedidoTerminado.show',
+        'desc'            => "Ver detalles de cualquier registro del módulo Ventas 'Pedidos terminados'",
+        'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+      ]);
 // PERMISOS DEL MÓDULO COTIZACIONES
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 90,
@@ -803,13 +810,6 @@ Spatie\Permission\Models\Permission::create([
       'nom'             => "Navegar por tabla Pagos 'Individual'",
       'name'				    => 'pago.index',
       'desc'            => "Lista y navega por todos los registros del módulo Pagos 'Individual'",
-      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
-    ]);
-    Spatie\Permission\Models\Permission::create([
-//      'id'              => 105,
-      'nom'             => "Registrar nuevo Pagos 'Individual'",
-      'name'				    => 'pago.create',
-      'desc'            => "Crear nuevo registro en el módulo Pagos 'Individual'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
@@ -1023,6 +1023,13 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones locales'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 103,
+      'nom'             => "Editar registro Logística 'Direcciones locales'",
+      'name'				    => "logistica.direccionLocal.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Logística 'Direcciones locales'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
     //PERMISOS DEL MÓDULO LOGÍSTICA (DIRECCIONES FORANEOS)
     Spatie\Permission\Models\Permission::create([
       //  'id'              => 104,
@@ -1059,18 +1066,25 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Registrar nuevo comprobante de entrega en el módulo Logística 'Direcciones locales y foraneos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 103,
+      'nom'             => "Editar registro Logística 'Direcciones foraneos'",
+      'name'				    => "logistica.direccionForaneo.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo Logística 'Direcciones foraneos'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
 //PERMISOS DEL MÓDULO LOGÍSTICA (PEDIDO ENTREGADO)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 104,
       'nom'             => "Navegar por tabla Logística 'Pedidos entregados'",
-      'name'				    => 'logistica.pedidoTerminado.index',
+      'name'				    => 'logistica.pedidoEntregado.index',
       'desc'            => "Lista y navega por todos los registros del módulo Logística 'Pedidos entregados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 105,
       'nom'             => "Ver detalles Logística 'Pedidos entregados'",
-      'name'				    => 'logistica.pedidoTerminado.show',
+      'name'				    => 'logistica.pedidoEntregado.show',
       'desc'            => "Ver detalles de cualquier registro del módulo Logística 'Pedidos entregados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
@@ -1182,5 +1196,83 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Consultar precio de cualquier registro del módulo 'Materiales'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    // PERMISOS DEL MÓDULO SISTEMA (MANUALES)
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 3,
+      'nom'             => "Navegar por tabla 'Sistema (Manuales)'",
+      'name'            => 'manual.index',
+      'desc'            => "Lista y navega por todos los registros del módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 4,
+      'nom'             => "Registrar nuevo 'Sistema (Manuales)'",
+      'name'			    	=> 'manual.create',
+      'desc'            => "Crear nuevo registro en el módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 5,
+      'nom'             => "Ver detalles 'Sistema (Manuales)'",
+      'name'				    => 'manual.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 6,
+      'nom'             => "Editar registro 'Sistema (Manuales)'",
+      'name'				    => "manual.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 7,
+      'nom'             => "Eliminar registro 'Sistema (Manuales)'",
+      'name'				    => "manual.destroy",
+      'desc'            => "Eliminar cualquier registro del módulo 'Sistema (Manuales)'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+  // PERMISOS DEL MÓDULO (STOCK)
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 3,
+      'nom'             => "Navegar por tabla 'Stock'",
+      'name'            => 'stock.index',
+      'desc'            => "Lista y navega por todos los registros del módulo 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 4,
+      'nom'             => "Registrar nuevo 'Stock'",
+      'name'			    	=> 'stock.create',
+      'desc'            => "Crear nuevo registro en el módulo 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 5,
+      'nom'             => "Ver detalles 'Stock'",
+      'name'				    => 'stock.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 6,
+      'nom'             => "Editar registro 'Stock'",
+      'name'				    => "stock.edit",
+      'desc'            => "Editar cualquier dato de un registro del módulo 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+    //  'id'              => 7,
+      'nom'             => "Eliminar registro 'Stock'",
+      'name'				    => "stock.destroy",
+      'desc'            => "Eliminar cualquier registro del módulo 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+        'nom'             => "Regresar al estatus En Ruta Logística 'Direcciones entregadas'",
+        'name'				    => 'logistica.direccionEntregada.edit',
+        'desc'            => "Regresar al estatus En Ruta Logística del módulo Logística 'Direcciones entregadas'",
+        'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+      ]);
   }
 }

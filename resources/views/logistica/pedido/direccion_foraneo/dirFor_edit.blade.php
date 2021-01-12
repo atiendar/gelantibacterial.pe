@@ -17,14 +17,14 @@
     </div>
   </div>
   <div class="card-body">
-    {!! Form::open(['route' => ['logistica.direccionLocal.update', Crypt::encrypt($direccion->id)], 'method' => 'patch', 'id' => 'logisticaDireccionLocalUpdate', 'files' => true]) !!}
+    {!! Form::open(['route' => ['logistica.direccionForaneo.update', Crypt::encrypt($direccion->id)], 'method' => 'patch', 'id' => 'logisticaDireccionForaneoUpdate', 'files' => true]) !!}
       @include('logistica.pedido.pedido_activo.armado_activo.direccion_armado.dirArm_editFields')
       <div class="row">
         <div class="form-group col-sm btn-sm" >
           <a href="{{ route('logistica.direccionForaneo.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>
         </div>
         <div class="form-group col-sm btn-sm">
-          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'logisticaDireccionLocalUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
+          <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'logisticaDireccionForaneoUpdate', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-edit text-dark"></i> {{ __('Actualizar') }}</button>
         </div>
       </div>
     {!! Form::close() !!}

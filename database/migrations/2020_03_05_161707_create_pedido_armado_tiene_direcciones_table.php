@@ -18,23 +18,33 @@ class CreatePedidoArmadoTieneDireccionesTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
+            $table->string('cod',60)->comment('Código');
+            
+            
+            $table->string('rut',50)->nullable()->comment('Ruta asignada');
+
             $table->string('regresado',10)->default('Falso')->comment('Opción para bloquear el editar las direcciones si el armado se refresa de logística a producción (falso o verdadero)');  
             $table->integer('cant')->unsigned()->comment('Cantidad');
             $table->string('estat',70)->default('Pendiente')->comment('Estatus');
-            $table->string('tip_tarj_felic',30)->nullable()->comment('Tipo de tarjeta de felicitación');
+            $table->string('tip_tarj_felic',30)->default('Estandar')->comment('Tipo de tarjeta de felicitación');
             $table->text('mens_dedic')->nullable()->comment('Mensaje dedicatoria');
             $table->string('tarj_dise_rut',200)->nullable()->comment('Ruta tarjeta diseñada');
             $table->string('tarj_dise_nom',200)->nullable()->comment('Nombre tarjeta diseñada');
             $table->string('met_de_entreg', 150)->comment('Método de entrega de ventas');
+            $table->timestamp('fech_en_alm_salida')->nullable()->comment('Fecha en la que la direccion cambio a almacén de salida');
             $table->string('est',150)->comment('Estado a la que se cotizó');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');
             $table->text('detalles_de_la_ubicacion')->comment('Detalles de la ubicación');
             $table->string('tip_env', 80)->nullable()->comment('Tipo de envío');
             $table->decimal('cost_por_env',20,2)->unsigned()->nullable()->comment('Costo por envío venta');
+
+
+            $table->string('caj', 80)->nullable()->comment('Cuenta o no con caja y tamaño');
+
             $table->string('created_com_sal',75)->nullable()->comment('Correo del usuario que subio el comprobante de salida');
             $table->timestamp('fech_car_comp_de_sal')->nullable()->comment('Fecha en que que subio el comprobante de salida');
             $table->string('met_de_entreg_de_log',150)->nullable()->comment('Método de entrega de logística');
-            $table->string('met_de_entreg_de_log_esp',150)->nullable()->comment('Método de entrega espesifico de logística');
+            $table->string('met_de_entreg_de_log_esp',150)->nullable()->comment('Método de entrega especifico de logística');
             $table->string('comp_de_sal_rut', 200)->nullable()->comment('Ruta de donde se guardo el comprobante de salida');
             $table->string('comp_de_sal_nom', 200)->nullable()->comment('Nombre del comprobante de salida');
             $table->string('url',200)->nullable()->comment('URL rastreo');

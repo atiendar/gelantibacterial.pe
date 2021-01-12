@@ -18,7 +18,7 @@
       @if($armado->estat == config('app.en_almacen_de_salida') OR $armado->estat == config('app.en_ruta') OR $armado->estat == config('app.sin_entrega_por_falta_de_informacion') OR $armado->estat == config('app.intento_de_entrega_fallido'))
         <tr title="{{ $armado->cod }}">
       @else
-        <tr title="{{ $armado->cod }}" class="text-muted cursor-allowed">
+        <tr title="{{ $armado->cod }}" class="text-muted cursor-allowed" style="background:#bcbcbc">
       @endif
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.#', ['show' => true, 'canany' => ['logistica.pedidoEntregado.armado.show', 'logistica.pedidoEntregado.show'], 'ruta' => 'logistica.pedidoEntregado.armado.show'])
         @include('venta.pedido.pedido_activo.armado_pedidoActivo.ven_pedAct_armPedAct_table.td.estatus')

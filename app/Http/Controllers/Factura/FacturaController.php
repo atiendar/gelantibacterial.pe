@@ -32,7 +32,7 @@ class FacturaController extends Controller {
   }
   public function show($id_factura) {
     $factura = $this->facturaRepo->getFacturaFindOrFailById($id_factura, ['usuario', 'pago'], null);
-    $pago = $factura->pago;
+    $pago = $factura->pago()->with('pedido')->first();
     return view('factura.fac_show', compact('factura', 'pago'));
   }
   public function edit($id_factura) {
@@ -57,5 +57,8 @@ class FacturaController extends Controller {
     $factura = $this->facturaRepo->updateSubirArchivos($request, $id_factura);
     toastr()->success('¡Archivos cargados exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
     return back();
+  }
+  public function generarReporte(Request $request) {
+    return (new \App\Exports\factura\reporteFacturadoExport($request->fecha))->download('ReporteFacturacion-'.date('Y-m-d').'.xlsx');
   }
 }

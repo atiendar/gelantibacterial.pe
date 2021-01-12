@@ -39,20 +39,31 @@
         estado             = null,
         tipo_de_envio      = null,
       ],
-      tamano:                   "{{ $armado->tam }}",
-      tipo_de_empaque:          null,
-      cuenta_con_seguro:        null,
-      tiempo_de_entrega:        null,
-      metodo_de_entrega:        null,
-      estado_al_que_se_cotizo:  null,
-      foraneo_o_local:          null,
-      tipo_de_envio:            null,
-      costo_de_envio:           null,
+      tamano:              "{{ $armado->tam }}",
+
+      // CAMPOS BLOQUEADO
+      foraneo_o_local:              null,
+      metodo_de_entrega:            null,
+      metodo_de_entrega_especifico: null,
+      cantid:                       null,
+      transporte:                   null,
+      estado_al_que_se_cotizo:      null,
+      total_o_unitario:             null,
+      municipio:                    null,
+      tipo_de_envio:                null,
+      taman:                        null,
+      costo_de_caja:                null,
+      tipo_de_empaque:              null,
+      cuenta_con_seguro:            null,
+      tiempo_de_entrega:            null,
+      costo_de_envio_individual:    null,
+      costo_de_envio:               null,
+      // CAMPOS DESBLOQUEADOS
       cantidad:                 null,
       detalles_de_la_ubicacion: null,
-
+      // OTROS
       costo_seleccionado: [],
-      cost_por_env: null,
+      cost_por_env:       null,
     },
     mounted() {
       this.getCostos()
@@ -61,11 +72,6 @@
       async create() {
         this.checarBotonSubmitDisabled("btnsubmit")
         axios.post('/cotizacion/armado/direccion/almacenar/'+{{ $armado->id }}, {
-          metodo_de_entrega:        this.metodo_de_entrega,
-          estado_al_que_se_cotizo:  this.estado_al_que_se_cotizo,
-          foraneo_o_local:          this.foraneo_o_local,
-          tipo_de_envio:            this.tipo_de_envio,
-          costo_de_envio:           this.costo_de_envio,
           cantidad:                 this.cantidad,
           detalles_de_la_ubicacion: this.detalles_de_la_ubicacion,
           costo_seleccionado:       this.costo_seleccionado
@@ -108,24 +114,41 @@
         });
       },
       async getCostoSeleccionado(costo_env) {
-        this.costo_seleccionado      = costo_env
-        this.tipo_de_empaque         = costo_env.tip_emp
-        this.cuenta_con_seguro       = costo_env.seg
-        this.tiempo_de_entrega       = costo_env.tiemp_ent
-        this.metodo_de_entrega       = costo_env.met_de_entreg
-        this.estado_al_que_se_cotizo = costo_env.est
-        this.foraneo_o_local         = costo_env.for_loc
-        this.tipo_de_envio           = costo_env.tip_env
-        this.costo_de_envio          = costo_env.cost_por_env
+        this.costo_seleccionado           = costo_env
+        this.foraneo_o_local              = costo_env.for_loc
+        this.metodo_de_entrega            = costo_env.met_de_entreg
+        this.metodo_de_entrega_especifico = costo_env.met_de_entreg_esp
+        this.cantid                       = costo_env.cant
+        this.transporte                   = costo_env.trans
+        this.estado_al_que_se_cotizo      = costo_env.est
+        this.total_o_unitario             = costo_env.tot_unit
+        this.municipio                    = costo_env.mun
+        this.tipo_de_envio                = costo_env.tip_env
+        this.taman                        = costo_env.tam
+        this.costo_de_caja                = costo_env.cost_tam_caj
+        this.cuenta_con_seguro            = costo_env.seg
+        this.tiempo_de_entrega            = costo_env.tiemp_ent
+        this.costo_de_envio_individual    = costo_env.cost_por_env
+        this.costo_de_envio               = costo_env.cost_por_env
         this.getCostoDeEnvio()
       },
       async getCostoDeEnvio() {
-        if(this.tipo_de_envio == 'Consolidado') {
-          this.cost_por_env = parseFloat(this.costo_de_envio)
+        if(this.estado_al_que_se_cotizo == 'Ciudad de México (Ciudad de México)' || this.estado_al_que_se_cotizo == 'México (Edo. México)') {
+          if(this.total_o_unitario == 'Total') {
+            this.cost_por_env = parseFloat(this.costo_de_envio_individual)
+          } else if(this.total_o_unitario == 'Unitario') {
+            this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
+          }
+        }else if(this.tipo_de_envio == 'Consolidado' || this.tipo_de_envio == 'Directo') {
+          this.cost_por_env = parseFloat(this.costo_de_envio_individual)
         } else {
-          this.cost_por_env = parseFloat(this.costo_de_envio) * parseFloat(this.cantidad)
+          this.cost_por_env = parseFloat(this.costo_de_envio_individual) * parseFloat(this.cantidad)
         }
-        
+
+        if(this.costo_seleccionado.cost_tam_caj > 0) {
+          this.cost_por_env += this.costo_seleccionado.cost_tam_caj *  parseFloat(this.cantidad); 
+        }
+
         if (isNaN(parseFloat(this.cost_por_env))) {
           this.cost_por_env = this.costo_de_envio
         }

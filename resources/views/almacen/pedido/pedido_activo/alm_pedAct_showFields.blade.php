@@ -16,6 +16,10 @@
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatusPago')
 </div>
 <div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.stock')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.bodega')
+</div>
+<div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosCliente')
 </div>
 <div class="row">
@@ -40,11 +44,6 @@
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosLogistica')
-</div>
-<div class="row">
-  <div class="form-group col-sm btn-sm">
-    <center><a href="{{ route('almacen.pedidoActivo.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a></center>
-  </div>
 </div>
 @include('layouts.private.plugins.priv_plu_select2')
 @section('js2')

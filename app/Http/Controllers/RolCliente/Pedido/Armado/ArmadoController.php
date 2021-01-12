@@ -23,7 +23,7 @@ class ArmadoController extends Controller {
       abort('404');
     }
 
-    $productos    = $armado->productos()->with('sustitutos')->get();
+    $productos    = $armado->productos()->with(['sustitutos', 'productos_original'])->get();
     $direcciones  = $armado->direcciones()->paginate(99999999);
     return view('rolCliente.pedido.armado.arm_show', compact('armado', 'pedido', 'productos', 'direcciones'));
   }

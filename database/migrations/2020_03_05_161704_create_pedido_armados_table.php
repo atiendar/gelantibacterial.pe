@@ -19,6 +19,7 @@ class CreatePedidoArmadosTable extends Migration
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
             $table->string('cod',50)->comment('Código');
+            $table->string('ult_let',4)->default('1')->comment('Última letra');
             $table->string('estat',70)->default('Pendiente')->comment('Estatus');
             $table->integer('cant')->unsigned()->comment('Cantidad');
             $table->enum('for_loc', config('opcionesSelect.select_foraneo_local'))->comment('Foráneo o Local');

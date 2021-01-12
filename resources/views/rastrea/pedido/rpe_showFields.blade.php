@@ -13,6 +13,11 @@
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.sePuedeEntregarAntes')
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cuantosDiasAntes')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.cotizacionGenerada')
+</div>
+<div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.stock')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.bodega')
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosCliente')
@@ -39,6 +44,13 @@
 </div>
 <div class="row">
   @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentariosLogistica')
+</div>
+<div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.estatus')
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.tipo')
+</div>
+<div class="row">
+  @include('venta.pedido.pedido_activo.ven_pedAct_showFields.comentarioOReclamo')
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

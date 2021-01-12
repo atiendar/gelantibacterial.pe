@@ -41,6 +41,29 @@
       {{ __('Contacto') }}
     </a>
   </li>
+  <li class="nav-item dropdown d-none d-sm-inline-block" title="{{ __('Manuales') }}">
+    <a class="nav-link" data-toggle="dropdown" href="#">
+      <i class="fas fa-book-open"></i>
+      {{ __('Manuales') }}
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
+      @foreach(Manual::dat()->allManualesCache() as $manual)
+        @php
+          if($manual->usu_cli_ambos == 'Usuario') {
+            $acc = 1;
+          } elseif($manual->usu_cli_ambos == 'Cliente') {
+            $acc = 2;
+          }
+        @endphp
+        @if(auth()->user()->acceso == $acc OR $manual->usu_cli_ambos == 'Ambos')
+          <a href="{{ $manual->rut.$manual->nom }}" class="dropdown-item" target="_blank" title="{{ __('Ver') }}">
+            <i class="far fa-eye"></i> {{ $manual->valor }}
+          </a>
+          <div class="dropdown-divider"></div>
+        @endif
+      @endforeach
+    </div>
+  </li>
   <li class="nav-item">
     <a href="javascript:location.reload()" class="nav-link" title="{{ __('Recargar') }}"><i class="fas fa-sync"></i></a>
   </li>

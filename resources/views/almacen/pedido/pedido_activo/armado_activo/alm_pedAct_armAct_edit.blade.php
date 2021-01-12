@@ -20,7 +20,7 @@
   </div>
   <div class="card-body">
     {!! Form::open(['route' => ['almacen.pedidoActivo.armado.update', Crypt::encrypt($armado->id)], 'method' => 'patch', 'id' => 'almacenPedidoActivoArmadoUpdate']) !!}
-      @include('almacen.pedido.pedido_Activo.armado_activo.alm_pedAct_armAct_editFields')
+      @include('almacen.pedido.pedido_activo.armado_activo.alm_pedAct_armAct_editFields')
     {!! Form::close() !!}
   </div>
 </div>

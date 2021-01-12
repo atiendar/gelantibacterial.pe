@@ -1,20 +1,20 @@
 <div class="row">
   <div class="form-group col-sm btn-sm">
-    <label for="nombre_de_referencia_uno">{{ __('Nombre de referencia uno') }}</label>
+    <label for="nombre_de_la_persona_que_recibe_uno">{{ __('Nombre de la persona que recibe uno') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-        {!! Form::text('nombre_de_referencia_uno', $direccion->nom_ref_uno, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Nombre de referencia uno'), 'readonly' => 'readonly']) !!}
+        {!! Form::text('nombre_de_la_persona_que_recibe_uno', $direccion->nom_ref_uno, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Nombre de la persona que recibe uno'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group col-sm btn-sm">
-    <label for="nombre_de_referencia_dos">{{ __('Nombre de referencia dos') }}</label>
+    <label for="nombre_de_la_persona_que_recibe_dos">{{ __('Nombre de la persona que recibe dos') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::text('nombre_de_referencia_dos', $direccion->nom_ref_dos, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Nombre de referencia dos'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('nombre_de_la_persona_que_recibe_dos', $direccion->nom_ref_dos, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Nombre de la persona que recibe dos'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

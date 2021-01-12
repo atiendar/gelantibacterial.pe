@@ -54,6 +54,31 @@ class CotizacionRepositories implements CotizacionInterface {
       return $cotizacion;
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
+  public function update($request, $id_cotizacion) {
+    try { DB::beginTransaction();
+      $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, [], null);
+      $cotizacion->coment = $request->comentarios;
+      $cotizacion->coment_vent = $request->comentarios_ventas;
+
+      if($cotizacion->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Cotizaciones', // Módulo
+          'cotizacion.show', // Nombre de la ruta
+          $id_cotizacion, // Id del registro debe ir encriptado
+          $this->serviceCrypt->decrypt($id_cotizacion), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Comentarios', 'Comentarios ventas'), // Nombre de los inputs del formulario
+          $cotizacion, // Request
+          array('coment', 'coment_vent') // Nombre de los campos en la BD
+        ); 
+        $cotizacion->updated_at_cot  = Auth::user()->email_registro;
+      }
+
+      $cotizacion->save();     
+    DB::commit();
+    return $cotizacion;
+  } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
   public function destroy($id_cotizacion) {
     try { DB::beginTransaction();
       $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, 'armados', null);
@@ -74,6 +99,13 @@ class CotizacionRepositories implements CotizacionInterface {
     try { DB::beginTransaction();
       $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, 'armados', config('app.abierta'));
       $cotizacion->con_iva = $request->iva;
+      
+      if($cotizacion->con_iva == 'on') {
+        $opcion = 'Con IVA';
+      } elseif($cotizacion->con_iva == null) {
+        $opcion = 'Sin IVA';
+        $cotizacion->con_com = null;
+      }
 
       if($cotizacion->isDirty()) {
         // Dispara el evento registrado en App\Providers\EventServiceProvider.php
@@ -82,20 +114,14 @@ class CotizacionRepositories implements CotizacionInterface {
           'cotizacion.show', // Nombre de la ruta
           $id_cotizacion, // Id del registro debe ir encriptado
           $cotizacion->serie, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('IVA'), // Nombre de los inputs del formulario
+          array('IVA', 'Comisión'), // Nombre de los inputs del formulario
           $cotizacion, // Request
-          array('con_iva') // Nombre de los campos en la BD
+          array('con_iva', 'con_com') // Nombre de los campos en la BD
         ); 
         $cotizacion->updated_at_cot  = Auth::user()->email_registro;
       }
 
       $cotizacion->save();
-
-      if($cotizacion->con_iva == 'on') {
-        $opcion = 'Con IVA';
-      } elseif($cotizacion->con_iva == null) {
-        $opcion = 'Sin IVA';
-      }
 
       // ELIMINA EL IVA DE TODOS LOS ARMADOS
       foreach($cotizacion->armados as $armado) {
@@ -103,6 +129,34 @@ class CotizacionRepositories implements CotizacionInterface {
         $this->calcularValoresArmadoCotizacionRepo->sumaValoresArmadoCotizacion($armado);
         $armado->save();
       }
+
+      // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN
+      $this->calcularValoresCotizacionRepo->calculaValoresCotizacion($cotizacion);
+
+      DB::commit();
+      return $cotizacion;
+    } catch(\Exception $e) { DB::rollback(); throw $e; }
+  }
+  public function updateComision($request, $id_cotizacion) {
+    try { DB::beginTransaction();
+      $cotizacion = $this->cotizacionAsignadoFindOrFailById($id_cotizacion, [], config('app.abierta'));
+      $cotizacion->con_com = $request->comision;
+
+      if($cotizacion->isDirty()) {
+        // Dispara el evento registrado en App\Providers\EventServiceProvider.php
+        ActividadRegistrada::dispatch(
+          'Cotizaciones', // Módulo
+          'cotizacion.show', // Nombre de la ruta
+          $id_cotizacion, // Id del registro debe ir encriptado
+          $cotizacion->serie, // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
+          array('Comisión'), // Nombre de los inputs del formulario
+          $cotizacion, // Request
+          array('con_com') // Nombre de los campos en la BD
+        ); 
+        $cotizacion->updated_at_cot  = Auth::user()->email_registro;
+      }
+
+      $cotizacion->save();
 
       // GENERA LOS NUEVOS PRECIOS DE LA COTIZACIÓN
       $this->calcularValoresCotizacionRepo->calculaValoresCotizacion($cotizacion);
@@ -139,6 +193,7 @@ class CotizacionRepositories implements CotizacionInterface {
           
       $contador2    = 0;
       $contador3    = 0;
+      $contador4    = 0;
       $productos    = null;
       $direcciones  = null;
       foreach($armados as $armado) {
@@ -146,6 +201,15 @@ class CotizacionRepositories implements CotizacionInterface {
         $clonArmado                = $armado->replicate();
         $clonArmado->cotizacion_id = $clonCotizacion->id;
         $clonArmado->created_at    = date("Y-m-d h:i:s");
+
+        if($armado->img_nom != null) {
+          // Clona la imagen
+          $nueva_ruta = 'cotizacion/'.time().$contador4.'.jpeg';
+          $s3 = \Storage::disk("s3");
+          $s3->copy($armado->img_nom, $nueva_ruta);
+          $clonArmado->img_nom        = $nueva_ruta;
+        }
+
         $clonArmado->save();
         
         // CLONA LOS PRODUCTOS DE LOS ARMADOS
@@ -165,6 +229,7 @@ class CotizacionRepositories implements CotizacionInterface {
           $direcciones[$contador3]['created_at']= date("Y-m-d h:i:s");
           $contador3 +=1;
         }
+        $contador4 +=1;
       }
       if($productos != null) {
         \App\Models\CotizacionArmadoProductos::insert($productos);

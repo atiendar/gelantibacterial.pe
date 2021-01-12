@@ -9,9 +9,12 @@
           <th>{{ __('CANT.') }}</th>
           @include('almacen.producto.alm_pro_table.th.sku')
           @include('almacen.producto.alm_pro_table.th.producto')
+          
+          @include('almacen.producto.alm_pro_table.th.costoArmado')
           @include('almacen.producto.alm_pro_table.th.precioProveedor')
           <th>{{ __('UTIL.') }}</th>
           @include('almacen.producto.alm_pro_table.th.precioCliente')
+          @include('almacen.producto.alm_pro_table.th.subTotal')
           @include('almacen.producto.alm_pro_table.th.alto')
           @include('almacen.producto.alm_pro_table.th.ancho')
           @include('almacen.producto.alm_pro_table.th.largo')
@@ -33,6 +36,7 @@
             </td>
             @include('almacen.producto.alm_pro_table.td.sku')
             @include('almacen.producto.alm_pro_table.td.producto', ['id_producto' => Crypt::encrypt($producto->id_producto), 'target' => '_blank'])
+            @include('almacen.producto.alm_pro_table.td.costoArmado')
             @include('almacen.producto.alm_pro_table.td.precioProveedor')
             <td>
               @if(Request::route()->getName() == 'cotizacion.armado.edit')
@@ -44,6 +48,7 @@
               @endif
             </td>
             @include('almacen.producto.alm_pro_table.td.precioCliente')
+            @include('almacen.producto.alm_pro_table.td.subTotal')
             @include('almacen.producto.alm_pro_table.td.alto')
             @include('almacen.producto.alm_pro_table.td.ancho')
             @include('almacen.producto.alm_pro_table.td.largo')
