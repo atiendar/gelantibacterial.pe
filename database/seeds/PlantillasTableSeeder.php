@@ -450,7 +450,7 @@ class PlantillasTableSeeder extends Seeder {
           'asignado_plan'    => 'desarrolloweb.ewmx@gmail.com',
           'created_at_plan'  => 'desarrolloweb.ewmx@gmail.com',
       ]);
-        factory(App\Models\Plantilla::class, 20)->create(); // min
+     //   factory(App\Models\Plantilla::class, 20)->create(); // min
         //factory(App\Models\Plantilla::class, 10000)->create(); // max
     }
 }

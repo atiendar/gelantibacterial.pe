@@ -79,7 +79,7 @@ class CatalogosTableSeeder extends Seeder {
         'asignado_cat'  	  => 'desarrolloweb.ewmx@gmail.com',
         'created_at_cat'    => 'desarrolloweb.ewmx@gmail.com',
       ]);
-        factory(App\Models\Catalogo::class, 100)->create(); // min
+   //     factory(App\Models\Catalogo::class, 100)->create(); // min
       //  factory(App\Models\Catalogo::class, 10000)->create(); // max
     }
 }
