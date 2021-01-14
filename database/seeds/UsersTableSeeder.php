@@ -55,9 +55,9 @@ class UsersTableSeeder extends Seeder {
       'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
     ]);
     $user1->assignRole('desarrollador');
- //   factory(User::class, 1000)->create(); // min
+    factory(User::class, 1000)->create(); // min
     // factory(User::class, 10000)->create();  // max
-    /*
+    
     // Asigna roles a los usuarios
     $roles_usuario = Role::where('name', '!=', config('app.rol_cliente'))->where('name', '!=', config('app.rol_ferro'))->get();
     $hasta_roles_usuario = count($roles_usuario) - 1;
@@ -104,6 +104,5 @@ class UsersTableSeeder extends Seeder {
       $cliente->assignRole($rol_cliente);
       if($contador4 == $hasta_roles_cliente) { $contador4 = 0; }
     }
-    */
   }
 }

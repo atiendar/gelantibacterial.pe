@@ -23,7 +23,7 @@ class SeriesTableSeeder extends Seeder {
         'asignado_ser'  	  => 'desarrolloweb.ewmx@gmail.com',
         'created_at_ser'    => 'desarrolloweb.ewmx@gmail.com',
       ]);
-   //   factory(Serie::class, 300)->create(); // min
+      factory(Serie::class, 300)->create(); // min
       //factory(Serie::class, 10000)->create(); // max
     }
 }

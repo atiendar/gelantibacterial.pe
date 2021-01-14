@@ -18,6 +18,7 @@ class CalculoRepositories implements CalculoInterface {
     return bcdiv($utilidad, '1', 2);
   }
   public function redondearUnidadA9DelPrecio($precio) {
+    /*
     $precio_convertido_a_texto = strval($precio);
     if($precio > 0) {
       $hastaC = strlen(intval($precio_convertido_a_texto)) - 1;
@@ -34,5 +35,7 @@ class CalculoRepositories implements CalculoInterface {
       }
     }
     return intval($precio);
+    */
+    return $precio;
   }
 }
