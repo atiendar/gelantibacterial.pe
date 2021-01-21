@@ -743,10 +743,10 @@ return array(
     'rfc'           => 'RFC',
   ],
 	'select_concepto' => [
-		'Arcón Navideño' 		    => 'Arcón Navideño',
-		'Canastas Navideñas' 	  => 'Canastas Navideñas',
-		'Despensas' 			      => 'Despensas',
-		'Regalo de fin de año' 	=> 'Regalo de fin de año',
+		'Gel antibacterial' => 'Gel antibacterial',
+		'Sanitizante' 	    => 'Sanitizante',
+		'Dispensadores'     => 'Dispensadores',
+		'Alcohol' 	        => 'Alcohol',
   ],
   'select_uso_de_cfdi' 												                => [
 		'G01 Adquisición de mercancias'									          => 'G01 Adquisición de mercancias',

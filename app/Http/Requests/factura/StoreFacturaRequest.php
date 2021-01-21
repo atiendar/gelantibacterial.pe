@@ -79,7 +79,7 @@ class StoreFacturaRequest extends FormRequest {
                                                               config('opcionesSelect.select_forma_de_pago_factura.99 Por definir'),
       'banco_de_cuenta_de_retiro'           => 'max:50|required_with:ultimos_4_digitos_cuenta_de_retiro',
       'ultimos_4_digitos_cuenta_de_retiro'  => 'nullable|required_with:banco_de_cuenta_de_retiro|max:4|alpha_solo_numeros',
-      'concepto'                            => 'required|in:'.config('opcionesSelect.select_concepto.Arcón Navideño').','.config('opcionesSelect.select_concepto.Canastas Navideñas').','.config('opcionesSelect.select_concepto.Despensas').','.config('opcionesSelect.select_concepto.Regalo de fin de año'),
+      'concepto'                            => 'required|in:'.config('opcionesSelect.select_concepto.Gel antibacterial').','.config('opcionesSelect.select_concepto.Sanitizante').','.config('opcionesSelect.select_concepto.Dispensadores').','.config('opcionesSelect.select_concepto.Alcohol'),
       'comentarios_cliente'                 => 'nullable|max:30000|string',
     ];
   }
