@@ -13,7 +13,7 @@ class StorePagoRequest extends FormRequest {
     $sum_mont_de_pag = $pedido->pagos()->sum('mont_de_pag');
     $max_monto = $pedido->mont_tot_de_ped - $sum_mont_de_pag;
     $max_monto = number_format($max_monto, 2, '.', '');
-GFJ PRODUCTS AND SERVICES SA DE CV
+
     return [
       'comprobante_de_pago'                 => 'nullable|mimes:pdf,jpg,jpeg,png|max:1024',
    //   'ultimos_8_digitos_del_folio_de_pago' => 'nullable|required_if:forma_de_pago,Cheque,Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUTH Yolanda,Transferencia GFJ PRODUCTS AND SERVICES SA DE CV|unique:pagos,fol|nullable|min:8|max:8',
