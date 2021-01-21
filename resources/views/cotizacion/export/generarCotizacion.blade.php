@@ -65,7 +65,7 @@
               <strong>{{ $armado->nom }}</strong><br>
                 @foreach($armado->productos as $producto)
                   <div class="input-group text-muted ml-2">
-                    <p class="m-0">{{ $producto->cant }} - {{ $producto->produc }}</p>
+                    <p class="m-0">- {{ $producto->produc }}</p>
                   </div>
                 @endforeach
             </td>

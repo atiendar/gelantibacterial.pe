@@ -81,10 +81,14 @@ class DireccionLocalController extends Controller {
   public function generarComprobanteDeEntrega($id_direccion, $for_loc) { // config('opcionesSelect.select_foraneo_local.Local')
     $direccion  = $this->direccionLocalRepo->direccionLocalFindOrFailById($id_direccion, $for_loc, ['armado'], 'show', null);
     $armado     = $direccion->armado()->with('pedido')->first();
-    $pedido     = $armado->pedido;
+    $pedido     = $armado->pedido()->with('pagos')->first();
 
     if($pedido->estat_pag != config('app.pagado')) {
-      return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
+      foreach($pedido->pagos as $pago) {
+        if( $pago->form_de_pag != 'Efectivo (Jonathan)' AND $pago->form_de_pag != 'Efectivo (Gabriel)' AND $pago->form_de_pag != 'Efectivo (Fernando)') {
+          return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
+        }
+      }
     }
 
     $codigoQRDComprobanteDeSalida   = $this->generarQRRepo->qr($direccion->id, 'Comprobante de salida', $for_loc);
