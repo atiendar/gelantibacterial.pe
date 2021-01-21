@@ -30,7 +30,7 @@ class UpdatePagoRequest extends FormRequest {
     return [
     //  'estatus_pago'            => 'required|in:Pendiente',
       'comprobante_de_pago'     => $validacion,
-      'forma_de_pago'           => 'required|in:Cheque,Efectivo (Jonathan),Efectivo (Gabriel),Efectivo (Fernando),Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUTH Yolanda,Transferencia Canastas y Arcones S.A de C.V,Otro',
+      'forma_de_pago'           => 'required|in:Cheque,Efectivo (Jonathan),Efectivo (Gabriel),Efectivo (Fernando),Paypal,Tarjeta de credito (Pagina),Tarjeta de credito (Clip),Tarjeta de debito,Transferencia RUTH Yolanda,Transferencia GFJ PRODUCTS AND SERVICES SA DE CV,Otro',
       'copia_de_identificacion' => $validacion2,
       'monto_del_pago'          => 'required|numeric|min:0|max:'.$max_monto.'|alpha_decimal15',
       'comentarios_ventas'      => 'nullable|max:30000|string',

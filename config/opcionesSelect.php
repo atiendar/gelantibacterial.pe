@@ -666,7 +666,7 @@ return array(
     'created_at'        => 'Fecha de registro (YYYY-MM-DD)',
   ],
   'select_forma_de_pago'  => [
-    'Transferencia Canastas y Arcones S.A de C.V' => 'Transferencia Canastas y Arcones S.A de C.V',
+    'Transferencia GFJ PRODUCTS AND SERVICES SA DE CV' => 'Transferencia GFJ PRODUCTS AND SERVICES SA DE CV',
     'Paypal'                                      => 'Paypal',
     'Tarjeta de credito (Clip)'                   => 'Tarjeta de credito (Clip)',
     'Transferencia RUTH Yolanda'                   => 'Transferencia RUTH Yolanda',

@@ -10,13 +10,12 @@
   <div class="card-body">
     {!! Form::open(['route' => 'rolCliente.pago.store', 'onsubmit' => 'return checarBotonSubmit("btnsubmit")', 'files' => true]) !!}
       <strong class="float-right border border-info rounded p-1">
-        Datos Bancarios: Canastas Y Arcones S.A de C.V
+        Datos Bancarios: GFJ PRODUCTS AND SERVICES SA DE CV
         <ul>
-          <li>*Todos los pagos realizados a esta cuenta, deben de pagar IVA</li>
           <li>Banco: BBVA Bancomer</li>
-          <li>Clabe: 012180001111120906</li>
+          <li>Clabe: 012180001974526161</li>
           <li>Sucursal: 4122</li>
-          <li>Cuenta: 0111112090</li>
+          <li>Cuenta: 0197452616</li>
           <li>SWIT/BIC: BCMRMXMM</li>
         </ul>
       </strong>
