@@ -13,10 +13,9 @@
         Datos Bancarios: GFJ PRODUCTS AND SERVICES SA DE CV
         <ul>
           <li>Banco: BBVA Bancomer</li>
-          <li>Clabe: 012180001974526161</li>
-          <li>Sucursal: 4122</li>
-          <li>Cuenta: 0197452616</li>
-          <li>SWIT/BIC: BCMRMXMM</li>
+          <li>Clabe: 012180001162653244</li>
+          <li>Sucursal: 0121 Pericentro</li>
+          <li>Cuenta: 0116265324</li>
         </ul>
       </strong>
       <div class="row">
