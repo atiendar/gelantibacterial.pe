@@ -26,7 +26,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-      {!! Form::text('cantidad', $armado->cant, ['class' => 'form-control' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'maxlength' => 5, 'placeholder' => __('Cantidad')]) !!}
+      {!! Form::text('cantidad', $armado->cant, ['class' => 'form-control' . ($errors->has('cantidad') ? ' is-invalid' : ''), 'maxlength' => 7, 'placeholder' => __('Cantidad')]) !!}
     </div>
     <span class="text-danger">{{ $errors->first('cantidad') }}</span>
   </div>
