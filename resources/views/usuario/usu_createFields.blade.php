@@ -157,7 +157,7 @@
     <label for="checkbox_correo"></label>
     <div class="input-group p-2">
       <div class="custom-control custom-switch">
-        {!! Form::checkbox('checkbox_correo', 'on', true, ['id' => 'checkbox_correo', 'class' => 'custom-control-input' . ($errors->has('checkbox_correo') ? ' is-invalid' : '')]) !!}
+        {!! Form::checkbox('checkbox_correo', 'on', false, ['id' => 'checkbox_correo', 'class' => 'custom-control-input' . ($errors->has('checkbox_correo') ? ' is-invalid' : '')]) !!}
         <label class="custom-control-label" for="checkbox_correo">{{ __('Enviar correo de bienvenida') }}</label>
       </div>
     </div>

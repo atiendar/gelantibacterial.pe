@@ -22,7 +22,13 @@
             @include('factura.fac_table.td.id', ['show' => true, 'canany' => ['factura.show'], 'ruta' => 'factura.show', 'target' => null])
             @include('factura.fac_table.td.estatusFactura')
             @include('pago.pag_table.td.estatusPago', ['pago' => $factura->pago])
-            @include('venta.pedido.pedido_activo.ven_pedAct_table.td.numeroDePedido', ['pedido' => $factura->pago->pedido])
+            <td>
+              @canany(['cotizacion.show'])
+                <a href="{{ route('cotizacion.showPorNumPedido', Crypt::encrypt($factura->pago->pedido->num_pedido)) }}" title="Detalles: {{ $factura->pago->pedido->num_pedido }}" target="_blank">{{ $factura->pago->pedido->num_pedido }}</a>
+              @else
+                {{ $factura->pago->pedido->num_pedido }}
+              @endcanany
+            </td>
             @include('factura.fac_table.td.cliente')
             @include('factura.fac_table.td.rfc')
             @include('factura.fac_table.td.nombreORazonSocial')

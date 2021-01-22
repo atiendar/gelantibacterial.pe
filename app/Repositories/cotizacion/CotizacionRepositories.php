@@ -36,6 +36,11 @@ class CotizacionRepositories implements CotizacionInterface {
     $cotizacion = Cotizacion::with($relaciones)->estatus($estatus)->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->findOrFail($id_cotizacion);
     return $cotizacion;
   }
+  public function cotizacionFindOrFailByNumPedido($num_pedido, $relaciones, $estatus) { // 'armados', 'cliente'
+    $num_pedido = $this->serviceCrypt->decrypt($num_pedido);
+    $cotizacion = Cotizacion::with($relaciones)->estatus($estatus)->where('num_pedido_gen', $num_pedido)->firstOrFail();
+    return $cotizacion;
+  }
   public function getPagination($request) {
     return Cotizacion::with('cliente')->asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
