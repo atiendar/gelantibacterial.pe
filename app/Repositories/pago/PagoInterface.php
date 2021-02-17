@@ -22,6 +22,8 @@ interface PagoInterface {
 
   public function modificarEstatusProduccionYAlmacen($pedido);
 
+  public function pedirStock($armado_ped, $armado_orig);
+  
   public function getPagoForCodigoFacturacionFindOrFail($codigo_de_facturacion, $relaciones);
 
   public function cambiarEstatusFacturaDelPago($pago, $estatus);

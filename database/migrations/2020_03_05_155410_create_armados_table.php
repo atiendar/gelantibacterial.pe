@@ -22,6 +22,15 @@ class CreateArmadosTable extends Migration
             $table->string('img_nom',200)->nullable()->comment('Nombre imágen');
             $table->string('img_rut_min',200)->nullable()->comment('Ruta imágen minimizada');
             $table->string('img_nom_min',200)->nullable()->comment('Nombre imágen minimizada');
+
+
+
+            $table->integer('stock')->default(0)->comment('Stock del producto');
+            $table->integer('min_stock')->default(0)->comment('Stock minimo del producto');
+            $table->integer('max')->nullable()->comment('Maximo del producto');
+            $table->integer('ped_a_plant')->nullable()->comment('Pedido a planta');
+
+
             $table->enum('clon',['0','1'])->default('1')->comment('0=No 1=Si');
             $table->integer('num_clon')->unsigned()->default(0)->comment('Número de clon');
             $table->string('tip', 150)->comment('Tipo de armado');

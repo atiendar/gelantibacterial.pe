@@ -2,6 +2,7 @@
 namespace App\Repositories\cotizacion;
 // Models
 use App\Models\Cotizacion;
+use App\Models\Stock;
 // Notifications
 use App\Notifications\venta\pedidoActivo\NotificacionRegistrarPedido;
 // Repositories
@@ -110,6 +111,7 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
 
         // REGISTRA LOS ARMADOS AL PEDIDO
         $armado_pedido               = new \App\Models\PedidoArmado();
+        $armado_pedido->id_armado    = $armado_cotizacion->id_armado;
         $armado_pedido->img_rut      = $armado_cotizacion->img_rut;
         $armado_pedido->img_nom      = $armado_cotizacion->img_nom;
         // DEFINE SI EL PEDIDO ES FORANEO O NO
@@ -249,12 +251,11 @@ class AprobarCotizacionRepositories implements AprobarCotizacionInterface {
       $cotizacion->estat = config('app.aprobada');
       $cotizacion->num_pedido_gen = $pedido->num_pedido;
       $cotizacion->save();
-
-
-   //   DD(  $pedido->mont_tot_de_ped <= 25000 );
+  
+      $re_pedido = \App\Models\Pedido::with('armados')->findOrFail($pedido->id);
       // SI CUMPLE CON LA CONFICION SE MODIFICA EL ESTATUS DE PRODUCCIÓN Y ALMACEN PARA QUE LO PUEDAN VISUALIZAR
-      if($pedido->mont_tot_de_ped <= 25000) {
-        $this->pagoRepo->modificarEstatusProduccionYAlmacen($pedido);
+      if($re_pedido->mont_tot_de_ped <= 25000) {
+        $this->pagoRepo->modificarEstatusProduccionYAlmacen($re_pedido);
       }
 
       DB::commit();

@@ -6,14 +6,18 @@ use App\Models\Pedido;
 use App\Events\layouts\ActividadRegistrada;
 // Servicios
 use App\Repositories\servicio\crypt\ServiceCrypt;
+// Repositories
+use App\Repositories\logistica\direccionLocal\DireccionLocalRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
 
 class PedidoActivoRepositories implements PedidoActivoInterface {
   protected $serviceCrypt;
-  public function __construct(ServiceCrypt $serviceCrypt) {
-    $this->serviceCrypt = $serviceCrypt;
+  protected $direccionLocalRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, DireccionLocalRepositories $direccionLocalRepositories) {
+    $this->serviceCrypt       = $serviceCrypt;
+    $this->direccionLocalRepo = $direccionLocalRepositories;
   }
   public function pedidoActivoAlmacenFindOrFailById($id_pedido, $relaciones) {
     $id_pedido = $this->serviceCrypt->decrypt($id_pedido);
@@ -106,7 +110,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       $up_updated_at          = null;
       $ids                    = null;
       foreach($armados as $armado) {
-        $up_estatus_armado      .= ' WHEN '. $armado->id. ' THEN "'. config('app.productos_completos'). '"';
+        $up_estatus_armado      .= ' WHEN '. $armado->id. ' THEN "'. config('app.en_almacen_de_salida'). '"';
         $up_updated_at_ped_arm  .= ' WHEN '. $armado->id. ' THEN "'. Auth::user()->email_registro.'"';
         $up_updated_at          .= ' WHEN '. $armado->id. ' THEN "'.date('Y-m-d h:i:s').'"';
         $ids                    .= $armado->id.',';
@@ -116,6 +120,15 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       if($hastaC > 0) {
         $ids = substr($ids, 0, -1);
         DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estatus_armado." END, updated_at_ped_arm = CASE id". $up_updated_at_ped_arm." END, updated_at = CASE id". $up_updated_at." END WHERE id IN (".$ids.")");
+      }
+
+      //Cambia es estatus de las direcciones relacionadas a este armado
+      $this->direccionLocalRepo->cambiarEstatusDireccionAlmacenDeSalida($armado->direcciones);
+
+      // Se guarda la fecha en la que el pedido paso a logística por primera vez
+      if($pedido->fech_estat_log == null) {
+        $pedido->fech_estat_log = date("Y-m-d h:i:s");
+        $pedido->save();
       }
 
       Pedido::getEstatusPedido($pedido, 'Todos');

@@ -1,10 +1,10 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Editar armado').' '.$armado->nom)</title>
+<title>@section('title', __('Editar').' '.$armado->nom)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Editar armado') }}: </strong>
+      <strong>{{ __('Editar') }}: </strong>
       @can('cotizacion.armado.show')
         <a href="{{ route('cotizacion.armado.show', Crypt::encrypt($armado->id)) }}" class="text-white">{{ $armado->nom }}</a>
       @else

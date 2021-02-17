@@ -3,6 +3,7 @@
     <a href="{{ route('armado.edit', Crypt::encrypt($armado->id)) }}" class='btn btn-light btn-sm'><i class="fas fa-edit"></i></a>
   @endcanany
 </td>
+{{--
 <td width="1rem" title="Clonar: {{ $armado->sku }}">
   @can('armado.clon.create')
   <form method="post" action="{{ route('armado.clon.store', Crypt::encrypt($armado->id)) }}" id="armadoClonStore{{ $armado->id }}">
@@ -11,6 +12,7 @@
   </form>
   @endcan
 </td>
+--}}
 <td width="1rem" title="Eliminar: {{ $armado->sku }}">
   @can('armado.destroy')
     <form method="post" action="{{ route('armado.destroy', Crypt::encrypt($armado->id)) }}" id="armadoDestroy{{ $armado->id }}">

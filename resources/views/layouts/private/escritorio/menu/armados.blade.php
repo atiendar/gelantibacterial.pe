@@ -3,7 +3,7 @@
     <a href="#" class="nav-link {{ Request::is('armado*') ? 'active' : '' }}">
       <i class="nav-icon fas fa-shopping-basket"></i>
       <p>
-        {{ __('Armados') }}
+        {{ __('Gel') }}
         <i class="right fas fa-angle-left"></i>
       </p>
     </a>
@@ -12,7 +12,7 @@
         <li class="nav-item">
           <a href="{{ route('armado.index') }}" class="nav-link {{ Request::is('armado') ? 'active' : '' }}">
             <i class="nav-icon fas fa-list"></i>
-            <p>{{ __('Lista de armados') }}</p>
+            <p>{{ __('Lista de gel') }}</p>
           </a>
         </li>
       @endcanany
@@ -20,10 +20,11 @@
         <li class="nav-item">
           <a href="{{ route('armado.create') }}" class="nav-link {{ Request::is('armado/crear') ? 'active' : '' }}">
             <i class="nav-icon far fa-plus-square"></i>
-            <p>{{ __('Registrar armado') }}</p>
+            <p>{{ __('Registrar gel') }}</p>
           </a>
         </li>
       @endcan
+      {{-- 
       @canany(['armado.clon.index', 'armado.clon.create', 'armado.clon.show', 'armado.clon.edit', 'armado.clon.destroy', 'armado.clon.producto.create', 'armado.clon.producto.destroy', 'armado.clon.producto.editCantidad'])
         <li class="nav-item">
           <a href="{{ route('armado.clon.index') }}" class="nav-link {{ Request::is('armado/clon') ? 'active' : '' }}">
@@ -32,6 +33,7 @@
           </a>
         </li>
       @endcanany
+      --}}
     </ul>
   </li>
 @endcanany

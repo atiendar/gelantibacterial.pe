@@ -6,7 +6,7 @@
     <a href="#" class="nav-link {{ Request::is('produccion*') ? 'active' : '' }}">
       <i class="nav-icon fas fa-cart-plus"></i>
       <p>
-        {{ __('Producción') }}
+        {{ __('Planta') }}
         <i class="right fas fa-angle-left"></i>
       </p>
     </a>
@@ -14,7 +14,7 @@
       <li class="nav-item">
         <a href="{{ route('produccion.index') }}" class="nav-link {{ Request::is('inicio-produccion') ? 'active' : '' }}">
           <i class="nav-icon fas fa-home"></i>
-          <p>{{ __('Inicio producción') }}</p>
+          <p>{{ __('Inicio Planta') }}</p>
         </a>
       </li>
       @canany(['produccion.pedidoActivo.index','produccion.pedidoActivo.show','produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit', 'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show'])

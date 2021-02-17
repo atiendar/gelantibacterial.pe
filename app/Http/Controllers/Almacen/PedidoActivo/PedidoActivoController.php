@@ -204,7 +204,12 @@ class PedidoActivoController extends Controller {
 
     $armados              = $pedido->armados()->with(['direcciones', 'productos'=> function ($query) {
                                                             $query->with('sustitutos');
-                                                          }])->get();
+                                                          }])
+                                                          ->where(function ($query){
+                                                            $query->where('estat', config('app.en_espera_de_compra'))
+                                                              ->orWhere('estat', config('app.en_revision_de_productos'));
+                                                          })
+                                                          ->get();
     $orden_de_produccion  = \PDF::loadView('almacen.pedido.pedido_activo.export.ordenDeProduccion', compact('pedido', 'armados', 'archivos', 'codigoQRAlmacen', 'codigoQRProduccion', 'codigoQRLogistica'));
     return $orden_de_produccion->stream();
 //  return $orden_de_produccion->download('OrdenDeProduccionAlmacen-'$pedido->num_pedido.'.pdf'); // Descargar

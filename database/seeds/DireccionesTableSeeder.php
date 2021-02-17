@@ -8,7 +8,7 @@ class DireccionesTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\Direccion::class, 3000)->create(); // min
+        factory(App\Models\Direccion::class, 1000)->create(); // min
         // factory(App\Models\Direccion::class, 10000)->create(); // max
     }
 }

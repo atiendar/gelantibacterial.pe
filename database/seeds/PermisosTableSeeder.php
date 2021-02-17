@@ -391,61 +391,62 @@ class PermisosTableSeeder extends Seeder {
 // PERMISOS DEL MÓDULO (ARMADOS)
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 51,
-      'nom'             => "Navegar por tabla 'Armados'",
+      'nom'             => "Navegar por tabla 'Gel'",
       'name'				    => 'armado.index',
-      'desc'            => "Lista y navega por todos los registros del módulo 'Armados'",
+      'desc'            => "Lista y navega por todos los registros del módulo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 52,
-      'nom'             => "Registrar nuevo 'Armados'",
+      'nom'             => "Registrar nuevo 'Gel'",
       'name'				    => 'armado.create',
-      'desc'            => "Crear nuevo registro en el módulo 'Armados'",
+      'desc'            => "Crear nuevo registro en el módulo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 53,
-      'nom'             => "Ver detalles 'Armados'",
+      'nom'             => "Ver detalles 'Gel'",
       'name'				    => 'armado.show',
-      'desc'            => "Ver detalles de cualquier registro del módulo 'Armados'",
+      'desc'            => "Ver detalles de cualquier registro del módulo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 54,
-      'nom'             => "Editar registro 'Armados'",
+      'nom'             => "Editar registro 'Gel'",
       'name'				    => "armado.edit",
-      'desc'            => "Editar cualquier dato de un registro del módulo 'Armados'",
+      'desc'            => "Editar cualquier dato de un registro del módulo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 55,
-      'nom'             => "Eliminar registro 'Armados'",
+      'nom'             => "Eliminar registro 'Gel'",
       'name'				    => "armado.destroy",
-      'desc'            => "Eliminar cualquier registro del módulo 'Armados'",
+      'desc'            => "Eliminar cualquier registro del módulo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
 // PERMISOS DEL MÓDULO ARMADOS (PRODUCTOS)
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 56,
-      'nom'             => "Registrar nuevo Armados 'Productos'",
+      'nom'             => "Registrar nuevo Gel 'Productos'",
       'name'				    => 'armado.producto.create',
-      'desc'            => "Crear nuevo registro en el módulo Armados 'Productos'",
+      'desc'            => "Crear nuevo registro en el módulo Gel 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 57,
-      'nom'             => "Eliminar registro Armados 'Productos'",
+      'nom'             => "Eliminar registro Gel 'Productos'",
       'name'				    => "armado.producto.destroy",
-      'desc'            => "Eliminar cualquier registro del módulo Armados 'Productos'",
+      'desc'            => "Eliminar cualquier registro del módulo Gel 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 58,
-      'nom'             => "Editar campo (Cantidad) Armados 'Productos'",
+      'nom'             => "Editar campo (Cantidad) Gel 'Productos'",
       'name'				    => "armado.producto.editCantidad",
-      'desc'            => "Editar el campo (Cantidad) de un registro del módulo Armados 'Productos'",
+      'desc'            => "Editar el campo (Cantidad) de un registro del módulo Gel 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]); 
+    /*
 // PERMISOS DEL MÓDULO ARMADOS (ARMADOS CLONADOS)
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 59,
@@ -504,6 +505,8 @@ class PermisosTableSeeder extends Seeder {
       'desc'            => "Editar el campo (Cantidad) de un registro del módulo Armados clonados 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]); 
+
+    */
 //PERMISOS DEL MÓDULO ALMACÉN (PEDIDO ACTIVO)
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 67,
@@ -529,16 +532,16 @@ class PermisosTableSeeder extends Seeder {
 //PERMISOS DEL MÓDULO ALMACÉN/PEDIDO ACTIVO (ARMADOS)
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 71,
-      'nom'             => "Ver detalles Almacén/Pedidos Activo 'Armados'",
+      'nom'             => "Ver detalles Almacén/Pedidos Activo 'Gel'",
       'name'				    => 'almacen.pedidoActivo.armado.show',
-      'desc'            => "Ver detalles de cualquier registro del módulo Almacén/Pedidos Activo 'Armados'",
+      'desc'            => "Ver detalles de cualquier registro del módulo Almacén/Pedidos Activo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
 //      'id'              => 72,
-      'nom'             => "Editar registro Almacén/Pedidos Activo 'Armados'",
+      'nom'             => "Editar registro Almacén/Pedidos Activo 'Gel'",
       'name'				    => "almacen.pedidoActivo.armado.edit",
-      'desc'            => "Editar cualquier dato de un registro del módulo Almacén/Pedidos Activo 'Armados'",
+      'desc'            => "Editar cualquier dato de un registro del módulo Almacén/Pedidos Activo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
 // PERMISOS DEL MÓDULO ALMACÉN (PRODUCTOS)
@@ -653,16 +656,16 @@ class PermisosTableSeeder extends Seeder {
 // PERMISOS DEL MÓDULO VENTAS/PEDIDOS ACTIVOS (ARMADOS)
 Spatie\Permission\Models\Permission::create([
 //      'id'              => 86,
-    'nom'             => "Ver detalles Ventas/Pedidos activos 'Armados'",
+    'nom'             => "Ver detalles Ventas/Pedidos activos 'Gel'",
     'name'				    => 'venta.pedidoActivo.armado.show',
-    'desc'            => "Ver detalles de cualquier registro del módulo Ventas/Pedidos activos 'Armados'",
+    'desc'            => "Ver detalles de cualquier registro del módulo Ventas/Pedidos activos 'Gel'",
     'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
   ]);
   Spatie\Permission\Models\Permission::create([
 //      'id'              => 87,
-    'nom'             => "Editar registro Ventas/Pedidos activos 'Armados'",
+    'nom'             => "Editar registro Ventas/Pedidos activos 'Gel'",
     'name'				    => "venta.pedidoActivo.armado.edit",
-    'desc'            => "Editar cualquier dato de un registro del módulo Ventas/Pedidos activos 'Armados'",
+    'desc'            => "Editar cualquier dato de un registro del módulo Ventas/Pedidos activos 'Gel'",
     'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
   ]);
 // PERMISOS DEL MÓDULO VENTAS/PEDIDOS ACTIVOS (PAGOS)
@@ -908,53 +911,53 @@ Spatie\Permission\Models\Permission::create([
 //PERMISOS DEL MÓDULO PRODUCCIÓN (PEDIDO ACTIVO)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 99,
-      'nom'             => "Navegar por tabla Producción 'Pedidos activos'",
+      'nom'             => "Navegar por tabla Planta 'Pedidos activos'",
       'name'				    => 'produccion.pedidoActivo.index',
-      'desc'            => "Lista y navega por todos los registros del módulo Producción 'Pedidos activos'",
+      'desc'            => "Lista y navega por todos los registros del módulo Planta 'Pedidos activos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 100,
-      'nom'             => "Ver detalles Producción 'Pedidos activos'",
+      'nom'             => "Ver detalles Planta 'Pedidos activos'",
       'name'				    => 'produccion.pedidoActivo.show',
-      'desc'            => "Ver detalles de cualquier registro del módulo Producción 'Pedidos activos'",
+      'desc'            => "Ver detalles de cualquier registro del módulo Planta 'Pedidos activos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 101,
-      'nom'             => "Editar registro Producción 'Pedidos activos'",
+      'nom'             => "Editar registro Planta 'Pedidos activos'",
       'name'				    => "produccion.pedidoActivo.edit",
-      'desc'            => "Editar cualquier dato de un registro del módulo Producción 'Pedidos activos'",
+      'desc'            => "Editar cualquier dato de un registro del módulo Planta 'Pedidos activos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
 //PERMISOS DEL MÓDULO PRODUCCIÓN/PEDIDO ACTIVO (ARMADOS)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 102,
-      'nom'             => "Ver detalles Producción/Pedido Activo 'Armados'",
+      'nom'             => "Ver detalles Planta/Pedido Activo 'Gel'",
       'name'				    => 'produccion.pedidoActivo.armado.show',
-      'desc'            => "Ver detalles de cualquier registro del módulo Producción/Pedido Activo 'Armados'",
+      'desc'            => "Ver detalles de cualquier registro del módulo Planta/Pedido Activo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 103,
-      'nom'             => "Editar registro Producción/Pedido Activo 'Armados'",
+      'nom'             => "Editar registro Planta/Pedido Activo 'Gel'",
       'name'				    => "produccion.pedidoActivo.armado.edit",
-      'desc'            => "Editar cualquier dato de un registro del módulo Producción/Pedido Activo 'Armados'",
+      'desc'            => "Editar cualquier dato de un registro del módulo Planta/Pedido Activo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
 //PERMISOS DEL MÓDULO PRODUCCIÓN (PEDIDO TERMINADO)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 104,
-      'nom'             => "Navegar por tabla Producción 'Pedidos terminados'",
+      'nom'             => "Navegar por tabla Planta 'Pedidos terminados'",
       'name'				    => 'produccion.pedidoTerminado.index',
-      'desc'            => "Lista y navega por todos los registros del módulo Producción 'Pedidos terminados'",
+      'desc'            => "Lista y navega por todos los registros del módulo Planta 'Pedidos terminados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
-    //  'id'              => 105,
-      'nom'             => "Ver detalles Producción 'Pedidos terminados'",
+    //  'id'              => 105,Planta
+      'nom'             => "Ver detalles Planta 'Pedidos terminados'",
       'name'				    => 'produccion.pedidoTerminado.show',
-      'desc'            => "Ver detalles de cualquier registro del módulo Producción 'Pedidos terminados'",
+      'desc'            => "Ver detalles de cualquier registro del módulo Planta 'Pedidos terminados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
 //PERMISOS DEL MÓDULO LOGÍSTICA (PEDIDO ACTIVO)
@@ -982,16 +985,16 @@ Spatie\Permission\Models\Permission::create([
 //PERMISOS DEL MÓDULO LOGÍSTICA/PEDIDO ACTIVO (ARMADOS)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 102,
-      'nom'             => "Ver detalles Logística/Pedido Activo 'Armados'",
+      'nom'             => "Ver detalles Logística/Pedido Activo 'Gel'",
       'name'				    => 'logistica.pedidoActivo.armado.show',
-      'desc'            => "Ver detalles de cualquier registro del módulo Logística/Pedido Activo 'Armados'",
+      'desc'            => "Ver detalles de cualquier registro del módulo Logística/Pedido Activo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 103,
-      'nom'             => "Editar registro Logística/Pedido Activo 'Armados'",
+      'nom'             => "Editar registro Logística/Pedido Activo 'Gel'",
       'name'				    => "logistica.pedidoActivo.armado.edit",
-      'desc'            => "Editar cualquier dato de un registro del módulo Logística/Pedido Activo 'Armados'",
+      'desc'            => "Editar cualquier dato de un registro del módulo Logística/Pedido Activo 'Gel'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
 //PERMISOS DEL MÓDULO LOGÍSTICA (DIRECCIONES LOCALES)

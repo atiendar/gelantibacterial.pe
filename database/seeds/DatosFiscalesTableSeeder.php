@@ -8,7 +8,7 @@ class DatosFiscalesTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        factory(App\Models\DatoFiscal::class, 2000)->create(); // min
+        factory(App\Models\DatoFiscal::class, 1000)->create(); // min
         // factory(App\Models\DatoFiscal::class, 15000)->create(); // max
     }
 }

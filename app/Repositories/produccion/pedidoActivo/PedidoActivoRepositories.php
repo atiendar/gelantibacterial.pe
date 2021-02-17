@@ -78,13 +78,10 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     } catch(\Exception $e) { DB::rollback(); throw $e; }
   }
   public function getArmadosPedidoPaginate($pedido, $request) {
-    if($pedido->lid_de_ped_produc != null) {
-      if($request->opcion_buscador != null) {
-        return $pedido->armados()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
-      }
-      return $pedido->armados()->paginate($request->paginador);
+    if($request->opcion_buscador != null) {
+      return $pedido->armados()->where("$request->opcion_buscador", 'LIKE', "%$request->buscador%")->paginate($request->paginador);
     }
-    return $pedido->armados()->where('id', '!"#$%&/()(/&%$')->paginate($request->paginador);
+    return $pedido->armados()->paginate($request->paginador);
   }
   public function getPendientes() {
     $fecha = date("Y-m-d");

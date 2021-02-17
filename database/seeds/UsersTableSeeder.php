@@ -12,6 +12,7 @@ class UsersTableSeeder extends Seeder {
    */
   public function run() {
     $user1 = App\User::create([
+        'id'                        => 1,
         'acceso'                    => '1',
         'registros_tab_acces'       => 'on',
         'img_us_rut'                => env('PREFIX'),
@@ -36,6 +37,26 @@ class UsersTableSeeder extends Seeder {
         'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
     ]);
     $user1->assignRole('desarrollador');
+    $user1 = App\User::create([
+      'id'                        => 2,
+      'acceso'                    => '1',
+      'registros_tab_acces'       => null,
+      'nom'      			            => 'STOCK',
+      'apell'     		            => 'STOCK',
+      'email_registro'  	        => 'stock@gelantibacterialmexico.com',
+      'email'  			              => 'stock@gelantibacterialmexico.com',
+      'lad_mov'  			            => '55',
+      'tel_mov'  			            => '00000000',
+      'emp'  				              => 'GEL',
+      'password'  		            => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+      'remember_token'  	        => 'bzXvIS0JrfdMth7eDBgxjE6lSQ66ESHSEUJSnqldoxhBUPaoeQFfrw3zrVg1',
+      'col_barr_de_naveg'         => 'navbar-dark navbar-purple',
+      'col_barr_lat_oscu_o_clar'  => 'sidebar-light-navy',
+      'col_logot'                 => 'navbar-pink',
+      'asignado_us'  	            => 'desarrolloweb.ewmx@gmail.com',
+      'created_at_us'  	          => 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    $user1->assignRole('sinAccesoAlSistema');
     $user1 = App\User::create([
       'acceso'                    => '1',
       'registros_tab_acces'       => 'on',

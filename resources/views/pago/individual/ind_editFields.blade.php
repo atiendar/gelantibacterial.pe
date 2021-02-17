@@ -1,3 +1,4 @@
+@include('pago.pag_showFields.archivos_comPago_copIdentificacion')
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="estatus_pago">{{ __('Estatus pago') }} *</label>
@@ -34,7 +35,6 @@
     <span class="text-danger">{{ $errors->first('checkbox_correo') }}</span>
   </div>
 </div>
-@include('pago.pag_showFields.archivos_comPago_copIdentificacion')
 <div class="row">
   <div class="form-group col-sm btn-sm" >
     <a href="{{ route('pago.index') }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Regresar') }}</a>

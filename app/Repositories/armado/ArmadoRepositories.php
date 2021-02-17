@@ -45,6 +45,9 @@ class ArmadoRepositories implements ArmadoInterface {
       $armado->sku             = $request->sku;
       $armado->gama            = $request->gama;
       $armado->dest            = $request->destacado;
+      $armado->min_stock       = $request->cantidad_minima_de_stock;
+      $armado->max             = $request->maximo;
+      $armado->ped_a_plant     = $request->pedido_a_planta;
       $armado->url_pagina      = $request->url_pagina;
       $armado->obs             = $request->observaciones;
       $armado->asignado_arm    = Auth::user()->email_registro;
@@ -87,6 +90,9 @@ class ArmadoRepositories implements ArmadoInterface {
       $armado->sku         = $request->sku;
       $armado->gama        = $request->gama;
       $armado->dest        = $request->destacado;
+      $armado->min_stock       = $request->cantidad_minima_de_stock;
+      $armado->max             = $request->maximo;
+      $armado->ped_a_plant     = $request->pedido_a_planta;
       $armado->url_pagina  = $request->url_pagina;
       $armado->desc_esp    = $request->descuento_especial;
       $armado->obs         = $request->observaciones;
@@ -104,9 +110,9 @@ class ArmadoRepositories implements ArmadoInterface {
           $nom_ruta, // Nombre de la ruta
           $id_armado, // Id del registro debe ir encriptado
           $this->serviceCrypt->decrypt($id_armado), // Id del registro a mostrar, este valor no debe sobrepasar los 100 caracteres
-          array('Tipo', 'Nombre', 'SKU', 'Gama', 'Destacado', 'URL página', 'Descuento especial', 'Observaciones'), // Nombre de los inputs del formulario
+          array('Tipo', 'Nombre', 'SKU', 'Gama', 'Destacado', 'Cantidad mínima de stock', 'Máximo', 'Pedido a planta', 'URL página', 'Descuento especial', 'Observaciones'), // Nombre de los inputs del formulario
           $armado, // Request
-          array('tip', 'nom', 'sku', 'gama', 'dest', 'url_pagina', 'desc_esp', 'obs') // Nombre de los campos en la BD
+          array('tip', 'nom', 'sku', 'gama', 'dest', 'min_stock', 'max', 'ped_a_plant', 'url_pagina', 'desc_esp', 'obs') // Nombre de los campos en la BD
         ); 
         $armado->updated_at_arm  = Auth::user()->email_registro;
       }

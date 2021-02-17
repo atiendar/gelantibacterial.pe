@@ -18,6 +18,8 @@ class CreatePedidoArmadosTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('id_armado');
+            
             $table->string('cod',50)->comment('Código');
             $table->string('ult_let',4)->default('1')->comment('Última letra');
             $table->string('estat',70)->default('Pendiente')->comment('Estatus');

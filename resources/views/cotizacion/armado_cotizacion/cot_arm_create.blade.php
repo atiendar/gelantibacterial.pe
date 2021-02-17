@@ -12,7 +12,7 @@
   </div>
 --}}
   <div class="form-group row p-0 m-0">
-    <label for="armados" class="col-sm-3 col-form-label">{{ __('Agregar armado') }} *</label>
+    <label for="armados" class="col-sm-3 col-form-label">{{ __('Agregar') }} *</label>
     <div class="col-sm-9">
       <div class="input-group-append text-dark"> 
         <select name="id_armado"  class="form-control select2" placeholder='Seleccione. . .'>

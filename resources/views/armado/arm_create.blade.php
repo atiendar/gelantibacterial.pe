@@ -1,6 +1,6 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Registrar armado'))</title>
+<title>@section('title', __('Registrar gel'))</title>
 <div class="card">
   <div class="card-header p-1">
     <ul class="nav nav-pills">

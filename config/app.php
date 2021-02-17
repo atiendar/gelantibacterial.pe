@@ -140,6 +140,10 @@ return [
     # ===================== [ PAGOS ] =====================
     'aprobado'  => 'Aprobado',
     'rechazado' => 'Rechazado',
+
+    # ===================== [ STOCK PEDIDO ] =====================
+    'surtido'  => 'Surtido',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

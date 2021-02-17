@@ -16,13 +16,7 @@ class ArmadoTieneProductosTableSeeder extends Seeder {
      * @return void
      */
     public function run() {
-      $armados = Armado::with('productos')->where('id', '!=', 1)
-      ->where('id', '!=', 2)
-      ->where('id', '!=', 3)
-      ->where('id', '!=', 4)
-      ->where('id', '!=', 5)
-      ->where('id', '!=', 6)
-      ->where('id', '!=', 7)->get();
+      $armados = Armado::with('productos')->get();
       $hastaC = count($armados) - 1;
       $cont = 1;
       for($contador2 = 0; $contador2 <= $hastaC; $contador2++) {

@@ -291,13 +291,33 @@
       {!! Form::text('codigo_de_barras', $producto->cod_barras, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Código de barras'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
+</div>
+<div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="cantidad_minima_de_stock">{{ __('Cantidad mínima de stock') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
       </div>
-      {!! Form::text('cantidad_minima_de_stock', $producto->min_stock, ['class' => 'form-control disable', 'maxlength' => 5, 'placeholder' => __('Cantidad mínima de stock'), 'readonly' => 'readonly']) !!}
+      {!! Form::text('cantidad_minima_de_stock', $producto->min_stock, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Cantidad mínima de stock'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="maximo">{{ __('Máximo') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
+      </div>
+      {!! Form::text('maximo', $producto->max, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Máximo'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="pedido_a_planta">{{ __('Pedido a planta') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
+      </div>
+      {!! Form::text('pedido_a_planta', $producto->ped_a_plant, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Pedido a planta'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

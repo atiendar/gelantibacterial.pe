@@ -43,9 +43,6 @@
     <span class="text-danger">{{ $errors->first('sku') }}</span>
   </div>
 </div>
-
-
-
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="es_producto_de_catalogo">{{ __('Es producto de catálogo') }} *</label>
@@ -58,15 +55,6 @@
     <span class="text-danger">{{ $errors->first('es_producto_de_catalogo') }}</span>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
 <div class="row">
   <div class="form-group col-sm btn-sm">
     <label for="marca">{{ __('Marca') }} *</label>

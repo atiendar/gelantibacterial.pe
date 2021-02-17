@@ -275,26 +275,54 @@ class PagoRepositories implements PagoInterface {
     return $this->pedidoActivoRepo->getMontoDePagosAprobados($pedido);
   }
   public function modificarEstatusProduccionYAlmacen($pedido) {
-    if($pedido->estat_alm == config('app.pendiente')) {
-      $pedido->estat_alm          = config('app.en_revision_de_productos');
-      $pedido->fech_estat_alm     = date("Y-m-d h:i:s"); 
+    foreach($pedido->armados as $armado_ped) {
+      $armado_orig        = \App\Models\Armado::FindOrFail($armado_ped->id_armado);
+      $surtir             = $armado_orig->stock - $armado_ped->cant;
+    
+      if($surtir < 0) { // CHECA SI ES SUFICIENTE EL STOCK PARA SURTIR ESTE PEDIDO 
+        if($pedido->estat_produc == config('app.pendiente')) {
+          $pedido->per_reci_alm           = '.';
+          $pedido->fech_estat_alm     = date("Y-m-d h:i:s");
+          $pedido->fech_estat_produc  = date("Y-m-d h:i:s");
+        }
 
-      $pedido->estat_produc       = config('app.asignar_lider_de_pedido');
-      $pedido->fech_estat_produc  = date("Y-m-d h:i:s");
+        $armado_ped->estat = config('app.productos_completos');
+        $armado_ped->save();
+      } else {
+        // DISMINUYE EL STOCK DEL ARMADO
+        $armado_orig->stock -= $armado_ped->cant;
+        $armado_orig->save();
+
+        if($pedido->estat_alm == config('app.pendiente')) {
+          $pedido->fech_estat_alm     = date("Y-m-d h:i:s");
+        }
+        $armado_ped->estat = config('app.en_espera_de_compra');
+        $armado_ped->save();
+
+        if($armado_orig->stock < $armado_orig->min_stock) {
+          // Se surte para STOCK en caso de rebazar los minimos     
+          $this->pedirStock($armado_ped, $armado_orig);
+        }
+      }
       $pedido->save();
+    }
+    \App\Models\Pedido::getEstatusPedido($pedido, 'Todos');
+  }
+  public function pedirStock($armado_ped, $armado_orig) {   
+    $ya_pedidos = \App\Models\StockPedido::where('id_armado', $armado_orig->id)->where('estat', config('app.pendiente'))->sum('cant');
+    $cantid = $armado_orig->max - ($armado_orig->stock + $ya_pedidos);
 
-      // CAMBIA EL ESTATUS DE LOS ARMADOS DEL PEDIDO PARA QUE ALMACÉN LOS PUEDA MODIFICAR
-      $up_estat = NULL;
-      $ids      = NULL;
-      foreach($pedido->armados as $armado){ 
-        $up_estat .= ' WHEN '. $armado->id. ' THEN "'. config('app.en_espera_de_compra').'"';
-        $ids      .= $armado->id.',';
-      }
-      if($up_estat != null) {
-        $nom_tabla = (new \App\Models\PedidoArmado())->getTable();
-        $ids = substr($ids, 0, -1);
-        DB::UPDATE("UPDATE ".$nom_tabla." SET estat = CASE id". $up_estat." END WHERE id IN (".$ids.")");
-      }
+    if($cantid > 0) {
+      $pedido_stock = new \App\Models\StockPedido();
+      $pedido_stock->serie          = 'STOCK-';
+      $pedido_stock->num_pedido     = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', 'STOCK-');
+      $pedido_stock->estat          = config('app.pendiente');
+      $pedido_stock->id_armado      = $armado_orig->id;
+      $pedido_stock->cant           =  $cantid;
+      $pedido_stock->coment         = $armado_ped->nom;
+      $pedido_stock->created_at_reg = 'Sistema';
+      $pedido_stock->created_at_reg = 'Sistema';
+      $pedido_stock->save();
     }
   }
   public function getPagoForCodigoFacturacionFindOrFail($codigo_de_facturacion, $relaciones) {

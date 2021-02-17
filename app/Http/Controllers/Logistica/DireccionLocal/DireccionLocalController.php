@@ -84,11 +84,7 @@ class DireccionLocalController extends Controller {
     $pedido     = $armado->pedido()->with('pagos')->first();
 
     if($pedido->estat_pag != config('app.pagado')) {
-      foreach($pedido->pagos as $pago) {
-        if( $pago->form_de_pag != 'Efectivo (Jonathan)' AND $pago->form_de_pag != 'Efectivo (Gabriel)' AND $pago->form_de_pag != 'Efectivo (Fernando)') {
-          return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
-        }
-      }
+      return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
     }
 
     $codigoQRDComprobanteDeSalida   = $this->generarQRRepo->qr($direccion->id, 'Comprobante de salida', $for_loc);

@@ -62,12 +62,7 @@
             <td>{{ $armado->tip }}</td>
             <td>{{ $armado->sku }}</td>
             <td>
-              <strong>{{ $armado->nom }}</strong><br>
-                @foreach($armado->productos as $producto)
-                  <div class="input-group text-muted ml-2">
-                    <p class="m-0">- {{ $producto->produc }}</p>
-                  </div>
-                @endforeach
+              <strong>{{ $armado->nom }}</strong>
             </td>
             <td>{{ Sistema::dosDecimales($armado->cant) }}</td>
             <td>${{ Sistema::dosDecimales($armado->prec_redond) }}</td>

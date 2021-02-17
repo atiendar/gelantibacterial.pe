@@ -21,10 +21,12 @@ class SerieRepositories implements SerieInterface {
   }
   public function serieAsignadoFindOrFailById($id_serie) {
       $id_serie = $this->serviceCrypt->decrypt($id_serie);
-      return Serie::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)->findOrFail($id_serie);
+      return Serie::asignado(Auth::user()->registros_tab_acces, Auth::user()->email_registro)
+      ->where('id','!=', )
+      ->findOrFail($id_serie);
     }
   public function getPagination($request) {
-    return Serie::buscar($request->opcion_buscador, $request->buscador)->orderBy('id', 'DESC')->paginate($request->paginador);
+    return Serie::buscar($request->opcion_buscador, $request->buscador)->where('id','!=', 4)->orderBy('id', 'DESC')->paginate($request->paginador);
   }
   public function store($request) {
     DB::transaction(function() use($request) { // Ejecuta una transacción para encapsulan todas las consultas y se ejecuten solo si no surgió algún error
