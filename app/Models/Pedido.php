@@ -144,18 +144,19 @@ class Pedido extends Model{
     if($modulo == 'Almacén' OR $modulo == 'Todos' AND $pedido->fech_estat_alm != null) {
       $pedido->estat_alm = Pedido::getEstatusAlmacen($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->per_reci_alm);
     }
-    if($modulo == 'Producción' OR $modulo == 'Todos' AND $pedido->fech_estat_produc != null) {
+    if($modulo == 'Producción' OR $modulo == 'Todos') {
       $pedido->estat_produc = Pedido::getEstatusProduccion($consulta, $pedido->tot_de_arm, $pedido->arm_carg, $pedido->lid_de_ped_produc);
     }
     if($modulo == 'Logística' OR $modulo == 'Todos' AND $pedido->fech_estat_log != null) {
       $pedido->estat_log = Pedido::getEstatusLogistica($consulta, $pedido->tot_de_arm, $pedido->arm_carg);
     }
     //$estatus = [$pedido->estat_alm,$pedido->estat_produc,$pedido->estat_log,$pedido];
+
+   // dd($pedido->estat_produc);
     $pedido->save();
   }
   public static function getEstatusAlmacen($consulta, $tot_de_arm, $arm_carg, $per_reci_alm) {
     $anteriores = $consulta->pendiente;
-
 
     if($tot_de_arm != $arm_carg) {
       $estat_alm = config('app.en_espera_de_ventas');
@@ -181,26 +182,27 @@ class Pedido extends Model{
     return $estat_alm;
   }
   public static function getEstatusProduccion($consulta, $tot_de_arm, $arm_carg, $lid_de_ped_produc) {
-    $anteriores = $consulta->pendiente + $consulta->en_espera_de_compra + $consulta->en_revision_de_productos;
+  //  $anteriores = $consulta->pendiente + $consulta->en_espera_de_compra + $consulta->en_revision_de_productos;
 
     if($tot_de_arm != $arm_carg) {
       $estat_produc = config('app.en_espera_de_almacen');
     }
-    if($lid_de_ped_produc != NULL AND $tot_de_arm == $arm_carg) {
+    if($tot_de_arm == $arm_carg) {
       $estat_produc = config('app.en_almacen_de_salida_terminado');
     }
-    if($lid_de_ped_produc != NULL AND $consulta->en_produccion > 0) {
+    if($consulta->en_produccion > 0) {
       $estat_produc = config('app.en_produccion');
     }
-    if($lid_de_ped_produc != NULL AND $consulta->productos_completos > 0) {
+    /*
+    if($consulta->productos_completos > 0) {
       $estat_produc = config('app.productos_completos');
-    }
-    if($lid_de_ped_produc != NULL AND $anteriores > 0 AND $consulta->productos_completos == 0 AND $consulta->en_produccion == 0) {
-      $estat_produc = config('app.en_espera_de_almacen');
-    }
-    if($lid_de_ped_produc == NULL) {
-      $estat_produc = config('app.asignar_lider_de_pedido');
-    }
+    }*/
+ //   if($anteriores > 0 AND $consulta->productos_completos == 0 AND $consulta->en_produccion == 0) {
+ //     $estat_produc = config('app.en_espera_de_almacen');
+ //   }
+ //   if($lid_de_ped_produc == NULL) {
+ //     $estat_produc = config('app.asignar_lider_de_pedido');
+ //   }
     if(empty($estat_produc)) {
       return abort(500, 'Algo salio mal en el estatus de producción');
     }

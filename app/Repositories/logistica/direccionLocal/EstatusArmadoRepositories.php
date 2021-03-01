@@ -46,7 +46,7 @@ class EstatusArmadoRepositories implements EstatusArmadonInterface {
     return $direccion->armado;
   }
   public function regresarAProduccion($armado) {
-    $armado->estat = config('app.productos_completos');
+    $armado->estat = config('app.en_produccion');
     $armado->save();
 
     $nom_tabla = (new \App\Models\PedidoArmadoTieneDireccion())->getTable();

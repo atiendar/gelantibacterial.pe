@@ -59,7 +59,9 @@ class PedidoActivoController extends Controller {
     $codigoQRProduccion = $this->generarQRRepo->qr($pedido->id, 'Producción');
     $codigoQRLogistica = $this->generarQRRepo->qr($pedido->id, 'Logística');
       
-    $armados  = $pedido->armados()->with(['productos'=> function ($query) {
+    $armados  = $pedido->armados()->where('estat', config('app.en_produccion'))
+    ->orWhere('estat', config('app.productos_completos'))
+    ->with(['productos'=> function ($query) {
       $query->with('sustitutos');
     }, 'direcciones'=> function ($query) {
       $query->select('cant', 'tip_tarj_felic', 'mens_dedic', 'pedido_armado_id', 'caj');

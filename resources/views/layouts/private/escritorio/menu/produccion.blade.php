@@ -1,6 +1,6 @@
 @canany([
   'produccion.pedidoActivo.index', 'produccion.pedidoActivo.show', 'produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit',
-  'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show'
+  'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show', 'produccion.pedido.stock.index'
 ])
   <li class="nav-item has-treeview {{ Request::is('produccion*') ? 'menu-open' : '' }}">
     <a href="#" class="nav-link {{ Request::is('produccion*') ? 'active' : '' }}">
@@ -17,7 +17,7 @@
           <p>{{ __('Inicio Planta') }}</p>
         </a>
       </li>
-      @canany(['produccion.pedidoActivo.index','produccion.pedidoActivo.show','produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit', 'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show'])
+      @canany(['produccion.pedidoActivo.index','produccion.pedidoActivo.show','produccion.pedidoActivo.edit', 'produccion.pedidoActivo.armado.show', 'produccion.pedidoActivo.armado.edit', 'produccion.pedidoTerminado.index','produccion.pedidoTerminado.show', 'produccion.pedido.stock.index'])
         <li class="nav-item has-treeview {{ Request::is('produccion/pedido*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Request::is('produccion/pedido*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-shopping-bag"></i>
@@ -40,6 +40,14 @@
                 <a href="{{ route('produccion.pedidoTerminado.index') }}" class="nav-link {{ Request::is('produccion/pedido-terminado') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-list"></i>
                   <p>{{ __('Lista de pedidos terminados') }}</p>
+                </a>
+              </li>
+            @endcanany
+            @canany(['produccion.pedido.stock.index'])
+              <li class="nav-item">
+                <a href="{{ route('produccion.pedido.stock.index') }}" class="nav-link {{ Request::is('produccion/pedido/stock') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-list"></i>
+                  <p>{{ __('Lista de pedidos stock') }}</p>
                 </a>
               </li>
             @endcanany

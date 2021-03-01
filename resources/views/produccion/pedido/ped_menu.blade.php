@@ -12,3 +12,10 @@
     </a>
   </li>
 @endcanany
+@canany(['produccion.pedido.stock.index'])
+  <li class="nav-item">
+    <a href="{{ route('produccion.pedido.stock.index') }}" class="nav-link {{ Request::is('produccion/pedido/stock') ? 'active' : '' }}">
+      <i class="fas fa-list nav-icon"></i> {{ __('Lista de pedidos stock') }}
+    </a>
+  </li>
+@endcanany

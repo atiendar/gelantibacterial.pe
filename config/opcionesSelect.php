@@ -429,6 +429,14 @@ return array(
     'Mediano' => 'Mediano',
     'Grande'  => 'Grande',
   ],
+/* ===================== ARMADOS [ STOCK ] ===================== */
+  'select_armado_armado_index'  => [
+    ''            => 'Buscar por. . .',
+    'id'          => 'ID',
+    'nom'         => 'Nombre',
+    'sku'         => 'SKU',
+    'created_at'  => 'Fecha de registro (YYYY-MM-DD)',
+  ],
 /* ===================== ALMACÉN [ PRODUCTOS ] ===================== */
   'select_producto_index'  => [
     ''              => 'Buscar por. . .',
@@ -849,6 +857,14 @@ return array(
     config('app.en_produccion')                 => config('app.en_produccion'),
     config('app.en_almacen_de_salida')          => config('app.en_almacen_de_salida'),
     config('app.en_revision_de_productos')      => 'Productos incompletos',
+  ],
+  /* ===================== PRODUCCIÓN PEDIDO STOCK ===================== */
+  'select_produccion_pedido_stock_index'  => [
+    ''                        => 'Buscar por. . .',
+    'num_pedido'              => 'Número de stock',
+    'cant'                    => 'Cantidad de armados',
+    'coment'                  => 'Producto',
+    'created_at'              => 'Fecha de registro (YYYY-MM-DD)',
   ],
   /* ===================== LOGÍSTICA [ PEDIDO ACTIVO LOCAL ] ===================== */
   'select_logistica_pedido_activo_local_index'  => [

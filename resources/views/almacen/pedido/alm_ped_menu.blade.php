@@ -12,6 +12,7 @@
     </a>
   </li>
 @endcanany
+{{-- 
 @if(Request::route()->getName() == 'almacen.pedidoActivo.index')
   @can('almacen.pedidoActivo.index')
     <li class="nav-item ml-auto">
@@ -55,3 +56,4 @@
     </li>
   @endcan
 @endif
+--}}

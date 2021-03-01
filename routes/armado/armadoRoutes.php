@@ -22,11 +22,19 @@ Route::group(['prefix' => 'armado'], function() {
     });
     
     Route::group(['prefix' => 'clon'], function() {
-        Route::match(['GET', 'HEAD'],'', 'Armado\ClonArmado\ClonArmadoController@index')->name('armado.clon.index')->middleware('permission:armado.clon.index|armado.clon.create|armado.clon.show|armado.clon.edit|armado.clon.destroy|armado.clon.producto.create|armado.clon.producto.editCantidad|armado.clon.producto.destroy');
-        Route::match(['GET', 'HEAD'],'crear/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@store')->name('armado.clon.store')->middleware('permission:armado.clon.create');
-        Route::match(['GET', 'HEAD'],'detalles/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@show')->name('armado.clon.show')->middleware('permission:armado.clon.show');
-        Route::match(['GET', 'HEAD'],'editar/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@edit')->name('armado.clon.edit')->middleware('permission:armado.clon.edit|armado.clon.producto.create|armado.clon.producto.editCantidad|armado.clon.producto.destroy');
-        Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@update')->name('armado.clon.update')->middleware('permission:armado.clon.edit');
-        Route::match(['DELETE'],'eliminar/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@destroy')->name('armado.clon.destroy')->middleware('permission:armado.clon.destroy');
+      Route::match(['GET', 'HEAD'],'', 'Armado\ClonArmado\ClonArmadoController@index')->name('armado.clon.index')->middleware('permission:armado.clon.index|armado.clon.create|armado.clon.show|armado.clon.edit|armado.clon.destroy|armado.clon.producto.create|armado.clon.producto.editCantidad|armado.clon.producto.destroy');
+      Route::match(['GET', 'HEAD'],'crear/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@store')->name('armado.clon.store')->middleware('permission:armado.clon.create');
+      Route::match(['GET', 'HEAD'],'detalles/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@show')->name('armado.clon.show')->middleware('permission:armado.clon.show');
+      Route::match(['GET', 'HEAD'],'editar/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@edit')->name('armado.clon.edit')->middleware('permission:armado.clon.edit|armado.clon.producto.create|armado.clon.producto.editCantidad|armado.clon.producto.destroy');
+      Route::match(['PUT', 'PATCH'],'actualizar/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@update')->name('armado.clon.update')->middleware('permission:armado.clon.edit');
+      Route::match(['DELETE'],'eliminar/{id_armado}', 'Armado\ClonArmado\ClonArmadoController@destroy')->name('armado.clon.destroy')->middleware('permission:armado.clon.destroy');
+    });
+
+    Route::group(['prefix' => 'stock'], function() {
+      Route::match(['GET', 'HEAD'],'', 'Armado\Stock\StockController@index')->name('armado.stock.index')->middleware('permission:armado.stock.index|armado.stock.show|armado.stock.aumentarStock|armado.stock.disminuirStock');
+      Route::match(['GET', 'HEAD'],'detalles/{id_stock}', 'Armado\Stock\StockController@show')->name('armado.stock.show')->middleware('permission:armado.stock.show');
+      Route::match(['GET', 'HEAD'],'editar/{id_stock}', 'Armado\Stock\StockController@edit')->name('armado.stock.edit')->middleware('permission:armado.stock.aumentarStock|armado.stock.disminuirStock');
+      Route::match(['PUT', 'PATCH'],'aumentar-stock/{id_stock}', 'Armado\Stock\StockController@aumentarStock')->name('armado.stock.aumentarStock')->middleware('permission:armado.stock.aumentarStock');
+      Route::match(['PUT', 'PATCH'],'disminuir-stock/{id_stock}', 'Armado\Stock\StockController@disminuirStock')->name('armado.stock.disminuirStock')->middleware('permission:armado.stock.disminuirStock');
     });
 });

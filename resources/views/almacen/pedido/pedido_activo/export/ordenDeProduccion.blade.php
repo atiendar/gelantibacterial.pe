@@ -136,25 +136,9 @@
             <td>{{ $armado->tip }}</td>
             <td>
               <strong>{{ $armado->nom }} ({{ $armado->sku }})</strong><br>
-              @foreach($armado->productos as $producto)
-                <div class="input-group text-muted ml-2">
-                  <p class="m-0">[{{ $producto->cant }} - {{ $producto->produc }}]</p>
-                </div>
-                @foreach($producto->sustitutos as $sustituto)
-                  <div class="input-group text-muted ml-4">
-                    <p class="m-0">{{ $sustituto->cant }} - {{ $sustituto->produc }}</p>
-                  </div>
-                @endforeach
-              @endforeach
+           
  
-              <div class="input-group text-muted ml-2">
-                <p class="m-0">- - - - - - - - - - - </p>
-              </div>
-              @foreach($armado->direcciones as $direccion)
-                <div class="input-group text-muted ml-2">
-                  <p class="m-0">{{ $direccion->cant }} - {{ $direccion->caj }}</p>
-                </div>
-              @endforeach
+             
 
             </td>
             <td>

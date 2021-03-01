@@ -12,6 +12,14 @@
     </a>
   </li>
 @endcan
+@canany(['armado.stock.index', 'armado.stock.show', 'armado.stock.aumentarStock', 'armado.stock.disminuirStock'])
+  <li class="nav-item">
+    <a href="{{ route('armado.stock.index') }}" class="nav-link {{ Request::is('armado/stock') ? 'active' : '' }}">
+      <i class="fas fa-list nav-icon"></i> {{ __('Lista de stock') }}
+    </a>
+  </li>
+@endcanany
+
 {{--
 @canany(['armado.clon.index', 'armado.clon.create', 'armado.clon.show', 'armado.clon.edit', 'armado.clon.destroy', 'armado.clon.producto.create', 'armado.clon.producto.destroy', 'armado.clon.producto.editCantidad'])
   <li class="nav-item">

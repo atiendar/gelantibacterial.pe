@@ -104,6 +104,7 @@ Route::group(['middleware' => ['navegador', 'headerSeguro']], function() {
       require_once __DIR__ . '/produccion/produccionRoutes.php';
       require_once __DIR__ . '/produccion/pedidoActivoRoutes.php';
       require_once __DIR__ . '/produccion/pedidoTerminadoRoutes.php';
+      require_once __DIR__ . '/produccion/pedidoStockRoutes.php';
     });
 
     Route::group(['prefix' => 'logistica'], function() {

@@ -24,6 +24,7 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
     return Pedido::pendientesPedido($opc_consulta)
       ->with($relaciones)
       ->where('estat_produc', '!=', config('app.en_almacen_de_salida_terminado'))
+      ->where('estat_produc', '!=', config('app.en_espera_de_almacen'))
       /*
       ->where(function ($query) {
         $query->where('estat_produc', config('app.asignar_lider_de_pedido'))

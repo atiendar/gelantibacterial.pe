@@ -15,6 +15,7 @@ use App\Repositories\servicio\crypt\ServiceCrypt;
 use App\Repositories\venta\pedidoActivo\PedidoActivoRepositories;
 use App\Repositories\sistema\plantilla\PlantillaRepositories;
 use App\Repositories\sistema\sistema\SistemaRepositories;
+use App\Repositories\sistema\serie\SerieRepositories;
 // Otros
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -24,11 +25,13 @@ class PagoRepositories implements PagoInterface {
   protected $pedidoActivoRepo;
   protected $plantillaRepo;
   protected $sistemaRepo;
-  public function __construct(ServiceCrypt $serviceCrypt, PedidoActivoRepositories $pedidoActivoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories) {
+  protected $serieRepo;
+  public function __construct(ServiceCrypt $serviceCrypt, PedidoActivoRepositories $pedidoActivoRepositories, PlantillaRepositories $plantillaRepositories, SistemaRepositories $sistemaRepositories, SerieRepositories $serieRepositories) {
     $this->serviceCrypt     = $serviceCrypt;
     $this->pedidoActivoRepo = $pedidoActivoRepositories;
     $this->plantillaRepo    = $plantillaRepositories;
     $this->sistemaRepo      = $sistemaRepositories;
+    $this->serieRepo        = $serieRepositories;
   }
   public function getPagoFindOrFailById($id_pago, $relaciones, $estatus) {
     $id_pago = $this->serviceCrypt->decrypt($id_pago);
@@ -286,7 +289,7 @@ class PagoRepositories implements PagoInterface {
           $pedido->fech_estat_produc  = date("Y-m-d h:i:s");
         }
 
-        $armado_ped->estat = config('app.productos_completos');
+        $armado_ped->estat = config('app.en_produccion');
         $armado_ped->save();
       } else {
         // DISMINUYE EL STOCK DEL ARMADO
@@ -315,6 +318,7 @@ class PagoRepositories implements PagoInterface {
     if($cantid > 0) {
       $pedido_stock = new \App\Models\StockPedido();
       $pedido_stock->serie          = 'STOCK-';
+
       $pedido_stock->num_pedido     = $this->serieRepo->sumaUnoALaUltimaSerie('Pedidos (Serie)', 'STOCK-');
       $pedido_stock->estat          = config('app.pendiente');
       $pedido_stock->id_armado      = $armado_orig->id;

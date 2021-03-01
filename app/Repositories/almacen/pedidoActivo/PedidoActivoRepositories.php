@@ -123,8 +123,10 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
       }
 
       //Cambia es estatus de las direcciones relacionadas a este armado
-      $this->direccionLocalRepo->cambiarEstatusDireccionAlmacenDeSalida($armado->direcciones);
-
+      foreach($armados as $armado) {
+        $this->direccionLocalRepo->cambiarEstatusDireccionAlmacenDeSalida($armado->direcciones);
+      }
+      
       // Se guarda la fecha en la que el pedido paso a logística por primera vez
       if($pedido->fech_estat_log == null) {
         $pedido->fech_estat_log = date("Y-m-d h:i:s");

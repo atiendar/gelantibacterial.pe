@@ -445,7 +445,36 @@ class PermisosTableSeeder extends Seeder {
       'name'				    => "armado.producto.editCantidad",
       'desc'            => "Editar el campo (Cantidad) de un registro del módulo Gel 'Productos'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
-    ]); 
+    ]);
+// PERMISOS DEL MÓDULO ARMADOS (STOCK)  
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 51,
+      'nom'             => "Navegar por tabla Gel 'Stock'",
+      'name'				    => 'armado.stock.index',
+      'desc'            => "Lista y navega por todos los registros del módulo Gel 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 53,
+      'nom'             => "Ver detalles Gel 'Stock'",
+      'name'				    => 'armado.stock.show',
+      'desc'            => "Ver detalles de cualquier registro del módulo Gel 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 77,
+      'nom'             => "Editar campo (Aumentar stock) Gel 'Stock'",
+      'name'				    => "armado.stock.aumentarStock",
+      'desc'            => "Editar el campo (Aumentar stock) de un registro del módulo Gel 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
+    Spatie\Permission\Models\Permission::create([
+//      'id'              => 77,
+      'nom'             => "Editar campo (Disminuir stock) Gel 'Stock'",
+      'name'				    => "armado.stock.disminuirStock",
+      'desc'            => "Editar el campo (Disminuir stock) de un registro del módulo Gel 'Stock'",
+      'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+    ]);
     /*
 // PERMISOS DEL MÓDULO ARMADOS (ARMADOS CLONADOS)
     Spatie\Permission\Models\Permission::create([
@@ -960,6 +989,15 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Ver detalles de cualquier registro del módulo Planta 'Pedidos terminados'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+
+//PERMISOS DEL MÓDULO PRODUCCIÓN (PEDIDO TERMINADO)
+  Spatie\Permission\Models\Permission::create([
+    //  'id'              => 104,
+    'nom'             => "Navegar por tabla Planta 'Pedidos stock'",
+    'name'				    => 'produccion.pedido.stock.index',
+    'desc'            => "Lista y navega por todos los registros del módulo Planta 'Pedidos stock'",
+    'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
+  ]);
 //PERMISOS DEL MÓDULO LOGÍSTICA (PEDIDO ACTIVO)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 99,
@@ -1235,6 +1273,7 @@ Spatie\Permission\Models\Permission::create([
       'desc'            => "Eliminar cualquier registro del módulo 'Sistema (Manuales)'",
       'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
     ]);
+    /*
   // PERMISOS DEL MÓDULO (STOCK)
     Spatie\Permission\Models\Permission::create([
     //  'id'              => 3,
@@ -1277,5 +1316,6 @@ Spatie\Permission\Models\Permission::create([
         'desc'            => "Regresar al estatus En Ruta Logística del módulo Logística 'Direcciones entregadas'",
         'created_at_perm'	=> 'desarrolloweb.ewmx@gmail.com',
       ]);
+      */
   }
 }
