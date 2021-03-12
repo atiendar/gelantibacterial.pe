@@ -18,6 +18,10 @@ class CreatePedidosTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_unicode_ci';
             $table->bigIncrements('id');
+
+            
+            $table->string('modif',4)->default('No')->comment('Modificado');
+
             $table->string('serie',20)->comment('Serie');
             $table->string('num_pedido',45)->unique()->comment('Número de pedido');
             $table->string('cot_gen',45)->nullable()->comment('Cotización de la que salio este pedido');

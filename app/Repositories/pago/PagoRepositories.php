@@ -279,9 +279,10 @@ class PagoRepositories implements PagoInterface {
   }
   public function modificarEstatusProduccionYAlmacen($pedido) {
     foreach($pedido->armados as $armado_ped) {
-      $armado_orig        = \App\Models\Armado::FindOrFail($armado_ped->id_armado);
-      $surtir             = ($armado_orig->stock -$armado_orig->ya_vendido) - $armado_ped->cant;
+      $armado_orig  = \App\Models\Armado::FindOrFail($armado_ped->id_armado);
+      $surtir       = ($armado_orig->stock -$armado_orig->ya_vendido) - $armado_ped->cant;
     
+      
       if($surtir < 0) { // CHECA SI ES SUFICIENTE EL STOCK PARA SURTIR ESTE PEDIDO 
         if($pedido->estat_produc == config('app.pendiente')) {
           $pedido->per_reci_alm           = '.';
@@ -294,9 +295,11 @@ class PagoRepositories implements PagoInterface {
         $armado_ped->save();
 
       } else {
-        // DISMINUYE EL STOCK DEL ARMADO
-        $armado_orig->ya_vendido += $armado_ped->cant;
-        $armado_orig->save();
+        if($pedido->modif == 'No'){
+          // DISMINUYE EL STOCK DEL ARMADO
+          $armado_orig->ya_vendido += $armado_ped->cant;
+          $armado_orig->save();
+        }
 
         if($pedido->estat_alm == config('app.pendiente')) {
           $pedido->fech_estat_alm     = date("Y-m-d h:i:s");
@@ -305,15 +308,18 @@ class PagoRepositories implements PagoInterface {
         $armado_ped->bod = 'Naucalpan';
         $armado_ped->save();
 
-        $stock_re = $armado_orig->stock-$armado_orig->ya_vendido;
-//dd(  $stock_re     );
-
-//if($armado_orig->ya_vendido > $armado_orig->min_stock) {
-        if($stock_re <= $armado_orig->min_stock OR $stock_re == 0 ) {
-          // Se surte para STOCK en caso de rebazar los minimos     
-          $this->pedirStock($armado_ped, $armado_orig);
+        if($pedido->modif == 'No'){
+          $stock_re = $armado_orig->stock-$armado_orig->ya_vendido;
+          if($stock_re <= $armado_orig->min_stock OR $stock_re == 0 ) {
+            // Se surte para STOCK en caso de rebazar los minimos     
+            $this->pedirStock($armado_ped, $armado_orig);
+          }
         }
       }
+      $pedido->save();
+    }
+    if($pedido->modif == 'No'){
+      $pedido->modif = 'Si';
       $pedido->save();
     }
     \App\Models\Pedido::getEstatusPedido($pedido, 'Todos');
