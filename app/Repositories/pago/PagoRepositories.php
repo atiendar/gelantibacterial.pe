@@ -305,7 +305,11 @@ class PagoRepositories implements PagoInterface {
         $armado_ped->bod = 'Naucalpan';
         $armado_ped->save();
 
-        if($armado_orig->ya_vendido > $armado_orig->min_stock) {
+        $stock_re = $armado_orig->stock-$armado_orig->ya_vendido;
+//dd(  $stock_re     );
+
+//if($armado_orig->ya_vendido > $armado_orig->min_stock) {
+        if($stock_re <= $armado_orig->min_stock OR $stock_re == 0 ) {
           // Se surte para STOCK en caso de rebazar los minimos     
           $this->pedirStock($armado_ped, $armado_orig);
         }
@@ -317,7 +321,9 @@ class PagoRepositories implements PagoInterface {
   public function pedirStock($armado_ped, $armado_orig) {   
     $ya_pedidos = \App\Models\StockPedido::where('id_armado', $armado_orig->id)->where('estat', config('app.pendiente'))->sum('cant');
   //  $cantid = $armado_orig->max - ($armado_orig->ya_vendido + $ya_pedidos);
-    $cantid = $armado_orig->ya_vendido - $ya_pedidos;
+  //  $cantid = $armado_orig->ya_vendido - $ya_pedidos;
+    $stock_real = ($armado_orig->stock-$armado_orig->ya_vendido) + $ya_pedidos;
+    $cantid = $armado_orig->max - $stock_real;
 
     if($cantid > 0) {
       $pedido_stock = new \App\Models\StockPedido();

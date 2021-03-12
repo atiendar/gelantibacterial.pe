@@ -116,8 +116,9 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         $ids                    .= $armado->id.',';
 //dd($armado);
 // Disminuye el stock del armado original
-        $armado_orig        = \App\Models\Armado::FindOrFail($armado->id_armado);
-        $armado_orig->stock -= $armado->cant;
+        $armado_orig              = \App\Models\Armado::FindOrFail($armado->id_armado);
+        $armado_orig->stock       -= $armado->cant;
+        $armado_orig->ya_vendido  -= $armado->cant;
         $armado_orig->save();
 
    //     if($armado_orig->stock < $armado_orig->min_stock) {

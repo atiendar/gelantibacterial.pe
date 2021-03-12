@@ -32,8 +32,9 @@ class PedidoStockRepositories implements PedidoStockInterface {
       $pedido->save();
 
       // Disminuye lo ya vendido del armado original para que al aprobar la cotizacion pase a almacen y no a planta
-      $armado_orig        = \App\Models\Armado::FindOrFail($pedido->id_armado);
-      $armado_orig->ya_vendido -= $pedido->cant;
+      $armado_orig              = \App\Models\Armado::FindOrFail($pedido->id_armado);
+    //  $armado_orig->ya_vendido  -= $pedido->cant;
+      $armado_orig->stock       += $pedido->cant;
       $armado_orig->save();
 
       DB::commit();

@@ -44,9 +44,10 @@ class ArmadoController extends Controller {
   }
   public function show(Request $request, $id_armado) {
     $armado     = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '0', ['imagenes', 'productos']);
+    $pendiente_de_surtir_en_planta = \App\Models\StockPedido::where('id_armado', $armado->id)->where('estat', config('app.pendiente'))->sum('cant');
     $imagenes   = $this->armadoRepo->getImagenesArmado($armado);
     $productos  = $this->armadoRepo->getProductosProveedor($armado, $request);
-    return view('armado.arm_show', compact('armado', 'productos', 'imagenes'));
+    return view('armado.arm_show', compact('armado', 'productos', 'imagenes', 'pendiente_de_surtir_en_planta'));
   }
   public function edit(Request $request, $id_armado) {
     $armado         = $this->armadoRepo->armadoAsignadoFindOrFailById($id_armado, '0', ['imagenes', 'productos']);

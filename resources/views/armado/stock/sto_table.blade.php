@@ -10,6 +10,7 @@
           <th>{{ __('NOMBRE') }}</th>
 					<th>{{ __('STOCK') }}</th>
           <th>{{ __('VENDIDO') }}</th>
+          <th>{{ __('STOCK REAL') }}</th>
 					<th colspan="2">&nbsp</th>
 				</tr>
 			</thead>
@@ -27,6 +28,7 @@
             </td>
 						<td>{{ $stock->stock }}</td>
             <td>{{ $stock->ya_vendido }}</td>
+            <td>{{ $stock->stock-$stock->ya_vendido }}</td>
 						@include('armado.stock.sto_tableOpciones') 
 					</tr>
 				@endforeach

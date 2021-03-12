@@ -19,7 +19,9 @@ class StockController extends Controller {
   }
   public function show($id_stock) {
     $stock = $this->stockRepo->stockFindOrFailById($id_stock, []);
-    return view('armado.stock.sto_show', compact('stock'));
+    $pendiente_de_surtir_en_planta = \App\Models\StockPedido::where('id_armado', $stock->id)->where('estat', config('app.pendiente'))->sum('cant');
+
+    return view('armado.stock.sto_show', compact('stock', 'pendiente_de_surtir_en_planta'));
   }
   public function edit($id_stock) {
     $stock = $this->stockRepo->stockFindOrFailById($id_stock, []);
