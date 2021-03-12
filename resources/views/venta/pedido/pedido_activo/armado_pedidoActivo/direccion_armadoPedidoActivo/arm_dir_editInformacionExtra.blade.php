@@ -1,4 +1,4 @@
-<label for="redes_sociales">{{ __('INFORMACIÓN EXTRA DEL ARMADO') }}</label>
+<label for="redes_sociales">{{ __('INFORMACIÓN EXTRA DEL GEL') }}</label>
 <div class="border border-primary rounded p-2">
   <div class="row">
     <div class="form-group col-sm btn-sm">

@@ -6,7 +6,7 @@
     @endif
   </div>
   <div class="card-body">
-    <h5 class="bg-info rounded p-1"> {{ __('Recuerda poner 5 opciones de rangos de precios similares por armado cotizado') }} </h5>
+   {{-- <h5 class="bg-info rounded p-1"> {{ __('Recuerda poner 5 opciones de rangos de precios similares por armado cotizado') }} </h5>--}}
     @include('cotizacion.armado_cotizacion.cot_arm_table')
     <div class="form-group row justify-content-end p-0 m-0">
       <label for="sub_total">{{ __('CANT. TOTAL') }}</label>

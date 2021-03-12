@@ -9,6 +9,7 @@
     </div>
     <span class="text-danger">{{ $errors->first('lider_de_pedido_produccion') }}</span>
   </div>
+  {{-- 
   <div class="form-group col-sm btn-sm">
     <label for="bodega_donde_se_armara">{{ __('Bodega donde se armara') }} *</label>
     <div class="input-group">
@@ -19,6 +20,7 @@
     </div>
     <span class="text-danger">{{ $errors->first('bodega_donde_se_armara') }}</span>
   </div>
+  --}}
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

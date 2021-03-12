@@ -24,7 +24,7 @@ class CreateArmadosTable extends Migration
             $table->string('img_nom_min',200)->nullable()->comment('Nombre imágen minimizada');
 
 
-
+            $table->integer('ya_vendido')->default(0)->comment('Ya vendedido');
             $table->integer('stock')->default(0)->comment('Stock del producto');
             $table->integer('min_stock')->default(0)->comment('Stock minimo del producto');
             $table->integer('max')->nullable()->comment('Maximo del producto');

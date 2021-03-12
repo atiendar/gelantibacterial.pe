@@ -10,6 +10,6 @@
   @endif
 
   @if($direccion->regresado == 'verdadero')
-    <i class="fas fa-undo-alt" title="Armado regresado a producción"></i>
+    <i class="fas fa-undo-alt" title="Gel regresado a producción"></i>
   @endif
 </td>

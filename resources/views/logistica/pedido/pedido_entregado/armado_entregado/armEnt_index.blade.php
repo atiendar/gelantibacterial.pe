@@ -1,7 +1,7 @@
 <div class="card {{ config('app.color_card_secundario') }} card-outline">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_secundario') }}">
     <h5>
-      <strong>{{ __('Armados registrados') }}: </strong>@include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados'),
+      <strong>{{ __('Gel registrado') }}: </strong>@include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados'),
       <strong>{{ __('Entregados') }}: </strong> {{ Sistema::dosDecimales($armados_entregados_logistica) }}
     </h5>
   </div>

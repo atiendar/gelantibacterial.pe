@@ -10,7 +10,7 @@
       @endcan
     @endcan
     <h5>
-      <strong>{{ __('Armados registrados') }}: </strong>@include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados'),
+      <strong>{{ __('Gel registrado') }}: </strong>@include('venta.pedido.pedido_activo.ven_pedAct_table.td.totalDeArmados'),
       <strong>{{ __('Terminados') }}: </strong> {{ Sistema::dosDecimales($armados_terminados_almacen) }}
     </h5>
   </div>

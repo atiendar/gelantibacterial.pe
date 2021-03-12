@@ -24,7 +24,7 @@
 @canany(['armado.clon.index', 'armado.clon.create', 'armado.clon.show', 'armado.clon.edit', 'armado.clon.destroy', 'armado.clon.producto.create', 'armado.clon.producto.destroy', 'armado.clon.producto.editCantidad'])
   <li class="nav-item">
     <a href="{{ route('armado.clon.index') }}" class="nav-link {{ Request::is('armado/clon') ? 'active' : '' }}">
-      <i class="fas fa-list nav-icon"></i> {{ __('Lista de armados clonados') }}
+      <i class="fas fa-list nav-icon"></i> {{ __('Lista de gel clonados') }}
     </a>
   </li>
 @endcanany

@@ -4,7 +4,7 @@
     <th>ID</th>
     <th>GAMA</th>
     <th>IMAGEN</th>
-    <th>ARMADO</th>
+    <th>GEL</th>
     <th>PRECIO + IVA</th>
     <th>PRODUCTOS</th>
   </tr>

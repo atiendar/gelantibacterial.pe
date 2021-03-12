@@ -7,7 +7,7 @@
 				<tr>
 					<th>{{ __('ID') }}</th>
 					<th>{{ __('CANTIDAD') }}</th>
-					<th>{{ __('ARMADO') }}</th>
+					<th>{{ __('GEL') }}</th>
 					<th colspan="2">&nbsp</th>
 				</tr>
 			</thead>

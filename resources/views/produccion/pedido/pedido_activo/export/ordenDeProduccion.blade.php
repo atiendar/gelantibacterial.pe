@@ -108,7 +108,7 @@
           <th>#</th>
           <th>CANT</th>
           <th>TIPO</th>
-          <th>ARMADO</th>
+          <th>GEL</th>
           <th>RACK</th>
           <th>COM. VENTAS</th>
           <th>COM. CLIENTE</th>

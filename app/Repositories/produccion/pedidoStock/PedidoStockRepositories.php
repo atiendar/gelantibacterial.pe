@@ -31,6 +31,11 @@ class PedidoStockRepositories implements PedidoStockInterface {
       $pedido->updated_at_reg = Auth::user()->email_registro;
       $pedido->save();
 
+      // Disminuye lo ya vendido del armado original para que al aprobar la cotizacion pase a almacen y no a planta
+      $armado_orig        = \App\Models\Armado::FindOrFail($pedido->id_armado);
+      $armado_orig->ya_vendido -= $pedido->cant;
+      $armado_orig->save();
+
       DB::commit();
       return $pedido;
     } catch(\Exception $e) { DB::rollback(); throw $e; }

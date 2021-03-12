@@ -40,12 +40,12 @@
 </div>
 <div class="row">
 	<div class="form-group col-sm btn-sm">
-    <label for="armado">{{ __('Armado') }}</label>
+    <label for="armado">{{ __('Gel') }}</label>
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fas fa-text-width"></i></span>
       </div>
-			{!! Form::text('armado', $stock->armados[0]->nom, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Armado'), 'readonly' => 'readonly']) !!}
+			{!! Form::text('armado', $stock->armados[0]->nom, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Gel'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 	<div class="form-group col-sm btn-sm">

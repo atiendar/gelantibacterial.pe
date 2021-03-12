@@ -114,8 +114,17 @@ class PedidoActivoRepositories implements PedidoActivoInterface {
         $up_updated_at_ped_arm  .= ' WHEN '. $armado->id. ' THEN "'. Auth::user()->email_registro.'"';
         $up_updated_at          .= ' WHEN '. $armado->id. ' THEN "'.date('Y-m-d h:i:s').'"';
         $ids                    .= $armado->id.',';
-      }
+//dd($armado);
+// Disminuye el stock del armado original
+        $armado_orig        = \App\Models\Armado::FindOrFail($armado->id_armado);
+        $armado_orig->stock -= $armado->cant;
+        $armado_orig->save();
 
+   //     if($armado_orig->stock < $armado_orig->min_stock) {
+          // Se surte para STOCK en caso de rebazar los minimos     
+  //--        $this->pedirStock($armado_ped, $armado_orig);
+  //--      }
+      }
 
       if($hastaC > 0) {
         $ids = substr($ids, 0, -1);

@@ -5,7 +5,7 @@
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
       <strong>{{ __('Detalles dirección') }}:</strong> {{ $direccion->est }},
-     <strong>{{ __('del armado') }}:</strong> {{ $direccion->armado->cod }}
+     <strong>{{ __('del gel') }}:</strong> {{ $direccion->armado->cod }}
     </h5>
   </div>
   <div class="ribbon-wrapper">

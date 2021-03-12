@@ -100,16 +100,6 @@
     </div>
     <span class="text-danger">{{ $errors->first('maximo') }}</span>
   </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="pedido_a_planta">{{ __('Pedido a planta') }} *</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
-      </div>
-      {!! Form::text('pedido_a_planta',  $armado->ped_a_plant, ['class' => 'form-control' . ($errors->has('pedido_a_planta') ? ' is-invalid' : ''), 'maxlength' => 10, 'placeholder' => __('Pedido a planta')]) !!}
-    </div>
-    <span class="text-danger">{{ $errors->first('pedido_a_planta') }}</span>
-  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">

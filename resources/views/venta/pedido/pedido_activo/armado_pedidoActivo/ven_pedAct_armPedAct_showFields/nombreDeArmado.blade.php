@@ -1,5 +1,5 @@
 <div class="form-group col-sm btn-sm">
-  <label for="nombre_de_armado">{{ __('Nombre de armado') }}</label>
+  <label for="nombre_de_armado">{{ __('Nombre de gel') }}</label>
   <div class="input-group">
     <div class="input-group-prepend">
       <span class="input-group-text"><i class="fas fa-shopping-basket"></i></span>

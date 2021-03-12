@@ -140,12 +140,12 @@
           </div>
         </div>
         <div class="form-group col-sm btn-sm">
-          <label for="costo_de_armado">{{ __('Costo de armado') }}</label>
+          <label for="costo_de_armado">{{ __('Costo de gel') }}</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
             </div>
-            {!! Form::text('costo_de_armado', Sistema::dosDecimales($producto->cost_arm), ['id' => 'costo_de_armado', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Costo de armado'), 'readonly' => 'readonly', 'onChange' => 'getCostoDeArmado();']) !!}
+            {!! Form::text('costo_de_armado', Sistema::dosDecimales($producto->cost_arm), ['id' => 'costo_de_armado', 'class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Costo de gel'), 'readonly' => 'readonly', 'onChange' => 'getCostoDeArmado();']) !!}
           </div>
         </div>
       </div>
@@ -309,15 +309,6 @@
         <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
       </div>
       {!! Form::text('maximo', $producto->max, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Máximo'), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="pedido_a_planta">{{ __('Pedido a planta') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
-      </div>
-      {!! Form::text('pedido_a_planta', $producto->ped_a_plant, ['class' => 'form-control disable', 'maxlength' => 0, 'placeholder' => __('Pedido a planta'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Editar armado activo').' '.$armado->cod)</title>
+<title>@section('title', __('Editar gel activo').' '.$armado->cod)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-bottom {{ config('app.color_bg_primario') }}">
     <h5>

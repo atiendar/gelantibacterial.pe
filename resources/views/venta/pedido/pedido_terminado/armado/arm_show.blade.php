@@ -1,10 +1,10 @@
 @extends('layouts.private.escritorio.dashboard')
 @section('contenido')
-<title>@section('title', __('Detalles armado').' '.$armado->cod)</title>
+<title>@section('title', __('Detalles gel').' '.$armado->cod)</title>
 <div class="card {{ config('app.color_card_primario') }} card-outline card-tabs position-relative bg-white">
   <div class="card-header p-1 border-botton {{ config('app.color_bg_primario') }}">
     <h5>
-      <strong>{{ __('Datos generales del armado') }}:</strong> {{ $armado->cod }},
+      <strong>{{ __('Datos generales del gel') }}:</strong> {{ $armado->cod }},
      <strong>{{ __('estas en el pedido') }}:</strong> {{ $pedido->num_pedido }}
     </h5>
   </div>

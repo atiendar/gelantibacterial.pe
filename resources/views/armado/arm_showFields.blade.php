@@ -22,6 +22,15 @@
       {!! Form::text('stock',  $armado->stock, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Stock'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
+  <div class="form-group col-sm btn-sm">
+    <label for="ya_dendido">{{ __('Ya vendido') }}</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
+      </div>
+      {!! Form::text('ya_dendido',  $armado->ya_vendido, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Ya vendido'), 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm">
@@ -40,15 +49,6 @@
         <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
       </div>
       {!! Form::text('maximo',  $armado->max, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Máximo'), 'readonly' => 'readonly']) !!}
-    </div>
-  </div>
-  <div class="form-group col-sm btn-sm">
-    <label for="pedido_a_planta">{{ __('Pedido a planta') }}</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-sort-numeric-up-alt"></i></i></span>
-      </div>
-      {!! Form::text('pedido_a_planta',  $armado->ped_a_plant, ['class' => 'form-control disabled', 'maxlength' => 0, 'placeholder' => __('Pedido a planta'), 'readonly' => 'readonly']) !!}
     </div>
   </div>
 </div>

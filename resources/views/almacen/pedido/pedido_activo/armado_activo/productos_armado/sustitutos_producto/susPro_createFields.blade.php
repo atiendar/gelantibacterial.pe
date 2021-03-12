@@ -22,7 +22,7 @@
 </div>
 <div class="row">
   <div class="form-group col-sm btn-sm" >
-    <a href="{{ route('almacen.pedidoActivo.armado.edit', Crypt::encrypt($producto->pedido_armado_id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el armado') }}</a>
+    <a href="{{ route('almacen.pedidoActivo.armado.edit', Crypt::encrypt($producto->pedido_armado_id)) }}" class="btn btn-default w-50 p-2 border"><i class="fas fa-sign-out-alt text-dark"></i> {{ __('Continuar con el gel') }}</a>
   </div>
   <div class="form-group col-sm btn-sm">
     <button type="submit" id="btnsubmit" class="btn btn-info w-100 p-2" onclick="return check('btnsubmit', 'almacenPedidoActivoArmadoSistitutoStore', '¡Alerta!', '¿Estás seguro quieres actualizar el registro?', 'info', 'Continuar', 'Cancelar', 'false');"><i class="fas fa-check-circle text-dark"></i> {{ __('Agregar sustituto') }}</button>

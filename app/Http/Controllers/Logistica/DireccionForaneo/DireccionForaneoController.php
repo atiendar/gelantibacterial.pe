@@ -19,7 +19,8 @@ class DireccionForaneoController extends Controller {
     $this->generarQRRepo        = $generarQRRepositories;
   }
   public function index(Request $request) {
-    $direcciones_foraneas = $this->direccionLocalRepo->getPagination($request, config('opcionesSelect.select_foraneo_local.Foráneo'), []);
+    $direcciones_foraneas = $this->direccionLocalRepo->getPagination($request, config('opcionesSelect.select_foraneo_local.Foráneo'), ['armado']);
+   // dd($direcciones_foraneas[0]);
     return view('logistica.pedido.direccion_foraneo.dirFor_index', compact('direcciones_foraneas'));
   }
   public function create($id_direccion) {

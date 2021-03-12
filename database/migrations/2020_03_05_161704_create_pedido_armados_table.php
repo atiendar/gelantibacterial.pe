@@ -20,6 +20,8 @@ class CreatePedidoArmadosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_armado');
             
+            $table->string('bod',150)->nullable()->comment('Bodega donde se armara');
+
             $table->string('cod',50)->comment('Código');
             $table->string('ult_let',4)->default('1')->comment('Última letra');
             $table->string('estat',70)->default('Pendiente')->comment('Estatus');

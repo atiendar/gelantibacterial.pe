@@ -1,1 +1,1 @@
-<th>{{ __('TOTAL DE ARMADOS') }}</th>
+<th>{{ __('TOTAL DE GEL') }}</th>
