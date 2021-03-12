@@ -57,6 +57,9 @@ class PedidoActivoController extends Controller {
       }])->select(['id', 'nom', 'cant', 'pedido_id']);
     }]);
 
+    if($pedido->estat_pag != config('app.pagado')) {
+      return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
+    }
     $unificados                 = $pedido->unificar()->paginate(99999999);
 
     $nuevo_array = [];
@@ -187,6 +190,10 @@ class PedidoActivoController extends Controller {
   public function update(UpdatePedidoActivoRequest $request, $id_pedido) {
     $pedido = $this->pedidoActivoRepo->update($request, $id_pedido);
 
+    if($pedido->estat_pag != config('app.pagado')) {
+      return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
+    }
+
     if($pedido->estat_alm == config('app.productos_completos_terminado')) {
       toastr()->success('¡Pedido terminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       return redirect(route('almacen.pedidoActivo.index')); 
@@ -196,6 +203,10 @@ class PedidoActivoController extends Controller {
   }
   public function generarOrdenDeProduccion($id_pedido){
     $pedido               = $this->pedidoActivoRepo->pedidoActivoAlmacenFindOrFailById($id_pedido, ['usuario', 'unificar', 'archivos']);
+    
+    if($pedido->estat_pag != config('app.pagado')) {
+      return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
+    }
     $archivos = $pedido->archivos->count();
     
     $codigoQRAlmacen = $this->generarQRRepo->qr($pedido->id, 'Almacén');
@@ -216,6 +227,10 @@ class PedidoActivoController extends Controller {
   }
   public function marcarTodoCompleto($id_pedido) {
     $pedido = $this->pedidoActivoRepo->marcarTodoCompleto($id_pedido);
+
+    if($pedido->estat_pag != config('app.pagado')) {
+      return abort('404', 'IMPORTANTE: Este pedido aun no sido pagado.');
+    }
     if($pedido->estat_alm == config('app.productos_completos_terminado')) {
       toastr()->success('¡Pedido terminado exitosamente!'); // Ruta archivo de configuración "vendor\yoeunes\toastr\config"
       return redirect(route('almacen.pedidoActivo.index')); 
