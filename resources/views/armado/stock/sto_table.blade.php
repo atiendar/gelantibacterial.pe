@@ -9,6 +9,7 @@
           <th>{{ __('SKU') }}</th>
           <th>{{ __('NOMBRE') }}</th>
 					<th>{{ __('STOCK') }}</th>
+          <th>{{ __('VENDIDO') }}</th>
 					<th colspan="2">&nbsp</th>
 				</tr>
 			</thead>
@@ -25,6 +26,7 @@
               @endcan
             </td>
 						<td>{{ $stock->stock }}</td>
+            <td>{{ $stock->ya_vendido }}</td>
 						@include('armado.stock.sto_tableOpciones') 
 					</tr>
 				@endforeach
